@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 038 — Single returned market state inspected  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LIMIT-50 LIST RETURNED ONE PRIMARY ITEM; onChain NULL; resolved FALSE
+**Block:** 039 — List/detail field presence matches  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LIMIT-50 LIST AND DETAIL MATCH FIELD PRESENCE/TYPES; onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -512,3 +512,14 @@ This is one authenticated API sample and does not establish the item's actual So
 ### Next
 
 Compare the already-saved detail response with the list response for phase, status, onChain, and resolved. Report only field presence, JSON type, and nullness for the detail response; keep IDs, titles, dates, and prices private.
+
+
+## Block 039 — List/Detail Field Presence Matches
+
+The operator summarized the already-saved detail response locally. It contains phase and status as strings, resolved as a boolean, and onChain as null. This matches the list response's field presence and JSON types/nullness; the detail values themselves were not printed, so equality of the non-null values is not claimed. No identifiers, titles, dates, prices, credentials, or raw response were shared.
+
+The live sample supports a tri-state treatment for onChain: true, false, or unknown/null. Null must remain unknown and must not be converted to false. The current evidence is one market only.
+
+### Next
+
+Update the provisional data contract to record the limited repeated-read evidence and explicit null/unknown semantics. Keep automatic movement signals deferred until representative markets and useful variation are observed.
