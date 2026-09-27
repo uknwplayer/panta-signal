@@ -237,3 +237,10 @@ The Panta Sidetrack listing identifies the official **#dev-chat** channel in the
 - Discord invite published by that listing: https://discord.gg/M76nH6fUwc
 
 This establishes where to ask about the observed HTTP 403. It does **not** establish why registration failed or confirm that the API account exists. No support message was sent, and the registration POST was not repeated. The account holder should ask whether API registration is restricted or whether the website account needs separate enablement, and request the supported test-key path without sharing passwords, JWTs, API keys, or wallet secrets.
+
+
+## Operator-Provided Support Interaction Evidence — 2026-09-27
+
+The operator provided a screenshot showing the prepared HTTP 403/API test-key question posted in Panta's `#dev-chat` at approximately 02:04 local time. The same screenshot shows a community reply advising another user to open a support ticket to connect with the team. The operator's own question has no visible answer in the screenshot.
+
+This is evidence of the question being posted and of the displayed ticket guidance only. It does not establish that the guidance came from Panta staff, explain the 403, or confirm account/API access. Recommended next step: open the server's support-ticket channel/flow and ask the same question there without reposting account secrets. No new registration POST was made.
