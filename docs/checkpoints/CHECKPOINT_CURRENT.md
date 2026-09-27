@@ -2,7 +2,7 @@
 
 **Date:** 2026-09-27  
 **Block:** 017 — Read-only Panta provider implemented and offline-tested  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED / READ-ONLY PANTA PROVIDER IMPLEMENTED ON RESEARCH BRANCH / 19 OFFLINE TESTS PASS / PROVIDER LIVE SMOKE TEST PENDING / OFFLINE FIXTURE VALIDATOR TESTED
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED / READ-ONLY PANTA PROVIDER IMPLEMENTED / 19 OFFLINE TESTS PASS / ALL FOUR PROVIDER METHODS LIVE-SMOKE-TESTED ON A NARROW SAMPLE / OFFLINE FIXTURE VALIDATOR TESTED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -331,3 +331,14 @@ Together with Block 020, the provider's categories, one-page list, and market-de
 ### Next
 
 Repeat the small list bootstrap and call `get_trades(market_id, limit=10)` for its first item. Print only list status/count and trade status/count/field names; do not print IDs, titles, raw trade rows, or the key. The previous standalone cURL call to this route returned HTTP 200 with zero items, so an empty tape is an expected possible result.
+
+
+## Block 022 — Authenticated Provider Trade Smoke Test
+
+The operator reran the bounded list bootstrap and called `PantaReadClient.get_trades(market_id, limit=10)` for its first item. The list returned HTTP 200 with one item; the trade call returned HTTP 200 with zero trades and response fields `disclaimer`, `items`, and `marketId`. This confirms the updated provider's authenticated trade route and empty-array handling. It does not validate populated trade-row fields.
+
+All four provider methods (categories, list, detail, trades) have now passed authenticated Termux smoke tests. The sample remains narrow: one primary market, no usable cursor, one empty trade tape, and no rate-limit-header assessment. The 19-test offline suite remains green. The roadmap now marks authentication and provider implementation as verified and points to snapshot/ingestion design.
+
+### Next
+
+Begin the local snapshot/ingestion block: review the existing provisional contract and validator, then define the smallest source-faithful snapshot record and storage format before adding any persistence. Keep observed source values distinct from derived signals and synthetic fixtures. Do not add write routes or infer populated-trade behavior from the empty tape.
