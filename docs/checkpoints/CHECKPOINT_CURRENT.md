@@ -134,9 +134,9 @@ Therefore the following are **not** claimed:
 
 ### Phase 1 remaining
 
-- bounded live reads for categories and one market trade tape;
-- a second small market-list read to check cursor presence and page movement;
-- representative samples to understand field consistency/nullability and any optional detail fields;
+- on-device smoke test of the new `PantaReadClient` with the locally stored test key;
+- representative samples across multiple markets, including at least one populated trade tape where available;
+- cursor advancement when the live catalog returns a nonempty cursor;
 - current effective account-level rate limits and response headers;
 - exact Colosseum Arena and Superteam Earn submission-form fields/media requirements;
 - whether the Panta Sidetrack has a distinct cutoff/time from the main hackathon deadline;
@@ -187,11 +187,11 @@ The operator posted the API question in #dev-chat and then opened private Discor
 
 ## Exact Next Step
 
-Categories and market-list reads returned HTTP 200 through Termux curl. The `/markets/?limit=2` response had one item and `nextCursor: null`, so this response supplies no next-page token and does not test page advancement. Next test one market's trade tape through curl. Record only statuses, counts, field names, and boolean comparisons; do not print identifiers, credentials, or raw account data. Keep the provisional contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, or claim funds.
+Smoke-test the new read-only Panta provider from the operator's Termux after checking out this research branch. Start with `get_categories()`, then test one market-list request and one detail request. Use the test key from a local environment variable or private file; print only success/count and sanitized errors. Do not display the key or raw account/market identifiers. Keep live compatibility partial until the new client is smoke-tested and representative data is available.
 
 ## Operator Confirmation
 
-Read-only research, free test-account creation, and bounded read-only API validation remain explicitly authorized. Credentials stay on the operator's device and out of chat. Continue with categories, one selected market's trade tape, and a second small list read to examine cursor behavior. No monetary-cost, trading, wallet-signing, market-creation, quote, or claim action is authorized.
+Read-only research, free test-account creation, and bounded read-only API validation remain explicitly authorized. Credentials stay on the operator's device and out of chat. The next block is a local smoke test of the new GET-only Panta provider. No monetary-cost, trading, wallet-signing, market-creation, quote, or claim action is authorized.
 
 ## Continuity
 
