@@ -254,3 +254,14 @@ Each entry should include:
 **Interpretation:** Both routes succeeded through `curl`. The prior `urllib` 403 may reflect a client-dependent difference, but the exact failing request and cause are unconfirmed.
 
 **Status:** COMPLETED for these two reads. Cursor truthiness, page movement, and trade tape remain pending.
+
+
+## 2026-09-27 — Block 014: Cursor Value Checked
+
+**Action:** Inspected cursor presence and truthiness in a bounded `GET /markets/?limit=2`.
+
+**Evidence and result:** Operator reported HTTP 200, one item, `nextCursor` property present, but value null (`cursor_nonempty=False`, `cursor_type=NoneType`). The response supplies no next-page token.
+
+**Interpretation:** This does not reproduce the external pagination-defect report; page advancement cannot be tested from this one-item response.
+
+**Status:** COMPLETED for cursor inspection. Trade-tape read remains pending.
