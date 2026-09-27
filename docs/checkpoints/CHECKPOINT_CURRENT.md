@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 011 — Cloudflare 1010 diagnosed; official playground path identified  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / EXTERNAL API DEFECT REPORT RECORDED / POLYMARKET DEV PROTOTYPE AVAILABLE / CLOUDFLARE 1010 DIAGNOSED / LIVE PANTA API AUTH STILL BLOCKED  
+**Block:** 012 — Live Panta authentication and bounded list/detail reads verified  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY LIST AND DETAIL VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -113,7 +113,10 @@ Documented API facts now verified include:
 - The UI must eventually include **Powered by Panta** attribution.
 - Panta Signal must add analytical value and must not behave as a raw-data resale/mirror product.
 
-## COMPLETED BUT NOT LIVE-VALIDATED
+## Historical status at end of Block 011 — superseded in part by Block 012
+
+The statements below accurately record Block 011. Block 012 subsequently verified test authentication and one list/detail pair; see the current status and Block 012 section below.
+
 
 The API contract remains documentation-verified, not live-validated. On 2026-09-27, the operator submitted the authorized registration through the local Termux script; Panta returned HTTP 403. A local existence-only check found no `registration-recovery.json` at the script's expected path. No API JWT or test key is available to the project. The exact server-side response body for that POST was not captured, so remote account state is unverified. A later no-credential GET to the same route produced Cloudflare Error 1010; this is evidence of a client-signature block in the research environment, not a captured response to the original POST. The website session is signed in by email/wallet and shows a profile, but this does not establish API authentication or key issuance.
 
@@ -131,11 +134,11 @@ Therefore the following are **not** claimed:
 
 ### Phase 1 remaining
 
-- live signup/login and `pk_test_…` creation;
-- controlled live calls to categories, markets, one market detail, and one trade tape;
-- exact current live response fields/nullability and rate-limit headers;
-- exact Colosseum Arena submission-form fields/media requirements;
-- exact Superteam Earn Panta submission-form fields/media requirements;
+- bounded live reads for categories and one market trade tape;
+- a second small market-list read to check cursor presence and page movement;
+- representative samples to understand field consistency/nullability and any optional detail fields;
+- current effective account-level rate limits and response headers;
+- exact Colosseum Arena and Superteam Earn submission-form fields/media requirements;
 - whether the Panta Sidetrack has a distinct cutoff/time from the main hackathon deadline;
 - operator-specific eligibility confirmation.
 
@@ -158,7 +161,9 @@ Therefore the following are **not** claimed:
 - The official docs state that new accounts default to `canCreateMarkets: true`. The documented account PATCH only changes the display name, and the API-key creation contract documents no permission scopes. Treat the created key/account as capable of broader write operations than this project's read-only probe; this is an unresolved least-privilege limitation.
 - The API key's plaintext secret is returned only once. Do not ask the operator to paste it into chat. A secure execution-time secret handoff is still needed before authenticated GET validation.
 
-## BLOCKED
+## BLOCKED AT END OF BLOCK 011 — SUPERSEDED IN PART BY BLOCK 012
+
+The signup/authentication block was resolved through the documented browser flow during Block 012. Earlier diagnostic details below remain historical evidence only.
 
 Live API authentication remains blocked. The earlier authorized `POST /auth/register/` returned HTTP 403, but its response body was not captured. A later credential-free Python urllib `GET` to the same route returned Cloudflare Error 1010 (`browser_signature_banned`) with Ray ID `a41be3f04849fafa-ORD` at `2026-09-27T16:29:59Z`; this points to a Cloudflare edge/browser-signature block for that client but does not prove the earlier POST was blocked identically. The official Panta Quickstart documents a Register-page Try it playground with proxy mode enabled. Use this documented path next; do not retry the direct Termux POST. If the official playground is blocked too, send the Ray ID and timestamp to Panta support for an owner-side fix.
 
@@ -180,19 +185,7 @@ The operator posted the API question in #dev-chat and then opened private Discor
 
 ## Exact Next Step
 
-**Use the documented Register-page Try it flow at https://docs.panta.market/api-reference/auth/register from the operator's browser. Enter the password only on Panta's HTTPS page. If the response is 201, keep the access/refresh tokens on-device and proceed through the official Create API key Try it flow; never paste credentials into chat. If it returns 409 EMAIL_TAKEN, use the documented Token/login page with the same private credentials. If Cloudflare 1010 appears, stop and give Panta ticket #ticket-0160 the Ray ID and timestamp from `docs/research/2026-09-27-cloudflare-1010-api-registration.md`, asking the site owner for a supported signup/client path. Do not repeat the direct Termux signup POST or call the quote POST.**
-
-For any later live validation, after a valid Panta test credential is available:
-
-1. `GET /categories/`;
-2. `GET /markets/?limit=5`;
-3. select one returned market and call `GET /markets/{marketId}/`;
-4. call `GET /markets/{marketId}/trades/?limit=10`;
-5. record HTTP status, response fields, nullability, source timestamps, pagination cursor behavior, request/rate-limit headers, and errors if any;
-6. do not retry aggressively and honor any `Retry-After`;
-7. do not call write/trading/claim endpoints.
-
-Only after live read-only validation may the provisional data contract be promoted/frozen.
+Continue live validation with bounded, read-only requests: categories, the trade tape for the already observed market, and a second small list read to check cursor behavior. Record only statuses, counts, field names, and cursor presence; do not print identifiers, credentials, or raw account data. Keep the provisional contract provisional until representative live reads are captured. Do not create markets, call quote endpoints, trade, sign transactions, or claim funds.
 
 ## Operator Confirmation
 
@@ -234,3 +227,16 @@ Cloudflare's official Error 1010 guidance says the site owner blocked access bas
 ### Next action
 
 The operator should use the Register-page Try it flow in their HTTPS browser and enter credentials directly there. If registration succeeds, store tokens on-device and proceed to Create API key using the documented interface. If the email is already registered, use the Token/login endpoint. If the official playground returns 1010, provide support with the Ray ID and timestamp and request an owner-side allow/adjustment or another supported API-client route. Do not spoof browser signatures or repeatedly POST through Termux.
+
+
+## Block 012 — Live Panta Authentication and Read-only Calls
+
+The operator completed the documented account and test-key flow: registration and key creation each returned HTTP 201. A read-only `GET /account/` returned HTTP 200 with an active test key, `canCreateMarkets: true`, and a key ID present. The secret remains on the operator's device.
+
+A bounded `GET /markets/?limit=1` returned HTTP 200 with one item and no `nextCursor` field in that invocation. The corresponding detail request returned HTTP 200 with a matching `marketId`. The sampled detail fields included `onChain` and omitted `question`, `resolutionRule`, `sources`, and `totalTrades`. This is one sample only; it does not establish a global response shape or pagination defect. The externally reported catalogue findings remain unverified by this project.
+
+No credentials, email, user ID, market ID, or raw response were saved to the repository. No write, quote, trading, claim, wallet-signing, or monetary action was performed. See `docs/checkpoints/history/CHECKPOINT_2026-09-27_012.md`.
+
+### Next
+
+Make bounded read-only calls to categories and the selected market's trade tape, then repeat one small list read to investigate cursor behavior. Record statuses, counts, field names, and cursor presence without exposing identifiers or secrets.
