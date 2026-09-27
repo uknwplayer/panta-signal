@@ -42,11 +42,12 @@ Status vocabulary:
 - [x] Document live/staging API base URLs and documented authentication model.
 - [x] Find and verify the official support route for the observed API signup HTTP 403 (#dev-chat in the Panta Discord).
 - [x] Diagnose the direct Python-client 403 as Cloudflare Error 1010 on a credential-free GET to the register route (not proof of the original POST's exact response).
-- [ ] Use the documented Register-page Try it playground path to verify registration/login and create a test key; if it is blocked, ask Panta to correct/allow the API-edge rule using the captured Ray ID.
+- [x] Complete the documented browser registration and test-key flow; registration and key creation returned HTTP 201, and authenticated account access returned HTTP 200.
 - [x] Inventory MVP-relevant read endpoints: categories, markets list, market detail, market trade tape.
 - [x] Confirm documented pagination/limits, market identifiers, Unix timestamps, error envelope, rate-limit headers, and default limits.
 - [x] Record Panta Terms constraints for credentials, attribution, stale data, caching/context, and raw-data resale.
-- [ ] Execute controlled live read-only calls and record real response shapes/rate-limit headers.
+- [x] Execute controlled live read-only calls and record bounded response shapes for categories, list, detail, and the trade tape.
+- [ ] Assess response rate-limit headers and effective account limits.
 
 ### Evidence
 
@@ -54,7 +55,7 @@ Status vocabulary:
 - [x] Record Panta Sidetrack/API research in `docs/research/2026-09-27-panta-sidetrack-api-validation.md`.
 - [x] Update `docs/HACKATHON_CRITERIA.md` from verified evidence.
 
-**Phase 1 state:** IN PROGRESS / API AUTH BLOCKED. Documentation-level external validation is substantially complete. On 2026-09-27 the authorized local signup attempt returned HTTP 403 with only a generic client-side error shown. A later credential-free Python urllib GET to the exact register route returned Cloudflare Error 1010 (browser signature block; Ray ID recorded in `docs/research/2026-09-27-cloudflare-1010-api-registration.md`). This suggests, but does not prove, the Termux POST was blocked at the edge. The current official Quickstart documents an interactive Register-page Try it playground path with proxy enabled. Use that supported path next; if it also fails, send the Ray ID to Panta support. No password, API JWT, or key is available in the repository.
+**Phase 1 state:** IN PROGRESS / AUTHENTICATED READ-ONLY API ACCESS VERIFIED. The earlier Termux registration 403 and credential-free Cloudflare 1010 remain historical evidence. The documented browser flow later returned HTTP 201 for registration and test-key creation; authenticated account access and bounded GET reads succeeded. Provider smoke tests on Termux now pass for categories (HTTP 200, four categories), a one-item market list (HTTP 200, primary phase, cursor null/empty), matching market detail (HTTP 200), and the selected market's empty trade tape (HTTP 200, zero rows). Live coverage remains narrow: one listed market, no populated trade rows, no cursor advancement, and rate-limit headers/effective limits are not yet assessed.
 
 ## Phase 2 — Technical Specification and Data Contracts
 
@@ -73,12 +74,12 @@ Status vocabulary:
 
 ## Phase 3 — Ingestion and Normalization
 
-- [ ] Implement server-side Panta API client.
-- [ ] Implement response validation.
-- [ ] Normalize verified market fields.
-- [ ] Preserve source identifiers/timestamps.
-- [ ] Add API error and malformed-response tests.
-- [ ] Verify no credentials reach client bundles or logs.
+- [x] Implement bounded server-side Panta API client with GET-only routes.
+- [x] Validate list/detail/trade response envelopes and handle sparse fields and empty trade arrays.
+- [x] Preserve upstream identifiers and fields while adding provider, route, and observation-time provenance.
+- [x] Keep the API key out of URLs, process arguments, client output, and error messages.
+- [ ] Expand malformed-response and provider-error tests.
+- [ ] Build local snapshot/ingestion flow around the verified provider methods.
 
 ## Phase 4 — Snapshots and Signal Engine
 
@@ -132,9 +133,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Live test authentication and bounded reads have been verified by the operator via Termux `curl`. The new `panta_signal/providers/panta.py` provides bounded GET methods for categories, list, detail, and trades. It preserves sparse fields, null/absent cursor state, and empty trade arrays. The complete local test suite passed 19 tests on Python 3.12.14. The provider tests use synthetic responses and a fake runner; the provider has not yet been smoke-tested against the live API.
+Authenticated test credentials and bounded live reads are verified. The Panta provider has passed authenticated Termux smoke tests for categories, a one-page market list, one detail, and one empty trade tape. It preserves sparse fields, cursor presence/value, and empty trade arrays; the API key stays out of URLs and process arguments. The complete local suite passes 19 offline tests on Python 3.12.14; those tests use synthetic responses and a fake runner.
 
-Next, smoke-test the provider from Termux using the operator's device-local test key, printing only statuses and counts. Then connect it to local ingestion. Keep live compatibility partial until those calls and more representative market/trade samples are validated. No write routes are in scope.
+Next, proceed to local snapshot/ingestion design using only source-backed fields and explicit provenance. Broaden live samples when available, especially a populated trade tape and a nonempty cursor. Keep these coverage limits visible. No write routes are in scope.
 
 ### Development fallback prototype
 
