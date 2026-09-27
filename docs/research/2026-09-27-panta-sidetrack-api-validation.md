@@ -285,3 +285,10 @@ The operator reported:
 The cursor value was not printed; its truthiness and any page movement remain unverified. A prior combined Python `urllib` probe ended in HTTP 403 without per-request results. Because the isolated routes succeeded via `curl`, a client-dependent difference is plausible, but the exact failed request/cause is unknown. No IDs, raw payloads, or credentials were recorded.
 
 Next read-only checks: determine whether the cursor is nonempty, request one next page if available, and query one market's trade tape with `curl`.
+
+
+## Market Cursor Check — 2026-09-27 (Block 014)
+
+The operator repeated `GET /markets/?limit=2` via Termux `curl`: HTTP 200, one item, and `nextCursor` was present but null (`cursor_nonempty=False`). No next-page token was supplied. This does not reproduce the externally reported cursor pagination defect; page advancement cannot be tested from this response. No cursor, market identifier, or raw response was recorded.
+
+Next live read: query one market's trade tape with `curl` and record only status, item count, and field names.
