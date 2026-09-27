@@ -28,9 +28,13 @@ One market observation represents the latest accepted state for one market at on
 | `market.phase` | Source phase string | `primary` observed in one live list item; other values unverified |
 | `market.marketType` | Source market type string or `null` | Documented concept; live values not verified |
 | `market.volumeUsdc` | Normalized decimal string or `null` | Docs identify volume; numeric representation not verified |
-| `market.yesPrice`, `market.noPrice` | Normalized decimal string or `null` | Detail may expose spot/phase prices; list prices may be null; do not turn null into zero |
+| `market.yesPrice`, `market.noPrice` | Source values retained without coercion | In one local list/detail sample both fields were strings; numeric values were not reported, and type/meaning across other markets remains unverified |
 
 The provider preserves the source market object and reports its actual `presentFields`; it does not synthesize omitted fields. The internal wrapper is not a claim that all upstream records have the same shape. Broader field mapping requires more live samples.
+
+## One-market price-field observation
+
+A sanitized Termux summary inspected only price-related field names, JSON types, and null/present status for one market's list and matching detail snapshots. In both observations, `yesPrice`, `noPrice`, and `primaryYesPrice` were strings; `primaryNoPrice`, `secondaryYesPrice`, and `secondaryNoPrice` were null. Numeric values and the market identifier remained on the device and were not reported. This is one market only; it does not establish price semantics, update frequency, or a usable time-series movement signal.
 
 ## Provisional trade observation
 
