@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 025 — Explicit bounded snapshot ingestion CLI implemented; Termux smoke test pending  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / CLI TERMUX SMOKE TEST PENDING
+**Block:** 026 — Termux snapshot CLI list smoke test passed  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / ONE TERMUX CLI SNAPSHOT SMOKE TEST PASSED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -375,3 +375,14 @@ Added CLI tests for one-call dispatch, snapshot append, key-required behavior, e
 ### Next
 
 In Termux, pull this research branch and run one bounded list snapshot using the device-local test key. Keep the key out of chat and terminal output. Verify only the success message and line count; do not print or share the JSONL contents. Report the command status and record count, then stop before adding automatic polling or pagination.
+
+
+## Block 026 — Termux Snapshot CLI Smoke Test
+
+The operator pulled the research branch on Termux and ran panta_signal.snapshot_cli list with limit 2. The command reported that one Panta list snapshot was saved under ~/.local/share/panta-signal/snapshots.jsonl. A separate local check reported the file exists and contains exactly one JSONL record.
+
+This confirms one bounded list request completed through the CLI and its result was persisted on the operator's device. The screenshot did not expose the stored response contents, market ID, or API key; no live snapshot was uploaded or committed to the repository. It is a single sample and does not establish broader catalogue coverage, cursor advancement, populated trades, or signal validity. The 34-test offline suite remains green.
+
+### Next
+
+Use panta_signal.snapshots.iter_snapshots on the device to inspect only a sanitized summary of the local record (record count, provider, and item count), without printing the record or identifiers. Then decide whether to make one additional bounded detail or trade-tape read for the same market. Keep all snapshots device-local.
