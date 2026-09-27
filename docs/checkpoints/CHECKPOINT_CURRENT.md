@@ -342,3 +342,14 @@ All four provider methods (categories, list, detail, trades) have now passed aut
 ### Next
 
 Begin the local snapshot/ingestion block: review the existing provisional contract and validator, then define the smallest source-faithful snapshot record and storage format before adding any persistence. Keep observed source values distinct from derived signals and synthetic fixtures. Do not add write routes or infer populated-trade behavior from the empty tape.
+
+
+## Block 023 — Provisional Snapshot Record Defined
+
+Reviewed docs/PROVISIONAL_DATA_CONTRACT.md, panta_signal/contracts.py, and the Panta client contract. The existing validator only checks explicitly synthetic fixtures; it is not a live-response validator. The client retains source market objects and trade rows while adding provenance metadata and adapting endpoint envelopes, so stored client observations must not be called byte-for-byte raw API captures.
+
+Defined a provisional snapshot envelope (recordType: panta-read-snapshot, snapshotVersion: 1, response) and UTF-8 JSONL as the local storage format. One complete list page, detail response, or trade-tape response is one append-only line. Source values, omitted fields, nulls, array ordering, and route query parameters stay intact; derived signals remain separate. This is a design only: no persistence code or live payload was added. Upstream schema freezing remains deferred because live coverage is one market and one empty trade tape.
+
+### Next
+
+Implement a small offline-tested JSONL snapshot writer/reader that validates only the versioned local envelope and round-trips provider observations without rewriting them. Keep it separate from the synthetic fixture validator and do not add signal derivation or automatic live polling yet.
