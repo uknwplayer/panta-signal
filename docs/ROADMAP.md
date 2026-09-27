@@ -81,7 +81,7 @@ Status vocabulary:
 - [x] Keep the API key out of URLs, process arguments, client output, and error messages.
 - [ ] Expand malformed-response and provider-error tests.
 - [x] Implement a versioned local JSONL snapshot append/read library with envelope-only validation.
-- [ ] Build local snapshot/ingestion flow around the verified provider methods.
+- [x] Build explicit one-read-at-a-time snapshot ingestion CLI around the verified provider methods; Termux CLI smoke test remains pending.
 
 ## Phase 4 — Snapshots and Signal Engine
 
@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Authenticated test credentials and bounded live reads are verified. The Panta provider has passed authenticated Termux smoke tests for categories, a one-page market list, one detail, and one empty trade tape. It preserves sparse fields, cursor presence/value, and empty trade arrays; the API key stays out of URLs and process arguments. The complete local suite passes 19 offline tests on Python 3.12.14; those tests use synthetic responses and a fake runner.
+Authenticated test credentials and bounded live reads are verified on a narrow sample. All four Panta provider methods passed authenticated Termux smoke tests. The explicit CLI now makes one bounded list, detail, or trade-tape read and appends a versioned JSONL snapshot outside the repository by default. The 34-test offline suite passes on Python 3.12.14.
 
-Next, proceed to local snapshot/ingestion design using only source-backed fields and explicit provenance. Broaden live samples when available, especially a populated trade tape and a nonempty cursor. Keep these coverage limits visible. No write routes are in scope.
+Next, smoke-test one CLI list call on Termux using the device-local test key and verify that one JSONL record was appended without printing or sharing its contents. Then broaden live samples when available, especially for cursor movement and populated trade rows. Do not enable scheduling or automatic pagination yet. No write routes are in scope.
 
 ### Development fallback prototype
 
