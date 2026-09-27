@@ -57,6 +57,7 @@ Status vocabulary:
 ## Phase 2 — Technical Specification and Data Contracts
 
 - [x] Draft a documentation-derived provisional market/trade contract and three synthetic fixtures (`docs/PROVISIONAL_DATA_CONTRACT.md`, `fixtures/panta/v0-provisional/`).
+- [x] Implement and test a standard-library validator for the explicitly synthetic fixtures (`panta_signal/contracts.py`, `tests/test_contracts.py`).
 - [ ] Freeze internal market schema only after live response validation.
 - [ ] Freeze snapshot schema.
 - [ ] Freeze signal record schema.
@@ -126,4 +127,4 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Next build/test a small parser and contract checker against the three synthetic fixtures only. Keep the docs-derived contract provisional and clearly distinguish fixture data from captured Panta payloads. Continue investigating an official route for the API signup 403 without repeating the registration POST. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
+Find and verify an official route for the API signup 403 without repeating the registration POST. The offline fixture validator is available with `python -m unittest discover -s tests -v`; use it while continuing UI/data work with synthetic fixtures only. Keep the docs-derived contract provisional and do not present fixtures as captured Panta payloads. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
