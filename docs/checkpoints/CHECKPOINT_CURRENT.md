@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 014 — Market-list cursor observed as null  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY CATEGORIES, LIST, DETAIL, AND CURSOR VALUE VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
+**Block:** 015 — Trade-tape endpoint returns an empty sample  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY CATEGORIES, LIST, DETAIL, AND EMPTY TRADE-TAPE RESPONSE VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -257,4 +257,11 @@ See `docs/checkpoints/history/CHECKPOINT_2026-09-27_013.md`. Next: inspect curso
 
 A bounded `GET /markets/?limit=2` returned HTTP 200 with one item. The response included `nextCursor` with a null value (`cursor_field=True`, `cursor_nonempty=False`, `cursor_type=NoneType`). This response provides no next-page token. It does not reproduce the reported pagination defect because no next page can be requested from this response.
 
-The result is recorded in `docs/checkpoints/history/CHECKPOINT_2026-09-27_014.md`. Next: query the selected market's trade tape using `curl`, printing only status, count, and field names.
+The result is recorded in `docs/checkpoints/history/CHECKPOINT_2026-09-27_014.md`. Next: make one bounded catalog read with `limit=50`, reporting only total count, phase counts, and whether `nextCursor` is nonempty.
+
+
+## Block 015 — Trade Tape Read
+
+A matching market-list bootstrap returned HTTP 200 with one item. The selected market's `GET /markets/{marketId}/trades/?limit=10` returned HTTP 200 with zero items. This confirms access to the trade-tape route and an empty result for that market. No trade-row fields can be inferred from an empty array, and trade pagination remains unverified.
+
+The result is recorded in `docs/checkpoints/history/CHECKPOINT_2026-09-27_015.md`. Next: one `GET /markets/?limit=50` read to report total item count, phase counts, and cursor truthiness only.
