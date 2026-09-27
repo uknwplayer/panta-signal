@@ -240,3 +240,17 @@ Each entry should include:
 **Security and side-effect boundary:** No credentials, email, account ID, market ID, or raw response were committed. No write, quote, trade, claim, wallet signing, or monetary action was performed.
 
 **Status:** COMPLETED for this bounded validation; categories, trade tape, and a second list read remain pending.
+
+
+## 2026-09-27 — Block 013: Isolated GETs via Termux curl
+
+**Action:** Isolated the categories and market-list calls after a combined Python `urllib` probe returned HTTP 403 without per-request output.
+
+**Evidence and result:**
+- `GET /categories/` via `curl`: HTTP 200.
+- `GET /markets/?limit=2` via `curl`: HTTP 200, one item, `nextCursor` field present.
+- Cursor value has not been inspected; presence alone does not show that a next page exists.
+
+**Interpretation:** Both routes succeeded through `curl`. The prior `urllib` 403 may reflect a client-dependent difference, but the exact failing request and cause are unconfirmed.
+
+**Status:** COMPLETED for these two reads. Cursor truthiness, page movement, and trade tape remain pending.
