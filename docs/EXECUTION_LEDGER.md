@@ -221,3 +221,22 @@ Each entry should include:
 - Live authentication/test-key validation remains the exact Phase 1 next step.
 - Creating a new external Panta account/credential requires explicit operator approval if no existing credential is available.
 - No monetary-cost action, trading action, wallet signing, or capital movement was performed.
+
+
+## 2026-09-27 — Block 012: Live Panta Read-only API Validation
+
+**Action:** The operator completed the documented account and test-key flow and ran bounded authenticated reads from Termux.
+
+**Evidence and result:**
+- Registration: HTTP 201.
+- Test API key creation: HTTP 201; local check reported test environment, active status, and secret saved on-device.
+- `GET /account/`: HTTP 200; active status, `canCreateMarkets: true`, and a key ID present.
+- `GET /markets/?limit=1`: HTTP 200, one item, and no `nextCursor` field in that call.
+- Matching market-detail GET: HTTP 200; requested and returned `marketId` matched.
+- The sampled detail object contained `onChain`; the reported field list omitted `question`, `resolutionRule`, `sources`, and `totalTrades`.
+
+**Limits:** These observations cover one bounded list call and one corresponding detail call. They do not establish global schema behavior or cursor pagination defects. The external reproduction report remains externally reported unless reproduced with further reads.
+
+**Security and side-effect boundary:** No credentials, email, account ID, market ID, or raw response were committed. No write, quote, trade, claim, wallet signing, or monetary action was performed.
+
+**Status:** COMPLETED for this bounded validation; categories, trade tape, and a second list read remain pending.
