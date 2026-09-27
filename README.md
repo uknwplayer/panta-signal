@@ -8,9 +8,9 @@ Panta Signal is a prediction-market intelligence layer designed to turn market m
 
 ## Current Status
 
-**Current phase:** Phase 1 authoritative validation; API signup is blocked by HTTP 403.
+**Current phase:** Phase 1 live reads validated; read-only Panta provider implemented on the research branch.
 
-The operator can sign into the Panta website, but no API JWT or test key is available. No live Panta API integration, signal engine implementation, public deployment, or hackathon submission is claimed. A provisional docs-derived Panta contract and three synthetic fixtures are recorded in `docs/PROVISIONAL_DATA_CONTRACT.md` and `fixtures/panta/v0-provisional/`. A standard-library fixture validator is available via `python -m unittest discover -s tests -v`. An isolated Polymarket Gamma read-only prototype is available in `panta_signal/providers/polymarket.py`; its tests use synthetic responses only. It is not live-validated or wired into the product, and does not meet the Panta Sidetrack's requirement for meaningful Panta API integration.
+The operator completed the documented account and test-key flow. Bounded live reads via Termux `curl` returned HTTP 200 for categories, market list, market detail, and one trade-tape query (empty for the sampled market). A new read-only client is implemented in `panta_signal/providers/panta.py` with offline tests. The provider itself has not yet been live-smoke-tested, so live compatibility remains partial; no signal engine, public deployment, or hackathon submission is claimed. The provisional contract and synthetic fixtures are documented in `docs/PROVISIONAL_DATA_CONTRACT.md` and `fixtures/panta/v0-provisional/`. The full local suite is available via `python -m unittest discover -s tests -v`. A separate Polymarket Gamma reader prototype remains in `panta_signal/providers/polymarket.py` and is not wired into the product.
 
 ## Offline Contract Check
 
@@ -78,6 +78,7 @@ Always consult:
 - [Architecture](docs/ARCHITECTURE.md)
 - [Product specification](docs/PRODUCT_SPEC.md)
 - [Provisional data contract](docs/PROVISIONAL_DATA_CONTRACT.md)
+- [Panta read-only provider](docs/PANTA_PROVIDER.md)
 - [Polymarket reader prototype](docs/POLYMARKET_PROVIDER.md)
 - [Signal Engine](docs/SIGNAL_ENGINE.md)
 - [Security](docs/SECURITY.md)
