@@ -299,3 +299,12 @@ Next live read: query one market's trade tape with `curl` and record only status
 The operator reported a successful bounded list bootstrap (HTTP 200, one item) and a matching `GET /markets/{marketId}/trades/?limit=10` response of HTTP 200 with zero items. This confirms access and an empty result for the sampled market. No populated trade-row shape or trade pagination can be inferred. No market ID, raw payload, wallet address, transaction signature, or key was recorded.
 
 Next: request `/markets/?limit=50` and report only total count, phase counts, and cursor truthiness.
+
+
+## Bounded Catalog Read at Limit 50 — 2026-09-27 (Block 016)
+
+The operator reported `GET /markets/?limit=50` returned HTTP 200 with one item in phase `primary` and no nonempty `nextCursor`. Combined with prior bounded reads, category, list, matching detail, and trade-tape routes all returned HTTP 200; the sampled trade tape was empty. The sampled detail had `onChain` and omitted `question`, `resolutionRule`, `sources`, and `totalTrades`.
+
+This evidence describes only the requests and sample observed. It does not establish that the global catalogue contains one market, validate cursor advancement, show a populated trade-row shape, or establish optional-field consistency across markets. No IDs, titles, raw payloads, account data, or secrets were recorded.
+
+Next block: implement a read-only Panta provider with explicit sparse-field and empty-trade handling; keep production compatibility marked partial.
