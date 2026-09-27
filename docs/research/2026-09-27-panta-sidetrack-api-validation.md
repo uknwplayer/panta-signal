@@ -1,7 +1,7 @@
 # Panta API Sidetrack and API Validation
 
 **Checked:** 2026-09-27  
-**Status:** PARTIALLY VERIFIED — sponsor brief and public API documentation verified; authorized signup attempt returned HTTP 403; no API key obtained  
+**Status:** PARTIALLY VERIFIED — sponsor brief and public docs verified; test authentication and one live list/detail pair validated; categories, trades, and broader pagination/schema behavior remain unverified  
 **Scope:** Panta Sidetrack requirements, public API contract, security/branding constraints, and MVP-relevant read endpoints
 
 ## Sources
@@ -207,27 +207,21 @@ This strengthens the existing provenance design:
 
 ## UNVERIFIED / Still Needed
 
-1. **Live auth validation:** the authorized registration attempt returned HTTP 403; API auth remains unvalidated. No repeated signup attempt should be made until the error path is understood.
-2. **Live test key:** no `pk_test_…` credential is available.
-3. **Live read calls:** `/categories/`, `/markets/`, market detail and trade tape have not yet been called from this project.
-4. **Exact live response samples:** published schemas are verified; real production payloads are not.
-5. **Current effective account-level rate limits:** docs provide defaults, but response headers from a live credential are still required.
-6. **Exact Panta Sidetrack submission deadline/time:** the retrieved sponsor brief requires both Colosseum and Superteam submissions but did not expose a distinct sidetrack cutoff. Until directly confirmed, the main Colosseum deadline — October 12, 2026 at 11:59 PM PT — is the hard operational deadline.
-7. **Exact Superteam submission-form fields/media requirements:** must be checked before final submission.
+1. Live categories response and exact current category endpoint behavior.
+2. Live trade-tape response and fields for a selected market.
+3. Cursor/page behavior across a second controlled list read; one call returned one item without a `nextCursor` field, which is insufficient to establish a pagination defect.
+4. Whether optional detail fields vary across representative markets; the first sampled detail response omitted `question`, `resolutionRule`, `sources`, and `totalTrades`, while it included `onChain`.
+5. Current effective account-level rate limits and response headers.
+6. Exact Panta Sidetrack submission deadline/time and submission-form fields/media requirements.
+7. Operator-specific eligibility confirmation.
 
 ## Exact Next Technical Validation
 
-First resolve the 403 through an official support/documentation path or verified alternative; do not blindly repeat the registration POST. After obtaining a valid Panta test credential without committing it:
+The operator now has a test key, stored only on-device. Registration and test-key creation each returned HTTP 201. A read-only `GET /account/` returned HTTP 200 with an active key and `canCreateMarkets: true`.
 
-1. `GET /categories/`;
-2. `GET /markets/?limit=5`;
-3. choose one returned `marketId` and call `GET /markets/{marketId}/`;
-4. call `GET /markets/{marketId}/trades/?limit=10`;
-5. record status, selected response fields, timestamps, pagination behavior, rate-limit headers, and any stale/null-price behavior;
-6. do not execute trading, creation, claims, wallet signing, or paid actions.
+One bounded `GET /markets/?limit=1` returned HTTP 200 with one item and no `nextCursor` field in that invocation. The corresponding detail request returned HTTP 200 and the returned `marketId` matched the requested ID. The sampled detail contained `onChain` and omitted `question`, `resolutionRule`, `sources`, and `totalTrades`. This is a single sample and does not establish a general response shape or pagination defect. No raw response or identifier was saved in the repository.
 
-Only after this live read-only validation should the first internal API/data contract be frozen.
-
+Next, make bounded read-only requests to categories and the selected market's trade tape, then repeat one small list read to check cursor/page behavior. Record status, counts, field names, cursor presence, and any rate-limit headers without printing secrets or personal/account identifiers. Do not create markets, call quote endpoints, trade, claim funds, sign transactions, or move capital. Keep the normalized data contract provisional pending representative live samples.
 
 ## VERIFIED — Official Developer Support Route for API Signup 403
 
@@ -273,3 +267,10 @@ The same README reports the following observations. These are **externally repor
 The README describes read-only catalogue and Solana checks, plus a quote POST that does not sign, submit, or pay but may reserve a create session. Panta Signal will not repeat that POST or make authenticated probes until API access is resolved and the request's side effects are understood. No private keys or wallet signing are needed for the report's stated reproduction.
 
 Source reviewed: current README on the linked repository, fetched 2026-09-27. Exact independent live verification remains blocked because Panta Signal has no API credential.
+
+
+## Live Read-only Validation Update — 2026-09-27 (Block 012)
+
+This update supersedes the earlier "no API key obtained" status above. The documented account/key flow has now succeeded: registration and test-key creation each returned HTTP 201. Authenticated `GET /account/` returned HTTP 200. One list/detail pair also returned HTTP 200 as described in "Exact Next Technical Validation". The test secret remains on the operator's device and is not recorded here.
+
+Only that one list/detail sample is independently validated by this project so far. The external `settlement-check` catalogue and seven-behavior report remains externally reported pending additional controlled reproduction. No quote or other write endpoint was called.
