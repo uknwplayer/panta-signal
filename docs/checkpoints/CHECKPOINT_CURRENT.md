@@ -154,7 +154,9 @@ Therefore the following are **not** claimed:
 
 ## Account Creation and Legal Boundary
 
-- On 2026-09-27, the operator explicitly accepted the Panta API Terms and authorized creating a free test account with the documented default `canCreateMarkets: true` capability. A local signup attempt later returned HTTP 403; no API credential is available. The operator can sign into the Panta website by email/wallet, with a profile visible and wallet balance 0.00 USDC; that confirms a website session, not API credential issuance.
+The first Termux signup attempt returned HTTP 403, as recorded in the historical entries below. That status was superseded in Block 012: the documented browser flow returned HTTP 201 for registration and key creation, and authenticated read-only calls succeeded. The test key is active, stored on the operator's device, and reported `canCreateMarkets: true`.
+
+- On 2026-09-27, the operator explicitly accepted the Panta API Terms and authorized creating a free test account with the documented default `canCreateMarkets: true` capability. The website session and API credential flow are now separately validated; see Block 012 for the bounded API evidence.
 - Direct retrieval of `https://docs.panta.market/llms.txt` was unavailable through the current web retrieval tool. The official docs source repository's `docs.json` navigation was used as the complete page index instead; relevant auth, account, and Terms pages were read.
 - The Panta API Terms previously reviewed and explicitly accepted state that obtaining API credentials or calling an endpoint constitutes agreement to the Terms. Registration returns JWT credentials. The operator's authorization to create a free test account remains in effect. The separate user-uploaded website Terms copy (last updated August 5, 2026) contains no support contact details; it may not be the same document/version as the API Terms, so retain the version distinction.
 - Registration requires an email and password. Do not request or handle the operator's password in chat; the account holder must enter it through a secure provider flow.
@@ -189,7 +191,7 @@ Continue live validation with bounded, read-only requests: categories, the trade
 
 ## Operator Confirmation
 
-Read-only research and the free test-account creation remain explicitly authorized. The operator has explicitly reiterated that Panta API access must be resolved. The next attempt is limited to the Panta-documented Register-page Try it route; credentials must stay on the operator's device and out of chat. Direct Termux retries remain paused pending an owner-side explanation/fix if the documented playground is blocked. No monetary-cost, trading, wallet-signing, market-creation, or claim action is authorized.
+Read-only research, free test-account creation, and bounded read-only API validation remain explicitly authorized. Credentials stay on the operator's device and out of chat. Continue with categories, one selected market's trade tape, and a second small list read to examine cursor behavior. No monetary-cost, trading, wallet-signing, market-creation, quote, or claim action is authorized.
 
 ## Continuity
 
