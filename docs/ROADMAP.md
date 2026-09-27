@@ -132,9 +132,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Live Panta test authentication works. Bounded reads through Termux `curl` returned HTTP 200 for categories, list, matching detail, and the sampled market's trade tape. A `limit=50` list call returned one primary item and no nonempty cursor. The detail sample included `onChain` and omitted `question`, `resolutionRule`, `sources`, and `totalTrades`; the trade-tape response had zero rows. This is a narrow sample, not a statement about the full catalogue. Cursor advancement, populated trade rows, and optional-field variation remain unverified. The earlier Python `urllib` 403 is not attributed to any endpoint; isolated `curl` calls succeeded.
+Live test authentication and bounded reads have been verified by the operator via Termux `curl`. The new `panta_signal/providers/panta.py` provides bounded GET methods for categories, list, detail, and trades. It preserves sparse fields, null/absent cursor state, and empty trade arrays. The complete local test suite passed 19 tests on Python 3.12.14. The provider tests use synthetic responses and a fake runner; the provider has not yet been smoke-tested against the live API.
 
-Next block: implement a read-only Panta provider for categories, list, detail, and trade tape. It must preserve provenance, tolerate omitted/null fields, and represent empty trade arrays explicitly. Mark live compatibility partial and keep synthetic fixtures distinct from captured responses. Do not add market creation, quote, trade, signing, or claim operations.
+Next, smoke-test the provider from Termux using the operator's device-local test key, printing only statuses and counts. Then connect it to local ingestion. Keep live compatibility partial until those calls and more representative market/trade samples are validated. No write routes are in scope.
 
 ### Development fallback prototype
 
