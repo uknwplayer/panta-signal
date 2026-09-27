@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 013 — Isolated categories and market-list GETs return 200  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY CATEGORIES, LIST, AND DETAIL VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
+**Block:** 014 — Market-list cursor observed as null  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY CATEGORIES, LIST, DETAIL, AND CURSOR VALUE VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -187,7 +187,7 @@ The operator posted the API question in #dev-chat and then opened private Discor
 
 ## Exact Next Step
 
-Categories and one `/markets/?limit=2` read returned HTTP 200 through Termux curl. Check whether the returned `nextCursor` value is nonempty; if so, request one next page and compare page movement internally. Then test one market's trade tape through curl. Record only statuses, counts, field names, and boolean comparisons; do not print identifiers, credentials, or raw account data. Keep the provisional contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, or claim funds.
+Categories and market-list reads returned HTTP 200 through Termux curl. The `/markets/?limit=2` response had one item and `nextCursor: null`, so this response supplies no next-page token and does not test page advancement. Next test one market's trade tape through curl. Record only statuses, counts, field names, and boolean comparisons; do not print identifiers, credentials, or raw account data. Keep the provisional contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, or claim funds.
 
 ## Operator Confirmation
 
@@ -251,3 +251,10 @@ A standalone `GET /categories/` through Termux `curl` returned HTTP 200. A stand
 A previous combined probe using Python `urllib` ended with HTTP 403 before per-request results were reported. The categories and list calls have now succeeded via `curl`; a client-dependent difference is plausible, but the exact failed request/cause has not been established. Avoid Python `urllib` for further probes; use `curl` while keeping the secret read from the local file.
 
 See `docs/checkpoints/history/CHECKPOINT_2026-09-27_013.md`. Next: inspect cursor truthiness and test one market trade-tape GET with curl.
+
+
+## Block 014 — Market Cursor Value
+
+A bounded `GET /markets/?limit=2` returned HTTP 200 with one item. The response included `nextCursor` with a null value (`cursor_field=True`, `cursor_nonempty=False`, `cursor_type=NoneType`). This response provides no next-page token. It does not reproduce the reported pagination defect because no next page can be requested from this response.
+
+The result is recorded in `docs/checkpoints/history/CHECKPOINT_2026-09-27_014.md`. Next: query the selected market's trade tape using `curl`, printing only status, count, and field names.
