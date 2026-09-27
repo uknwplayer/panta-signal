@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The Termux CLI completed one bounded list read and one bounded detail read, appending two JSONL records. The operator also read and summarized the first record through the project reader without exposing identifiers or response content. The 34-test offline suite passes on Python 3.12.14.
+All three CLI read modes have now completed a Termux smoke test: one list read, one detail read, and one trade-tape read. The operator's successive local JSONL record counts reached three. No API key, market identifier, or response content was shared. The repository's 34 offline tests pass on Python 3.12.14.
 
-Next, run one bounded CLI trade-tape read for the same market, using its ID from the local snapshot. Report only the save message and updated record count. The sampled tape was previously empty, so this checks the CLI path and records the empty result if unchanged; it does not validate populated trade rows or support signal claims.
+Next, read the three device-local records through the snapshot reader and print only counts by record route and the trade-row count. This confirms the saved list/detail/trades records are all readable. Keep the one-market sample limits visible; do not derive or claim market signals until time-separated observations and field semantics are established.
 
 ### Development fallback prototype
 
