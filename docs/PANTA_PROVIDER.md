@@ -1,6 +1,6 @@
 # Panta Read-only Provider
 
-**Status:** IMPLEMENTED ON THE RESEARCH BRANCH; OFFLINE-TESTED; LIVE CLIENT COMPATIBILITY PARTIAL  
+**Status:** IMPLEMENTED; OFFLINE-TESTED; ALL FOUR METHODS LIVE-SMOKE-TESTED ON ONE NARROW SAMPLE; DATA COVERAGE PARTIAL  
 **Scope:** Authenticated, bounded GET requests for Panta categories, market list, market detail, and a market trade tape.
 
 ## Safety boundary
@@ -51,4 +51,4 @@ Set `PANTA_API_KEY` only in the server-side environment. Do not print it or incl
 
 Six offline tests use synthetic responses and a fake subprocess runner. The complete local suite passed 19 tests on Python 3.12.14. These tests validate request construction, read-only method configuration, sparse-field preservation, null cursor handling, empty tapes, bounds, and sanitized HTTP errors. They do not make live calls through this provider.
 
-Operator-run live reads through Termux `curl` validated HTTP 200 for categories, list, detail, and an empty trade tape. The sampled catalogue returned one primary item with no usable cursor; only one market's detail was inspected. The provider itself has now completed authenticated Termux smoke tests: `get_categories()` returned HTTP 200 with four categories; `list_markets(limit=2)` returned HTTP 200 with one primary item and a present but empty cursor; and `get_market()` returned HTTP 200 with a matching market ID. The provider's trade method still needs an on-device smoke test, and representative live records remain limited; keep compatibility marked partial.
+Operator-run live reads through Termux `curl` validated HTTP 200 for categories, list, detail, and an empty trade tape. The provider itself has now completed authenticated Termux smoke tests for all four methods: `get_categories()` returned HTTP 200 with four categories; `list_markets(limit=2)` returned HTTP 200 with one primary item and a present but empty cursor; `get_market()` returned HTTP 200 with a matching market ID; and `get_trades(market_id, limit=10)` returned HTTP 200 with zero trades and response fields `disclaimer`, `items`, and `marketId`. This validates the empty-tape path, not the shape of populated trade rows. The live catalogue sample is one market and has no usable cursor, so broader coverage, cursor advancement, and populated trade-row handling remain unverified.
