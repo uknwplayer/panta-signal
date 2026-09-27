@@ -41,7 +41,8 @@ Status vocabulary:
 - [x] Read the published Panta public API documentation and playground contract.
 - [x] Document live/staging API base URLs and documented authentication model.
 - [x] Find and verify the official support route for the observed API signup HTTP 403 (#dev-chat in the Panta Discord).
-- [ ] Resolve the observed API signup HTTP 403 with Panta; verify the API auth path and create a test key without committing credentials.
+- [x] Diagnose the direct Python-client 403 as Cloudflare Error 1010 on a credential-free GET to the register route (not proof of the original POST's exact response).
+- [ ] Use the documented Register-page Try it playground path to verify registration/login and create a test key; if it is blocked, ask Panta to correct/allow the API-edge rule using the captured Ray ID.
 - [x] Inventory MVP-relevant read endpoints: categories, markets list, market detail, market trade tape.
 - [x] Confirm documented pagination/limits, market identifiers, Unix timestamps, error envelope, rate-limit headers, and default limits.
 - [x] Record Panta Terms constraints for credentials, attribution, stale data, caching/context, and raw-data resale.
@@ -53,7 +54,7 @@ Status vocabulary:
 - [x] Record Panta Sidetrack/API research in `docs/research/2026-09-27-panta-sidetrack-api-validation.md`.
 - [x] Update `docs/HACKATHON_CRITERIA.md` from verified evidence.
 
-**Phase 1 state:** IN PROGRESS / API AUTH BLOCKED. Documentation-level external validation is substantially complete. On 2026-09-27 the authorized local signup attempt returned HTTP 403; no recovery JSON or API key is available. Website email/wallet sign-in works, but does not prove API authentication. Do not repeat the signup POST until the error path or an official alternative is established.
+**Phase 1 state:** IN PROGRESS / API AUTH BLOCKED. Documentation-level external validation is substantially complete. On 2026-09-27 the authorized local signup attempt returned HTTP 403 with only a generic client-side error shown. A later credential-free Python urllib GET to the exact register route returned Cloudflare Error 1010 (browser signature block; Ray ID recorded in `docs/research/2026-09-27-cloudflare-1010-api-registration.md`). This suggests, but does not prove, the Termux POST was blocked at the edge. The current official Quickstart documents an interactive Register-page Try it playground path with proxy enabled. Use that supported path next; if it also fails, send the Ray ID to Panta support. No password, API JWT, or key is available in the repository.
 
 ## Phase 2 — Technical Specification and Data Contracts
 
@@ -131,7 +132,7 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The operator opened private Discord support ticket #ticket-0160 about the signup 403. Separately, an external reproduction repo reports market-list/card behavior and seven API defects; its corrections to earlier claims are recorded in the Panta API research note but are not independently live-validated here. File the defect report in a separate ticket with the repo link. Do not repeat signup or quote POSTs while waiting for support. The offline fixture validator is available with `python -m unittest discover -s tests -v`; use it while continuing UI/data work with synthetic fixtures only. Keep the docs-derived contract provisional and do not present fixtures as captured Panta payloads. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
+The operator opened private Discord support ticket #ticket-0160 about the signup 403. Separately, an external reproduction repo reports market-list/card behavior and seven API defects; its corrections to earlier claims are recorded in the Panta API research note but are not independently live-validated here. File the defect report in a separate ticket with the repo link. Do not repeat the direct Termux signup POST or call quote POST. Next use the officially documented Register Try it playground path. If Cloudflare 1010 persists there, send the recorded Ray ID to Panta support and request a supported client path or edge-rule adjustment. The offline fixture validator is available with `python -m unittest discover -s tests -v`; use it while continuing UI/data work with synthetic fixtures only. Keep the docs-derived contract provisional and do not present fixtures as captured Panta payloads. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
 
 ### Development fallback prototype
 
