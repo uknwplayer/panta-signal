@@ -8,7 +8,8 @@ from unittest.mock import Mock
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from panta_signal.snapshot_cli import DEFAULT_OUTPUT_PATH, main
+from panta_signal.snapshot_cli import DEFAULT_OUTPUT_PATH, build_parser, main
+from panta_signal.providers.panta import ProviderError
 
 
 def sample_response():
@@ -125,6 +126,12 @@ class SnapshotCliTests(unittest.TestCase):
             client.list_markets.assert_not_called()
             client.get_market.assert_not_called()
 
+    def test_limits_are_bounded_before_a_client_can_be_created(self):
+        with self.assertRaises(SystemExit):
+            build_parser().parse_args(["list", "--limit", "51"])
+        with self.assertRaises(SystemExit):
+            build_parser().parse_args(["trades", "synthetic-market-001", "--limit", "201"])
+
     def test_missing_output_uses_private_home_data_location(self):
         self.assertEqual(
             DEFAULT_OUTPUT_PATH,
@@ -135,7 +142,7 @@ class SnapshotCliTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             destination = Path(tmp) / "failed.jsonl"
             client = Mock()
-            client.list_markets.side_effect = RuntimeError("sanitized provider failure")
+            client.list_markets.side_effect = ProviderError("sanitized provider failure")
             status, output, errors, _, _ = self.run_cli(
                 ["list", "--output", str(destination)],
                 env={"PANTA_API_KEY": "pk_test_secret_example"},
