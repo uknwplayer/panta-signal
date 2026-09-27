@@ -292,3 +292,10 @@ Next read-only checks: determine whether the cursor is nonempty, request one nex
 The operator repeated `GET /markets/?limit=2` via Termux `curl`: HTTP 200, one item, and `nextCursor` was present but null (`cursor_nonempty=False`). No next-page token was supplied. This does not reproduce the externally reported cursor pagination defect; page advancement cannot be tested from this response. No cursor, market identifier, or raw response was recorded.
 
 Next live read: query one market's trade tape with `curl` and record only status, item count, and field names.
+
+
+## Trade Tape Sample — 2026-09-27 (Block 015)
+
+The operator reported a successful bounded list bootstrap (HTTP 200, one item) and a matching `GET /markets/{marketId}/trades/?limit=10` response of HTTP 200 with zero items. This confirms access and an empty result for the sampled market. No populated trade-row shape or trade pagination can be inferred. No market ID, raw payload, wallet address, transaction signature, or key was recorded.
+
+Next: request `/markets/?limit=50` and report only total count, phase counts, and cursor truthiness.
