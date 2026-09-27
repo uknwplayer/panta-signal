@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 029 — Termux list, detail, and trades CLI reads appended snapshots  
+**Block:** 030 — Three Termux snapshots read; trade tape confirmed empty  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / ONE TERMUX CLI SNAPSHOT SMOKE TEST PASSED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -415,3 +415,14 @@ This verifies command dispatch and append behavior on the device for the three r
 ### Next
 
 Read all three device-local records with panta_signal.snapshots.iter_snapshots and print only counts by route class (list/detail/trades) and the trade-row count. Keep IDs and response payloads private. Do not infer movement or trade-based signals from this one-market, three-call sample.
+
+
+## Block 030 — Three Snapshot Records Summarized
+
+The operator read all three local JSONL records through the snapshot reader and reported only aggregate metadata: three records with one list, one detail, and one trades response; the trade-row count is zero. This confirms the three route types can be read from the stored file. No market ID, price, title, or raw response was shared.
+
+The observed trade tape remains empty. No trade-based calculation is possible from this sample. The one-market records also do not establish probability movement, which requires repeated observations of the same source price field at different times.
+
+### Next
+
+Inspect the saved list/detail snapshots locally and report only price-related field names, JSON types, and whether values are null or present. Do not print numeric values or identifiers. Then confirm that a price field is available across repeated list observations before designing a movement signal.
