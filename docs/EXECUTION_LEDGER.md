@@ -125,8 +125,99 @@ Each entry should include:
 
 **Status:** COMPLETED
 
+## 2026-09-27 — Foundation Integration
+
+### PR #1 merged
+**Action:** Reviewed and merged PR #1, `docs: establish Panta Signal documentation foundation`, into `main` after explicit operator approval.
+
+**Evidence:** GitHub reported `merged: true`; merge commit `152d1e143033829ae79ee07a6a41dcf604d41095`. The current checkpoint was then fetched successfully from `main`.
+
+**Result:** Phase 0 documentation foundation is integrated into the default branch.
+
+**Status:** COMPLETED
+
+## 2026-09-27 — Block 002: Phase 1 Authoritative Validation
+
+### Research branch created
+**Action:** Created `research/phase1-authoritative-validation-2026-09-27` from current `main`.
+
+**Evidence:** GitHub branch creation succeeded.
+
+**Result:** Phase 1 research is isolated from `main` pending review.
+
+**Status:** COMPLETED
+
+### Colosseum controlling rules validated
+**Action:** Read current Crypto World's Fair event materials and official hackathon rules, including visual inspection of relevant official-rules PDF pages.
+
+**Evidence:** Recorded in `docs/research/2026-09-27-crypto-worlds-fair-official-validation.md`.
+
+**Verified result:**
+- contest ends October 12, 2026 at 11:59 PM PT;
+- registration and Project Submission are due by the cutoff;
+- submitted Content must be English;
+- one team per entrant and one Project Submission per team at a time;
+- judging criteria are Functionality, Potential Impact, Novelty, UX, Open-source, Business Plan;
+- entrant IP is retained subject to rule obligations.
+
+**Status:** COMPLETED
+
+### Panta Sidetrack requirements validated
+**Action:** Re-read the current sponsor listing and Panta-linked announcement/resources.
+
+**Evidence:** Recorded in `docs/research/2026-09-27-panta-sidetrack-api-validation.md`.
+
+**Verified result:**
+- 5,000 USDG total Sidetrack pool (2,000 / 1,000 / 1,000 / 1,000);
+- requires official Colosseum submission and separate Superteam Earn Sidetrack submission;
+- requires meaningful Panta API integration and working demonstration;
+- judging covers API Integration, Technical Execution, Product & UX, Originality, Impact Potential, Traction;
+- sponsor listing schedules winner announcement for October 27, 2026.
+
+**Status:** COMPLETED
+
+### Panta public API documentation validated
+**Action:** Inspected the sponsor-published API playground and public docs repository linked from the playground.
+
+**Evidence:** Read `quickstart.mdx`, authentication guide, market list/detail/trades API references, errors/rate-limit guide, Terms of Use, playground README/CONTRIBUTING, and published environment template.
+
+**Verified result:**
+- live base `https://live-api.panta.market/api/v1`;
+- staging base `https://staging-api.panta.market/api/v1`;
+- register/login -> JWT -> API-key flow;
+- product routes accept `X-Api-Key` or Bearer JWT;
+- test/live key prefixes documented;
+- MVP read endpoints and shapes documented;
+- read default rate limit documented as 120 requests / 60 seconds, subject to deployment override;
+- mandatory `Powered by Panta` attribution documented;
+- stale/cached data must not be presented as live;
+- source context/attribution must be preserved;
+- substantially unmodified raw Panta data may not be resold as a substitute for Panta without permission.
+
+**Limitation:** `docs.panta.market` itself was not retrievable through the browsing tool during the block. The inspectable GitHub docs/playground published by the Sidetrack were used instead. No missing behavior was guessed.
+
+**Status:** COMPLETED
+
+### Live API boundary preserved
+**Action:** Stopped before creating an external Panta account or credential and before issuing live API calls.
+
+**Evidence:** No JWT, `pk_test_…` key, live payload, rate-limit header, transaction, market creation, trade, claim, wallet signature, or capital movement was produced in this block.
+
+**Result:** Documentation-level Phase 1 validation advanced without crossing the external-account side-effect boundary.
+
+**Status:** COMPLETED
+
+### Traceability updated
+**Action:** Updated `docs/HACKATHON_CRITERIA.md`, `docs/ROADMAP.md`, current checkpoint, and historical checkpoint from the verified evidence.
+
+**Result:** The repository now distinguishes current verified competition/API facts from remaining live-validation gaps.
+
+**Status:** COMPLETED
+
 ## Execution Notes
 
-- This ledger does not claim any Panta API call, authentication, live signal generation, deployment, AI integration, or hackathon submission.
-- External Panta/hackathon facts must be revalidated from authoritative sources in Phase 1 before being recorded as authoritative project requirements.
-- The foundation remains on a review branch; integration into `main` is a separate action.
+- Product implementation has not started.
+- No live Panta API call has yet been made from Panta Signal.
+- Live authentication/test-key validation remains the exact Phase 1 next step.
+- Creating a new external Panta account/credential requires explicit operator approval if no existing credential is available.
+- No monetary-cost action, trading action, wallet signing, or capital movement was performed.
