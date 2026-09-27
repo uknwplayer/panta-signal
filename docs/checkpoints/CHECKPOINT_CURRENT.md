@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 031 — One-market price-field types inventoried locally  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / ONE TERMUX CLI SNAPSHOT SMOKE TEST PASSED
+**Block:** 032 — Two list snapshots compared locally  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / FOUR TERMUX CLI SNAPSHOTS SAVED; TWO LIST OBSERVATIONS COMPARED LOCALLY
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -437,3 +437,14 @@ This confirms those fields' presence and JSON types for one market sample only. 
 ### Next
 
 After at least 15 minutes from the first list observation, append one more bounded market-list snapshot. Compare the same market's yesPrice locally and report only whether the field exists and whether its numeric value changed. Keep the value and identifier on-device.
+
+
+## Block 032 — Repeated List Price Comparison
+
+The operator confirmed the second bounded market-list snapshot was saved. The local JSONL file contains four records total, including two list observations. A local-only comparison found the same market in both list snapshots and found yesPrice present in both; its source value was unchanged between the observations. No numeric price, market identifier, credential, or raw snapshot was shared.
+
+This is one unchanged comparison over the observed interval for one market. It does not establish that the source field is a reliable probability, that its value is current, or that the market is representative. The empty trade tape and null secondary price fields still provide no alternative movement evidence. No movement signal is implemented.
+
+### Next
+
+After at least 15 minutes from the second list observation, append one more bounded list snapshot. Compare the same market against the latest observation locally and report only record/list counts, same-market availability, yesPrice availability, and whether it changed. Keep values and identifiers on-device.
