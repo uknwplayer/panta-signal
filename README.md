@@ -10,7 +10,7 @@ Panta Signal is a prediction-market intelligence layer designed to turn market m
 
 **Current phase:** Phase 1 authoritative validation; API signup is blocked by HTTP 403.
 
-The operator can sign into the Panta website, but no API JWT or test key is available. No live API integration, signal engine implementation, public deployment, or hackathon submission is claimed. A provisional docs-derived contract and three synthetic fixtures are recorded in `docs/PROVISIONAL_DATA_CONTRACT.md` and `fixtures/panta/v0-provisional/`. A standard-library fixture validator is available via `python -m unittest discover -s tests -v`. They are not live-validated and must never be presented as captured Panta data.
+The operator can sign into the Panta website, but no API JWT or test key is available. No live Panta API integration, signal engine implementation, public deployment, or hackathon submission is claimed. A provisional docs-derived Panta contract and three synthetic fixtures are recorded in `docs/PROVISIONAL_DATA_CONTRACT.md` and `fixtures/panta/v0-provisional/`. A standard-library fixture validator is available via `python -m unittest discover -s tests -v`. An isolated Polymarket Gamma read-only prototype is available in `panta_signal/providers/polymarket.py`; its tests use synthetic responses only. It is not live-validated or wired into the product, and does not meet the Panta Sidetrack's requirement for meaningful Panta API integration.
 
 ## Offline Contract Check
 
@@ -78,6 +78,7 @@ Always consult:
 - [Architecture](docs/ARCHITECTURE.md)
 - [Product specification](docs/PRODUCT_SPEC.md)
 - [Provisional data contract](docs/PROVISIONAL_DATA_CONTRACT.md)
+- [Polymarket reader prototype](docs/POLYMARKET_PROVIDER.md)
 - [Signal Engine](docs/SIGNAL_ENGINE.md)
 - [Security](docs/SECURITY.md)
 - [Data provenance](docs/DATA_PROVENANCE.md)
