@@ -308,3 +308,12 @@ The operator reported `GET /markets/?limit=50` returned HTTP 200 with one item i
 This evidence describes only the requests and sample observed. It does not establish that the global catalogue contains one market, validate cursor advancement, show a populated trade-row shape, or establish optional-field consistency across markets. No IDs, titles, raw payloads, account data, or secrets were recorded.
 
 Next block: implement a read-only Panta provider with explicit sparse-field and empty-trade handling; keep production compatibility marked partial.
+
+
+## Read-only Provider Implementation — 2026-09-27 (Block 017)
+
+Implemented `panta_signal/providers/panta.py` on the research branch with GET-only methods for categories, one market-list page, market detail, and trade tape. The list and trade limits are bounded, pagination is caller-controlled, source fields are preserved without filling omissions, and empty trade arrays are accepted. cURL configuration is passed via stdin so the API key is not placed in the URL or cURL process arguments. The client restricts API bases to Panta live/staging hosts.
+
+Six synthetic-response tests were added. The complete local suite passed 19 tests on Python 3.12.14. These tests do not perform live requests; the new client still needs an on-device smoke test. Current live evidence remains limited to one primary listing, a sparse detail response, a null cursor, and an empty tape. No full compatibility claim is made.
+
+See `docs/PANTA_PROVIDER.md` and checkpoint `docs/checkpoints/history/CHECKPOINT_2026-09-27_017.md`.
