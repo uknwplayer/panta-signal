@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 022 — All four Panta provider methods authenticated and live-smoke-tested on a narrow sample  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED / READ-ONLY PANTA PROVIDER IMPLEMENTED / 19 OFFLINE TESTS PASS / ALL FOUR PROVIDER METHODS LIVE-SMOKE-TESTED ON A NARROW SAMPLE / OFFLINE FIXTURE VALIDATOR TESTED
+**Block:** 025 — Explicit bounded snapshot ingestion CLI implemented; Termux smoke test pending  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / CLI TERMUX SMOKE TEST PENDING
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -364,3 +364,14 @@ Added eight offline tests for sparse/null observations, unchanged decimal-like s
 ### Next
 
 Add a small explicit ingestion command that performs one bounded read at a time and appends its provider result through this library, with no scheduler or automatic page traversal. Keep test-key configuration device-local and do not commit secrets or captured live payloads.
+
+
+## Block 025 — Explicit One-Read Snapshot CLI Implemented
+
+Added panta_signal/snapshot_cli.py with list, detail, and trades commands. Each invocation makes exactly one bounded provider call and appends one versioned JSONL record. List limits are capped at 50, trade limits at 200, and each page is caller-controlled. The CLI reads PANTA_API_KEY from the environment, does not accept a key argument, and defaults snapshots to ~/.local/share/panta-signal/snapshots.jsonl outside the repository. No scheduler, automatic cursor traversal, category snapshot, or write endpoint is included.
+
+Added CLI tests for one-call dispatch, snapshot append, key-required behavior, error handling without key output, default storage location, and pre-network limit bounds. The complete offline suite passed 34 tests on Python 3.12.14. Updated README, provider guide, roadmap, and this checkpoint. No live API call or payload persistence was performed in this block. The CLI itself still needs one Termux smoke test.
+
+### Next
+
+In Termux, pull this research branch and run one bounded list snapshot using the device-local test key. Keep the key out of chat and terminal output. Verify only the success message and line count; do not print or share the JSONL contents. Report the command status and record count, then stop before adding automatic polling or pagination.
