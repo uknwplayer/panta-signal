@@ -1,0 +1,18 @@
+{
+  "fixtureStatus": "synthetic_not_provider_response",
+  "schemaVersion": "panta-signal.market-observation.v0-provisional",
+  "provider": "panta",
+  "route": "/markets/?limit=5",
+  "fetchedAt": "2026-09-27T04:00:00Z",
+  "liveValidated": false,
+  "market": {
+    "marketId": "fixture-market-001",
+    "title": "Synthetic Example Event Outcome",
+    "category": "fixture-category",
+    "phase": "primary",
+    "marketType": "standard",
+    "volumeUsdc": "100.00",
+    "yesPrice": null,
+    "noPrice": null
+  }
+}
