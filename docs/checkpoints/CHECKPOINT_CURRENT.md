@@ -522,4 +522,4 @@ The live sample supports a tri-state treatment for onChain: true, false, or unkn
 
 ### Next
 
-Update the provisional data contract to record the limited repeated-read evidence and explicit null/unknown semantics. Keep automatic movement signals deferred until representative markets and useful variation are observed.
+Compare the already-saved list and detail responses locally for equality of phase, status, onChain, and resolved, reporting only field-match booleans and same-market availability. Keep IDs, titles, dates, and prices private.
