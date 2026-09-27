@@ -145,7 +145,7 @@ Therefore the following are **not** claimed:
 
 ## Account Creation and Legal Boundary
 
-- The operator authorized a free Panta test account, but no registration or API credential has been created.
+- On 2026-09-27, the operator explicitly accepted the Panta API Terms and authorized creating a free test account with the documented default `canCreateMarkets: true` capability. No registration or API credential has been created yet.
 - Direct retrieval of `https://docs.panta.market/llms.txt` was unavailable through the current web retrieval tool. The official docs source repository's `docs.json` navigation was used as the complete page index instead; relevant auth, account, and Terms pages were read.
 - The current Panta API Terms of Use say that obtaining API credentials or calling an endpoint constitutes agreement to the Terms. Registration returns JWT credentials. Stop before `POST /auth/register/` until the operator has reviewed the Terms and explicitly confirms acceptance immediately before the binding action.
 - Registration requires an email and password. Do not request or handle the operator's password in chat; the account holder must enter it through a secure provider flow.
