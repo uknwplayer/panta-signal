@@ -7,7 +7,7 @@
 
 `PantaReadClient` issues GET requests only. It has no market-creation, quote, order, trade-submission, wallet, signing, claim, or capital-movement methods.
 
-Pass the API key to the client from a server-side secret source, such as an environment variable. Never commit a real key or place it in a query string. The transport sends its cURL configuration through stdin, keeping the key out of the URL and cURL process arguments. HTTP errors omit the response body and key.
+Pass the API key to the client from a server-side secret source, such as an environment variable. Never commit a real key or place it in a query string. The transport sends its cURL configuration through stdin, keeping the key out of the URL and cURL process arguments. It starts cURL with `-q` so user-level `.curlrc` settings cannot interfere with the request. HTTP errors omit the response body and key.
 
 The client requires the `curl` executable. It allows only Panta's published live and staging API base URLs.
 
