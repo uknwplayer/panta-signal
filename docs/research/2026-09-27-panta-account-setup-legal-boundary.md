@@ -41,18 +41,18 @@ Material points for the operator to review before registration include:
 - liability limitation, with the stated aggregate cap generally being the greater of fees paid in the prior six months or USD 100, subject to non-excludable liability;
 - British Virgin Islands governing law and confidential UNCITRAL arbitration in English, seated in Road Town, Tortola, unless the parties agree otherwise in writing.
 
-This is a summary of the published Terms, not legal advice. The operator must decide whether to accept them. The assistant must not accept them on the operator's behalf.
+This is a summary of the published Terms, not legal advice. On 2026-09-27, the operator explicitly confirmed acceptance and authorized creation of a free test account with the documented default `canCreateMarkets: true` capability. No account has yet been created.
 
 ## Security and execution boundary
 
-- The operator authorized creation of a free test account, but that authorization does not itself confirm acceptance of the binding API Terms.
+- The operator explicitly accepted the binding API Terms and authorized creating a free test account with `canCreateMarkets: true` on 2026-09-27.
 - Do not collect the operator's password, JWT, or API key in chat.
 - The one-time API secret must remain in a secure store or be entered by the operator into a local execution environment. A safe secret handoff to this execution environment is not available at this checkpoint.
 - No funds have been deposited or moved. No market creation, trading, claim, or other write endpoint has been called.
 
 ## Exact next step
 
-Ask the operator to review the official [Terms of Use](https://github.com/Kaito-HQ/panta-api-pub/blob/main/guides/terms-of-use.mdx). Before any registration request that returns credentials, obtain a specific confirmation that the operator accepts those Terms. If accepted, the operator must enter the email/password through a secure account-registration flow and keep the returned JWT/key outside chat. Resolve the documented broad account permission/no scoped-key gap and a secure way to execute only the four planned read-only GETs before claiming live validation complete.
+Terms acceptance and account creation with the documented default capability were explicitly authorized by the operator on 2026-09-27. The remaining registration step requires the operator to enter their email and new password directly in a secure provider flow; never collect the password, JWT, or API key in chat. Keep the one-time test key outside the public repository. Resolve a safe local execution path for the four planned read-only GETs; do not call write/trading/claim endpoints.
 
 ## Sources
 
