@@ -309,3 +309,14 @@ The provider still failed when its config also held request, timeout, quiet/erro
 ### Next
 
 Pull the latest research branch and rerun the sanitized `PantaReadClient.get_categories()` smoke test from Termux. If it succeeds, record the returned count and proceed to the bounded list and detail smoke tests. If it fails, report the sanitized error; the current generic transport message still does not expose cURL stderr.
+
+
+## Block 020 — Authenticated Provider Categories Smoke Test
+
+After pulling the latest research branch on Termux, the operator ran the updated `PantaReadClient.get_categories()` with the local test key. It returned `categories HTTP 200 count 4`. This is the first successful authenticated live call made through the project provider. The previously recorded Termux `curl` list/detail/trade results remain separate manual probes.
+
+The provider status remains partial: only its categories method has been smoke-tested live. The provider's market-list and market-detail methods still need bounded smoke tests. Existing offline suite status remains 19 passing tests on Python 3.12.14.
+
+### Next
+
+Using the same updated checkout and local environment key, call `list_markets(limit=2)`. Print only HTTP success, item count, cursor-present/nonempty booleans, and the selected market's phase. If at least one item exists, call `get_market(marketId)` for the first item and print only whether IDs match and the field names. Do not print the market ID, title, raw response, or key.
