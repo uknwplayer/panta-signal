@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 033 — Third list snapshot saved  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / FIVE TERMUX CLI SNAPSHOTS SAVED; THREE LIST OBSERVATIONS AVAILABLE
+**Block:** 034 — Second unchanged list comparison  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / FIVE TERMUX CLI SNAPSHOTS SAVED; TWO ADJACENT LIST COMPARISONS UNCHANGED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -459,3 +459,14 @@ The new list observation is saved locally, but its same-market price comparison 
 ### Next
 
 Compare the two latest list observations locally for the same market. Report only total/list record counts, same-market availability, yesPrice availability, and whether its numeric value changed. Keep values and identifiers on-device.
+
+
+## Block 034 — Second Unchanged List Comparison
+
+The operator compared the two latest list snapshots locally. The JSONL file has five records, including three list observations. The same market was present in the second and third list observations; yesPrice was present in both and its numeric value was unchanged. No market identifier, price, credential, or raw payload was shared.
+
+Together, the two adjacent comparisons across three list observations show no yesPrice change for this one market over the observed intervals. They do not establish how the field behaves across other markets or longer periods, nor prove that it represents a fresh tradable probability. No movement signal is implemented.
+
+### Next
+
+After at least 15 minutes from the third list observation, append one final bounded list snapshot and compare it locally with the latest prior list observation. Report only sanitized counts, same-market availability, field availability, and whether yesPrice changed. Keep values and identifiers on-device.
