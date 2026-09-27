@@ -49,10 +49,22 @@ Set `PANTA_API_KEY` only in the server-side environment. Do not print it or incl
 
 ## Verification status
 
-Six offline tests use synthetic responses and a fake subprocess runner. The complete local suite passed 19 tests on Python 3.12.14. These tests validate request construction, read-only method configuration, sparse-field preservation, null cursor handling, empty tapes, bounds, and sanitized HTTP errors. They do not make live calls through this provider.
+The Panta client tests use synthetic responses and a fake subprocess runner. The complete repository suite passed 34 offline tests on Python 3.12.14, including snapshot-library and CLI tests. Tests validate request construction, read-only method configuration, sparse-field preservation, cursor handling, empty tapes, bounds, sanitized HTTP errors, and JSONL round trips. They do not make live calls.
 
 Operator-run live reads through Termux `curl` validated HTTP 200 for categories, list, detail, and an empty trade tape. The provider itself has now completed authenticated Termux smoke tests for all four methods: `get_categories()` returned HTTP 200 with four categories; `list_markets(limit=2)` returned HTTP 200 with one primary item and a present but empty cursor; `get_market()` returned HTTP 200 with a matching market ID; and `get_trades(market_id, limit=10)` returned HTTP 200 with zero trades and response fields `disclaimer`, `items`, and `marketId`. This validates the empty-tape path, not the shape of populated trade rows. The live catalogue sample is one market and has no usable cursor, so broader coverage, cursor advancement, and populated trade-row handling remain unverified.
 
+
 ## Local snapshot storage
 
-The local `panta_signal.snapshots` module can append one Panta market-list, detail, or trade-tape client response per line to UTF-8 JSONL and read records back in order. It validates the local versioned envelope and minimal provider provenance, not the upstream response schema. This library is not yet wired to automatic polling or an ingestion command. Tests use synthetic responses; no live API payload is persisted.
+The panta_signal.snapshots module appends one Panta market-list, detail, or trade-tape client response per line to UTF-8 JSONL and reads records back in order. It validates the local versioned envelope and minimal provider provenance, not the upstream response schema.
+
+The explicit CLI makes exactly one bounded read per invocation and appends one record. It does not schedule requests, automatically follow cursors, or call write endpoints. By default, the JSONL file is stored outside the repository at ~/.local/share/panta-signal/snapshots.jsonl.
+
+Usage:
+
+    python -m panta_signal.snapshot_cli --help
+    python -m panta_signal.snapshot_cli list --limit 2
+    python -m panta_signal.snapshot_cli detail MARKET_ID
+    python -m panta_signal.snapshot_cli trades MARKET_ID --limit 10
+
+Set PANTA_API_KEY in the environment from a device-local secret source before running the command. Never pass the key as a command-line argument, print it, or commit snapshots. The CLI has passed offline tests; a Termux CLI smoke test is still pending. No live API payload has been persisted by this project.
