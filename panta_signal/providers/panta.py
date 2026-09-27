@@ -66,21 +66,30 @@ class PantaReadClient:
         config = "\n".join(
             (
                 f"url = {self._config_quote(url)}",
-                'request = "GET"',
                 'header = "Accept: application/json"',
                 f'header = {self._config_quote("X-Api-Key: " + self._api_key)}',
-                f"max-time = {self.timeout}",
-                "silent = true",
-                "show-error = true",
-                'write-out = "\\nPANTA_HTTP_STATUS:%{http_code}"',
                 "",
             )
         )
         try:
             result = self._runner(
-                # Keep -q first so user-level curlrc options cannot inject
-                # arguments or break parsing in Termux and other shells.
-                ["curl", "-q", "--config", "-"],
+                # Keep -q first to ignore user curlrc settings. Keep only the
+                # URL and headers in stdin config; Termux curl rejected some
+                # non-secret options when they were in that config.
+                [
+                    "curl",
+                    "-q",
+                    "--silent",
+                    "--show-error",
+                    "--request",
+                    "GET",
+                    "--max-time",
+                    str(self.timeout),
+                    "--write-out",
+                    _STATUS_MARKER + "%{http_code}",
+                    "--config",
+                    "-",
+                ],
                 input=config,
                 capture_output=True,
                 text=True,
