@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 010 — Read-only Polymarket development prototype added  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / EXTERNAL API DEFECT REPORT RECORDED / POLYMARKET DEV PROTOTYPE AVAILABLE / LIVE PANTA API BLOCKED  
+**Block:** 011 — Cloudflare 1010 diagnosed; official playground path identified  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / EXTERNAL API DEFECT REPORT RECORDED / POLYMARKET DEV PROTOTYPE AVAILABLE / CLOUDFLARE 1010 DIAGNOSED / LIVE PANTA API AUTH STILL BLOCKED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -115,7 +115,7 @@ Documented API facts now verified include:
 
 ## COMPLETED BUT NOT LIVE-VALIDATED
 
-The API contract remains documentation-verified, not live-validated. On 2026-09-27, the operator submitted the authorized registration through the local Termux script; Panta returned HTTP 403. A local existence-only check found no `registration-recovery.json` at the script's expected path. No API JWT or test key is available to the project. The exact server-side stage/error body was not captured, so remote account state is unverified. The website session is signed in by email/wallet and shows a profile, but this does not establish API authentication or key issuance.
+The API contract remains documentation-verified, not live-validated. On 2026-09-27, the operator submitted the authorized registration through the local Termux script; Panta returned HTTP 403. A local existence-only check found no `registration-recovery.json` at the script's expected path. No API JWT or test key is available to the project. The exact server-side response body for that POST was not captured, so remote account state is unverified. A later no-credential GET to the same route produced Cloudflare Error 1010; this is evidence of a client-signature block in the research environment, not a captured response to the original POST. The website session is signed in by email/wallet and shows a profile, but this does not establish API authentication or key issuance.
 
 Therefore the following are **not** claimed:
 
@@ -160,7 +160,7 @@ Therefore the following are **not** claimed:
 
 ## BLOCKED
 
-Live API authentication is blocked after the authorized `POST /auth/register/` attempt returned HTTP 403. The local recovery-file check returned `SEM_RECOVERY`; no API JWT or test key is available. Do not repeat signup attempts until the failure path is understood or an official alternative is confirmed.
+Live API authentication remains blocked. The earlier authorized `POST /auth/register/` returned HTTP 403, but its response body was not captured. A later credential-free Python urllib `GET` to the same route returned Cloudflare Error 1010 (`browser_signature_banned`) with Ray ID `a41be3f04849fafa-ORD` at `2026-09-27T16:29:59Z`; this points to a Cloudflare edge/browser-signature block for that client but does not prove the earlier POST was blocked identically. The official Panta Quickstart documents a Register-page Try it playground with proxy mode enabled. Use this documented path next; do not retry the direct Termux POST. If the official playground is blocked too, send the Ray ID and timestamp to Panta support for an owner-side fix.
 
 Final schema freezing and live-dependent implementation remain gated on observed API responses. Documentation-derived provisional contracts, parsers, and clearly synthetic local fixtures may proceed, with no claim of live compatibility.
 
@@ -176,11 +176,11 @@ Final schema freezing and live-dependent implementation remain gated on observed
 
 The Panta Sidetrack listing names **#dev-chat** in the Panta Discord for technical questions and integration support during the hackathon: https://superteam.fun/earn/listing/panta-api-side-track. Its listed Discord invite is https://discord.gg/M76nH6fUwc.
 
-The operator posted the API question in #dev-chat and then opened private Discord channel #ticket-0160, as shown in two operator-provided screenshots from approximately 02:04–02:07 local time on 2026-09-27. The ticket bot acknowledged the issue and stated that a Panta team member would join shortly. This is an automated acknowledgement, not a technical answer. The cause remains unknown; no registration retry was made. Do not post credentials, wallet secrets, or private account details.
+The operator posted the API question in #dev-chat and then opened private Discord channel #ticket-0160, as shown in two operator-provided screenshots from approximately 02:04–02:07 local time on 2026-09-27. The ticket bot acknowledged the issue and stated that a Panta team member would join shortly. This is an automated acknowledgement, not a technical answer. The exact cause of the original POST remains unconfirmed; no registration POST retry was made. Do not post credentials, wallet secrets, or private account details.
 
 ## Exact Next Step
 
-**Wait for the Panta team response in private ticket #ticket-0160 for the signup 403. File the separate external API behavior report in a dedicated ticket, linking https://github.com/bisale24-ops/settlement-check and explicitly noting the three withdrawn claims. Continue offline work only with clearly labeled synthetic fixtures. Do not retry registration or call the quote POST until support clarifies the paths and effects.**
+**Use the documented Register-page Try it flow at https://docs.panta.market/api-reference/auth/register from the operator's browser. Enter the password only on Panta's HTTPS page. If the response is 201, keep the access/refresh tokens on-device and proceed through the official Create API key Try it flow; never paste credentials into chat. If it returns 409 EMAIL_TAKEN, use the documented Token/login page with the same private credentials. If Cloudflare 1010 appears, stop and give Panta ticket #ticket-0160 the Ray ID and timestamp from `docs/research/2026-09-27-cloudflare-1010-api-registration.md`, asking the site owner for a supported signup/client path. Do not repeat the direct Termux signup POST or call the quote POST.**
 
 For any later live validation, after a valid Panta test credential is available:
 
@@ -196,7 +196,7 @@ Only after live read-only validation may the provisional data contract be promot
 
 ## Operator Confirmation
 
-Read-only research and the free test-account creation remain explicitly authorized. No further registration retry is authorized by implication after the observed 403; first determine the correct recovery/support path. No monetary-cost, trading, wallet-signing, market-creation, or claim action is authorized.
+Read-only research and the free test-account creation remain explicitly authorized. The operator has explicitly reiterated that Panta API access must be resolved. The next attempt is limited to the Panta-documented Register-page Try it route; credentials must stay on the operator's device and out of chat. Direct Termux retries remain paused pending an owner-side explanation/fix if the documented playground is blocked. No monetary-cost, trading, wallet-signing, market-creation, or claim action is authorized.
 
 ## Continuity
 
@@ -221,3 +221,16 @@ Added `docs/POLYMARKET_PROVIDER.md` to state scope, status, and exclusions. READ
 ### Next
 
 Keep the Panta signup 403 and support ticket #ticket-0160 open without retrying registration. For product development, define a provider-neutral market record with source provenance before connecting any provider; keep the Panta contract provisional until authenticated live reads are available. Continue using synthetic fixtures for offline work and keep this Polymarket prototype isolated until its live schema can be checked safely.
+
+
+## Cloudflare 1010 registration diagnostic — Block 011
+
+Current official sources were rechecked through Panta's published docs repository: the Quickstart explicitly offers **Try it** on Register and Create API key pages, and the published docs configuration sets the interactive playground to proxy mode. This is the supported alternative to direct Termux registration to try next.
+
+A credential-free Python `urllib` `GET` to `https://live-api.panta.market/api/v1/auth/register/` returned HTTP 403 with Cloudflare JSON `error_code: 1010`, `error_name: browser_signature_banned`, at `2026-09-27T16:29:59Z`; Ray ID `a41be3f04849fafa-ORD`. The API base `GET /api/v1/` timed out. No registration POST, login, key creation, quote, or wallet action was made in this diagnostic.
+
+Cloudflare's official Error 1010 guidance says the site owner blocked access based on the client/browser signature and directs visitors to notify that owner. The GET strongly suggests a Python-client/browser-signature rule at the edge, but the earlier Termux POST's error body was not recorded, so the two responses must not be represented as identical. Research note: `docs/research/2026-09-27-cloudflare-1010-api-registration.md`.
+
+### Next action
+
+The operator should use the Register-page Try it flow in their HTTPS browser and enter credentials directly there. If registration succeeds, store tokens on-device and proceed to Create API key using the documented interface. If the email is already registered, use the Token/login endpoint. If the official playground returns 1010, provide support with the Ray ID and timestamp and request an owner-side allow/adjustment or another supported API-client route. Do not spoof browser signatures or repeatedly POST through Termux.
