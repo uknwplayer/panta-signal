@@ -227,3 +227,13 @@ First resolve the 403 through an official support/documentation path or verified
 6. do not execute trading, creation, claims, wallet signing, or paid actions.
 
 Only after this live read-only validation should the first internal API/data contract be frozen.
+
+
+## VERIFIED — Official Developer Support Route for API Signup 403
+
+The Panta Sidetrack listing identifies the official **#dev-chat** channel in the Panta Discord as the contact route for technical questions, integration support, and clarification during Crypto World's Fair.
+
+- Official listing: https://superteam.fun/earn/listing/panta-api-side-track
+- Discord invite published by that listing: https://discord.gg/M76nH6fUwc
+
+This establishes where to ask about the observed HTTP 403. It does **not** establish why registration failed or confirm that the API account exists. No support message was sent, and the registration POST was not repeated. The account holder should ask whether API registration is restricted or whether the website account needs separate enablement, and request the supported test-key path without sharing passwords, JWTs, API keys, or wallet secrets.
