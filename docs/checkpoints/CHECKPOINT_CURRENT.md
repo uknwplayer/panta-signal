@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 003 — API registration 403 and offline continuation  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / PRODUCT IMPLEMENTATION NOT STARTED  
+**Block:** 004 — Provisional data contract and synthetic fixtures  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / PROVISIONAL DATA CONTRACT CREATED / LIVE API BLOCKED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -86,7 +86,9 @@ Documented API facts now verified include:
 ### Project documents updated
 
 - `docs/HACKATHON_CRITERIA.md` now distinguishes VERIFIED, GAP, UNVERIFIED, and NOT REQUIRED items from real sources.
-- `docs/ROADMAP.md` now records Phase 0 as merged and Phase 1 as partially complete.
+- `docs/ROADMAP.md` records Phase 0 as merged, the API-auth blocker, and provisional contract work.
+- `docs/PROVISIONAL_DATA_CONTRACT.md` defines docs-derived normalized market/trade observation shapes and deferred decisions.
+- Added synthetic fixtures under `fixtures/panta/v0-provisional/` for market list, market detail, and trade tape. They are explicitly marked synthetic and `liveValidated: false`; no live API response was captured.
 
 ## Evidence / Verification Performed
 
@@ -168,7 +170,7 @@ Final schema freezing and live-dependent implementation remain gated on observed
 
 ## Exact Next Step
 
-**Resolve the API signup 403 without repeating the registration POST, while continuing documentation-derived offline work.**
+**Build and validate a small parser/contract checker against the synthetic fixtures only, while continuing to investigate an official route for the API signup 403. Do not repeat the registration POST.**
 
 For any later live validation, after a valid Panta test credential is available:
 
@@ -180,7 +182,7 @@ For any later live validation, after a valid Panta test credential is available:
 6. do not retry aggressively and honor any `Retry-After`;
 7. do not call write/trading/claim endpoints.
 
-Only then freeze the first Phase 2 internal data contract.
+Only after live read-only validation may the provisional data contract be promoted/frozen.
 
 ## Operator Confirmation
 
