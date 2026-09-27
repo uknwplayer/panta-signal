@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 030 — Three Termux snapshots read; trade tape confirmed empty  
+**Block:** 031 — One-market price-field types inventoried locally  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / ONE TERMUX CLI SNAPSHOT SMOKE TEST PASSED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -426,3 +426,14 @@ The observed trade tape remains empty. No trade-based calculation is possible fr
 ### Next
 
 Inspect the saved list/detail snapshots locally and report only price-related field names, JSON types, and whether values are null or present. Do not print numeric values or identifiers. Then confirm that a price field is available across repeated list observations before designing a movement signal.
+
+
+## Block 031 — Price Field Types Inventoried
+
+The operator ran a local type-only summary over the list and matching detail snapshots. For both records, yesPrice, noPrice, and primaryYesPrice were strings; primaryNoPrice, secondaryYesPrice, and secondaryNoPrice were null. The operator did not report numeric values or a market ID.
+
+This confirms those fields' presence and JSON types for one market sample only. It does not establish semantics across the catalogue, price freshness, or price movement over time. The trades record contains zero rows, so no trade-based signal can be evaluated.
+
+### Next
+
+After at least 15 minutes from the first list observation, append one more bounded market-list snapshot. Compare the same market's yesPrice locally and report only whether the field exists and whether its numeric value changed. Keep the value and identifier on-device.
