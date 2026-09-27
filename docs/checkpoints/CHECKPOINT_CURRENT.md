@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 005 — Synthetic fixture validator and tests  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / LIVE API BLOCKED  
+**Block:** 006 — Official support route verified  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / OFFICIAL SUPPORT ROUTE FOUND / LIVE API BLOCKED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -172,9 +172,15 @@ Final schema freezing and live-dependent implementation remain gated on observed
 - API Terms require stale/delayed data labeling and source attribution.
 - A high-frequency collector could exhaust account rate limits or create unnecessary operational load.
 
+## Official Support Route Found — Block 006
+
+The Panta Sidetrack listing names **#dev-chat** in the Panta Discord for technical questions and integration support during the hackathon: https://superteam.fun/earn/listing/panta-api-side-track. Its listed Discord invite is https://discord.gg/M76nH6fUwc.
+
+This confirms the channel to ask; it does not explain the HTTP 403 or prove API account creation. No message was sent on the operator's behalf and no registration retry was made. Do not post credentials, wallet secrets, or private account details.
+
 ## Exact Next Step
 
-**Find and verify an official route for understanding the API signup 403, without repeating the registration POST. In parallel, continue offline UI/data work only with the clearly labeled synthetic fixtures.**
+**Ask Panta support in #dev-chat whether API registration is restricted or website accounts need separate API enablement, and request the supported test-key path. Continue offline UI/data work only with clearly labeled synthetic fixtures while awaiting their response.**
 
 For any later live validation, after a valid Panta test credential is available:
 
