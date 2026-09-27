@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 002 — Phase 1 authoritative validation  
+**Block:** 003 — API registration 403 and offline continuation  
 **Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / PRODUCT IMPLEMENTATION NOT STARTED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -109,7 +109,7 @@ Documented API facts now verified include:
 
 ## COMPLETED BUT NOT LIVE-VALIDATED
 
-The API contract and authentication flow are documentation-verified, but no Panta account, JWT, test key, or live response was created/observed in this block.
+The API contract remains documentation-verified, not live-validated. On 2026-09-27, the operator submitted the authorized registration through the local Termux script; Panta returned HTTP 403. A local existence-only check found no `registration-recovery.json` at the script's expected path. No API JWT or test key is available to the project. The exact server-side stage/error body was not captured, so remote account state is unverified. The website session is signed in by email/wallet and shows a profile, but this does not establish API authentication or key issuance.
 
 Therefore the following are **not** claimed:
 
@@ -145,18 +145,18 @@ Therefore the following are **not** claimed:
 
 ## Account Creation and Legal Boundary
 
-- On 2026-09-27, the operator explicitly accepted the Panta API Terms and authorized creating a free test account with the documented default `canCreateMarkets: true` capability. No registration or API credential has been created yet.
+- On 2026-09-27, the operator explicitly accepted the Panta API Terms and authorized creating a free test account with the documented default `canCreateMarkets: true` capability. A local signup attempt later returned HTTP 403; no API credential is available. The operator can sign into the Panta website by email/wallet, with a profile visible and wallet balance 0.00 USDC; that confirms a website session, not API credential issuance.
 - Direct retrieval of `https://docs.panta.market/llms.txt` was unavailable through the current web retrieval tool. The official docs source repository's `docs.json` navigation was used as the complete page index instead; relevant auth, account, and Terms pages were read.
-- The current Panta API Terms of Use say that obtaining API credentials or calling an endpoint constitutes agreement to the Terms. Registration returns JWT credentials. Stop before `POST /auth/register/` until the operator has reviewed the Terms and explicitly confirms acceptance immediately before the binding action.
+- The Panta API Terms previously reviewed and explicitly accepted state that obtaining API credentials or calling an endpoint constitutes agreement to the Terms. Registration returns JWT credentials. The operator's authorization to create a free test account remains in effect. The separate user-uploaded website Terms copy (last updated August 5, 2026) contains no support contact details; it may not be the same document/version as the API Terms, so retain the version distinction.
 - Registration requires an email and password. Do not request or handle the operator's password in chat; the account holder must enter it through a secure provider flow.
 - The official docs state that new accounts default to `canCreateMarkets: true`. The documented account PATCH only changes the display name, and the API-key creation contract documents no permission scopes. Treat the created key/account as capable of broader write operations than this project's read-only probe; this is an unresolved least-privilege limitation.
 - The API key's plaintext secret is returned only once. Do not ask the operator to paste it into chat. A secure execution-time secret handoff is still needed before authenticated GET validation.
 
 ## BLOCKED
 
-Phase 2 schema freezing and product implementation are intentionally blocked until live read-only Panta responses are observed.
+Live API authentication is blocked after the authorized `POST /auth/register/` attempt returned HTTP 403. The local recovery-file check returned `SEM_RECOVERY`; no API JWT or test key is available. Do not repeat signup attempts until the failure path is understood or an official alternative is confirmed.
 
-If no existing Panta credential is available, creating a new external Panta account/test credential is an account-creation side effect and should be explicitly authorized before execution.
+Final schema freezing and live-dependent implementation remain gated on observed API responses. Documentation-derived provisional contracts, parsers, and clearly synthetic local fixtures may proceed, with no claim of live compatibility.
 
 ## Risks
 
@@ -168,9 +168,9 @@ If no existing Panta credential is available, creating a new external Panta acco
 
 ## Exact Next Step
 
-**Finish Phase 1 with controlled live read-only validation.**
+**Resolve the API signup 403 without repeating the registration POST, while continuing documentation-derived offline work.**
 
-After a valid Panta test credential is available:
+For any later live validation, after a valid Panta test credential is available:
 
 1. `GET /categories/`;
 2. `GET /markets/?limit=5`;
@@ -184,7 +184,7 @@ Only then freeze the first Phase 2 internal data contract.
 
 ## Operator Confirmation
 
-Read-only research remains authorized. If completing the next step requires creating a new Panta account or credential, obtain explicit operator approval for that external account action first. No monetary-cost action is authorized by this checkpoint.
+Read-only research and the free test-account creation remain explicitly authorized. No further registration retry is authorized by implication after the observed 403; first determine the correct recovery/support path. No monetary-cost, trading, wallet-signing, market-creation, or claim action is authorized.
 
 ## Continuity
 
