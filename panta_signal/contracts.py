@@ -1,7 +1,7 @@
-"""Validation for synthetic, documentation-derived Panta fixtures.
+"""Validation for synthetic Panta fixtures, not captured live responses.
 
-This module does not validate live Panta API responses. The current provider
-wire schema remains unverified until controlled live reads are available.
+The provider has limited live observations, but this validator does not assert
+that the provisional fixture contract matches all upstream response shapes.
 """
 
 from datetime import datetime
