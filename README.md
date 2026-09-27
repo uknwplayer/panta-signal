@@ -10,7 +10,17 @@ Panta Signal is a prediction-market intelligence layer designed to turn market m
 
 **Current phase:** Phase 1 authoritative validation; API signup is blocked by HTTP 403.
 
-The operator can sign into the Panta website, but no API JWT or test key is available. No live API integration, signal engine implementation, public deployment, or hackathon submission is claimed. A provisional docs-derived contract and three synthetic fixtures are now recorded in `docs/PROVISIONAL_DATA_CONTRACT.md` and `fixtures/panta/v0-provisional/`. They are not live-validated and must never be presented as captured Panta data.
+The operator can sign into the Panta website, but no API JWT or test key is available. No live API integration, signal engine implementation, public deployment, or hackathon submission is claimed. A provisional docs-derived contract and three synthetic fixtures are recorded in `docs/PROVISIONAL_DATA_CONTRACT.md` and `fixtures/panta/v0-provisional/`. A standard-library fixture validator is available via `python -m unittest discover -s tests -v`. They are not live-validated and must never be presented as captured Panta data.
+
+## Offline Contract Check
+
+Run the provisional synthetic-fixture checks from the repository root:
+
+```sh
+python -m unittest discover -s tests -v
+```
+
+These checks do not call Panta and do not establish live API compatibility.
 
 ## Product Thesis
 
