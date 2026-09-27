@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 016 — Bounded live reads complete; Panta provider is next  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / CATEGORIES, LIST, DETAIL, AND EMPTY TRADE TAPE OBSERVED / READ-ONLY PROVIDER IMPLEMENTATION NEXT / OFFLINE FIXTURE VALIDATOR TESTED
+**Block:** 017 — Read-only Panta provider implemented and offline-tested  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED / READ-ONLY PANTA PROVIDER IMPLEMENTED ON RESEARCH BRANCH / 19 OFFLINE TESTS PASS / PROVIDER LIVE SMOKE TEST PENDING / OFFLINE FIXTURE VALIDATOR TESTED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -274,3 +274,16 @@ The operator reported `GET /markets/?limit=50` returned HTTP 200 with one item, 
 This is a narrow sample, not a statement about the full catalogue. It does not validate pagination advancement, populated trade-row fields, or optional-field variation across multiple markets. See `docs/checkpoints/history/CHECKPOINT_2026-09-27_016.md`.
 
 Next block: implement the read-only Panta provider with sparse-field and empty-trade handling; do not add write routes.
+
+
+## Block 017 — Read-only Panta Provider Implemented
+
+Added `panta_signal/providers/panta.py` with GET-only methods for categories, a bounded single market-list page, market detail, and trade tape. It uses cURL with configuration supplied through stdin, keeps the key out of the URL and process arguments, and allows only Panta live/staging API bases. Limits are enforced; pagination is caller-controlled. Market fields are preserved as received with `presentFields`; omitted values are not invented. Empty trade arrays are accepted.
+
+Added `tests/test_panta.py` with six synthetic-response tests. The complete local test suite passed 19 tests on Python 3.12.14. These are offline tests using a fake subprocess runner; the new provider has not made a live API request. Operator-run cURL calls separately validated route access, with limited samples as described above.
+
+Documentation: `docs/PANTA_PROVIDER.md`, `docs/PROVISIONAL_DATA_CONTRACT.md`, `docs/ROADMAP.md`, and history file `docs/checkpoints/history/CHECKPOINT_2026-09-27_017.md`.
+
+### Next
+
+Run a one-call smoke test of `PantaReadClient.get_categories()` from Termux after checking out this branch. Read the test key only from the device-local file/environment and print no secret. Then smoke-test list and detail. Keep compatibility marked partial until these new client calls and broader samples are verified.
