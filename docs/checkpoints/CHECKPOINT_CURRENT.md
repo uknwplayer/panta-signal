@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 008 — Private support ticket opened  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / LIVE API BLOCKED  
+**Block:** 009 — External API report corrected and recorded  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / EXTERNAL API DEFECT REPORT RECORDED / LIVE API BLOCKED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -180,7 +180,7 @@ The operator posted the API question in #dev-chat and then opened private Discor
 
 ## Exact Next Step
 
-**Wait for the Panta team response in private ticket #ticket-0160. If they request details, share only non-secret diagnostics (HTTP status, endpoint path, approximate time, and sanitized response body if available). Continue offline work only with clearly labeled synthetic fixtures. Do not retry registration until support explains the path.**
+**Wait for the Panta team response in private ticket #ticket-0160 for the signup 403. File the separate external API behavior report in a dedicated ticket, linking https://github.com/bisale24-ops/settlement-check and explicitly noting the three withdrawn claims. Continue offline work only with clearly labeled synthetic fixtures. Do not retry registration or call the quote POST until support clarifies the paths and effects.**
 
 For any later live validation, after a valid Panta test credential is available:
 
@@ -201,3 +201,10 @@ Read-only research and the free test-account creation remain explicitly authoriz
 ## Continuity
 
 Run the fixture checks with `python -m unittest discover -s tests -v`. Resume with this file, then `docs/ROADMAP.md`, then the provisional contract and the 2026-09-27 research files. Planned or documentation-verified behavior must not be reported as live-tested behavior.
+
+
+## External API Report Correction — Block 009
+
+Reviewed the operator-linked `bisale24-ops/settlement-check` README and recorded its corrections and seven reported API behaviors in the research note. The withdrawn statements about missing questions, invisible resolution criteria, and inferring UMA settlement from `sentToUma` are no longer treated as findings.
+
+The README reports 13/100 sampled tradeable listings without Solana accounts, inconsistent complete/stripped cards, and seven API behaviors. These remain externally reported, not independently live-validated by Panta Signal. The quote endpoint item involves a POST; do not repeat it in this project until its reservation/session side effects are clarified.
