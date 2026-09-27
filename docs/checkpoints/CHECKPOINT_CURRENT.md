@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 028 — Termux CLI detail read appended a second snapshot  
+**Block:** 029 — Termux list, detail, and trades CLI reads appended snapshots  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / ONE TERMUX CLI SNAPSHOT SMOKE TEST PASSED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -404,3 +404,14 @@ After the list snapshot and local reader check, the operator ran the detail CLI 
 ### Next
 
 Run one bounded CLI trade-tape read for the same market, obtaining its ID from the most recent local JSONL record without printing it. Report only whether the CLI saved the record and the updated line count. Keep all snapshot contents and identifiers on-device.
+
+
+## Block 029 — Termux CLI Trades Read
+
+Following the successful list and detail commands, the operator ran the bounded CLI trades command. The local JSONL record count increased from 2 to 3, indicating a third snapshot was appended. The operator did not share the market identifier or stored response. The current Termux checkout has now exercised all three CLI read modes: list, detail, and trades.
+
+This verifies command dispatch and append behavior on the device for the three route types. It does not establish whether the latest tape was empty or populated because no row count was reported. The existing separate Panta provider probe returned an empty tape, but this CLI record is not independently characterized. No snapshot was committed.
+
+### Next
+
+Read all three device-local records with panta_signal.snapshots.iter_snapshots and print only counts by route class (list/detail/trades) and the trade-row count. Keep IDs and response payloads private. Do not infer movement or trade-based signals from this one-market, three-call sample.
