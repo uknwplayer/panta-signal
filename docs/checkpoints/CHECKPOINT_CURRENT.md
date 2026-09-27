@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 035 — Fourth list snapshot saved  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / SIX TERMUX CLI SNAPSHOTS SAVED; FOUR LIST OBSERVATIONS AVAILABLE
+**Block:** 036 — Three unchanged list comparisons  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / SIX TERMUX CLI SNAPSHOTS SAVED; FOUR LIST OBSERVATIONS; THREE ADJACENT COMPARISONS UNCHANGED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -481,3 +481,14 @@ The latest same-market yesPrice comparison is pending. No conclusion about price
 ### Next
 
 Compare the two latest list snapshots locally. Report only record/list counts, same-market availability, yesPrice availability, and whether its numeric value changed. Keep all prices and identifiers on-device.
+
+
+## Block 036 — Third Consecutive Unchanged Comparison
+
+The operator compared the two latest list snapshots locally. The file has six records, including four market-list observations. The same market appeared in both latest pages; yesPrice was present and its numeric value was unchanged. Across the four list observations there are now three consecutive unchanged comparisons for this one market. No price values, market identifiers, credentials, or raw payloads were shared.
+
+This supports only that the sampled field did not change across the observed intervals for the one market returned so far. It does not prove staleness, field meaning, or API-wide behavior. The sample's zero-row trade tape remains insufficient for trade-based analysis.
+
+### Next
+
+Run one bounded market-list request with limit 50 (maximum one page, no cursor traversal). Report only item count and whether a cursor is present/nonempty. Keep market IDs and response values on-device. Use this to determine whether the narrow sample resulted from the small page limit.
