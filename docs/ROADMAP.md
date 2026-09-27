@@ -132,9 +132,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Live Panta test authentication is established. Bounded read-only calls through Termux `curl` returned HTTP 200 for `GET /categories/` and `GET /markets/?limit=2`. The list returned one item and included the `nextCursor` field; its value has not been inspected. An earlier combined Python `urllib` probe returned 403 without per-request output, so the client-dependent cause is still unconfirmed.
+Live Panta test authentication is established. Bounded read-only calls through Termux `curl` returned HTTP 200 for categories, market list, and the previously recorded matching detail. The `/markets/?limit=2` response had one item and `nextCursor: null`; it supplies no next-page token and does not reproduce the externally reported pagination defect. An earlier combined Python `urllib` probe returned 403 without per-request output; the isolated categories/list calls succeeded through `curl`, so the exact failing request/cause remains unconfirmed.
 
-Next, inspect cursor truthiness and, if nonempty, request one next page to compare page movement without printing IDs. Then query the selected market's trade tape through `curl`. Keep outputs limited to statuses, counts, field names, and boolean comparisons. Keep the data contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, claim funds, or perform monetary actions.
+Next, query one selected market's trade tape with `curl`, recording only status, count, and field names. Keep the contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, claim funds, or perform monetary actions.
 
 ### Development fallback prototype
 
