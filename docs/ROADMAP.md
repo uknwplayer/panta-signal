@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The limit-50 list call returned one primary item; nextCursor was present but empty. The sampled item had status/phase primary, resolved false, and onChain null. The already-saved detail response contains phase/status strings, resolved boolean, and onChain null, matching list field presence and type/nullness. Non-null values were not compared. Treat onChain null as unknown, never as false.
+The provisional contract now records the narrow live evidence and tri-state semantics for onChain: null/missing is unknown, never false. Snapshot storage and the one-read CLI are implemented. The sampled list and detail responses match in field presence and JSON type/nullness, but their non-null values have not been compared.
 
-Update the provisional data contract with the narrow live evidence and tri-state onChain handling. Snapshot JSONL storage and the one-read CLI are implemented and smoke-tested locally; upstream schema and signal logic remain provisional. Continue to keep raw snapshots, IDs, prices, and credentials on-device.
+Next, compare the already-saved list and detail records locally for equality of phase, status, onChain, and resolved, reporting only same-market availability and field-match booleans. Keep raw snapshots, IDs, prices, and credentials on-device. Then select the next product-contract or client behavior task based on that result.
 
 ### Development fallback prototype
 
