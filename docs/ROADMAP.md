@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The Termux CLI completed one bounded Panta list read and appended one JSONL record. The operator then read that record through the project reader and reported only a sanitized summary: one record, provider panta, one item. No identifiers or response content were exposed. The full offline suite passes 34 tests on Python 3.12.14.
+The Termux CLI completed one bounded list read and one bounded detail read, appending two JSONL records. The operator also read and summarized the first record through the project reader without exposing identifiers or response content. The 34-test offline suite passes on Python 3.12.14.
 
-Next, use the market identifier already stored in that local snapshot to smoke-test exactly one CLI detail read. Keep the identifier and resulting payload on-device, then verify only that the JSONL record count increased by one. Do not add polling or automatic cursor traversal.
+Next, run one bounded CLI trade-tape read for the same market, using its ID from the local snapshot. Report only the save message and updated record count. The sampled tape was previously empty, so this checks the CLI path and records the empty result if unchanged; it does not validate populated trade rows or support signal claims.
 
 ### Development fallback prototype
 
