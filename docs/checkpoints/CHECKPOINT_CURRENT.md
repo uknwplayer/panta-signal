@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 017 — Read-only Panta provider implemented and offline-tested  
+**Block:** 022 — All four Panta provider methods authenticated and live-smoke-tested on a narrow sample  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED / READ-ONLY PANTA PROVIDER IMPLEMENTED / 19 OFFLINE TESTS PASS / ALL FOUR PROVIDER METHODS LIVE-SMOKE-TESTED ON A NARROW SAMPLE / OFFLINE FIXTURE VALIDATOR TESTED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
