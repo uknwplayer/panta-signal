@@ -132,9 +132,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Live Panta test authentication now works through the documented browser flow. The operator's read-only test key is active and stored only on-device. A bounded `GET /account/` returned 200; `GET /markets/?limit=1` returned 200 with one item and no `nextCursor` in that invocation; its matching detail request returned 200 and included `onChain`. That sample omitted `question`, `resolutionRule`, `sources`, and `totalTrades`. These are observations from one list/detail pair, not proof of a general schema or pagination defect. The external report remains separately attributed until reproduced.
+Live Panta test authentication is established. Bounded read-only calls through Termux `curl` returned HTTP 200 for `GET /categories/` and `GET /markets/?limit=2`. The list returned one item and included the `nextCursor` field; its value has not been inspected. An earlier combined Python `urllib` probe returned 403 without per-request output, so the client-dependent cause is still unconfirmed.
 
-Next, run bounded read-only requests for categories and the selected market's trades, then repeat one small list read to examine cursor/page behavior. Capture only response status, counts, field names, and cursor presence. Keep the internal contract provisional until representative responses are understood. The offline fixture validator remains available with `python -m unittest discover -s tests -v`. Do not create markets, call quote endpoints, trade, sign transactions, claim funds, or perform monetary actions.
+Next, inspect cursor truthiness and, if nonempty, request one next page to compare page movement without printing IDs. Then query the selected market's trade tape through `curl`. Keep outputs limited to statuses, counts, field names, and boolean comparisons. Keep the data contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, claim funds, or perform monetary actions.
 
 ### Development fallback prototype
 
