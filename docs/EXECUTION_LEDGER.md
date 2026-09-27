@@ -276,3 +276,14 @@ Each entry should include:
 **Interpretation:** The route is accessible, but this sample contains no rows, so it cannot validate the fields of a populated trade record or trade pagination.
 
 **Status:** COMPLETED for this bounded read.
+
+
+## 2026-09-27 — Block 016: Catalog Read at Limit 50
+
+**Action:** Made one bounded `GET /markets/?limit=50` using the test key through Termux `curl`.
+
+**Evidence and result:** Operator reported HTTP 200, one returned item, phase `primary`, and no nonempty `nextCursor`.
+
+**Interpretation:** This read yields one available sample for this request. It does not prove the global catalogue contains one market. With no nonempty cursor and no other observed item, pagination advancement and cross-market field consistency remain unverified.
+
+**Status:** COMPLETED for the bounded read set. Next block is the read-only Panta provider implementation, with no write endpoints.
