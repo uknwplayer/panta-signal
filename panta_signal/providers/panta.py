@@ -78,7 +78,9 @@ class PantaReadClient:
         )
         try:
             result = self._runner(
-                ["curl", "--config", "-"],
+                # Keep -q first so user-level curlrc options cannot inject
+                # arguments or break parsing in Termux and other shells.
+                ["curl", "-q", "--config", "-"],
                 input=config,
                 capture_output=True,
                 text=True,
