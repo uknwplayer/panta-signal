@@ -132,9 +132,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Live Panta test authentication is established. Bounded read-only calls through Termux `curl` returned HTTP 200 for categories, market list, and the previously recorded matching detail. The `/markets/?limit=2` response had one item and `nextCursor: null`; it supplies no next-page token and does not reproduce the externally reported pagination defect. An earlier combined Python `urllib` probe returned 403 without per-request output; the isolated categories/list calls succeeded through `curl`, so the exact failing request/cause remains unconfirmed.
+Live Panta test authentication works. Bounded reads through Termux `curl` returned HTTP 200 for categories, market list, matching detail, and the selected market's trade tape. The sampled trade endpoint returned zero rows, so no populated trade-row schema was observed. The list response with `limit=2` had one item and `nextCursor: null`; it does not provide a next-page token or reproduce the external pagination report. The earlier Python `urllib` probe returned 403 without per-request output; isolated calls via `curl` succeeded, leaving a client-dependent cause plausible but unconfirmed.
 
-Next, query one selected market's trade tape with `curl`, recording only status, count, and field names. Keep the contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, claim funds, or perform monetary actions.
+Next, make one `GET /markets/?limit=50` request and report only total item count, phase counts, and cursor truthiness. If the catalog still exposes only the same single market, use the validated routes to begin a read-only Panta provider with explicit empty-trade handling, then keep schema uncertainty visible. Do not create markets, call quote endpoints, trade, sign transactions, claim funds, or perform monetary actions.
 
 ### Development fallback prototype
 
