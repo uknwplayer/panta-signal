@@ -143,6 +143,15 @@ Therefore the following are **not** claimed:
 - AI model/provider and tool interface;
 - license.
 
+## Account Creation and Legal Boundary
+
+- The operator authorized a free Panta test account, but no registration or API credential has been created.
+- Direct retrieval of `https://docs.panta.market/llms.txt` was unavailable through the current web retrieval tool. The official docs source repository's `docs.json` navigation was used as the complete page index instead; relevant auth, account, and Terms pages were read.
+- The current Panta API Terms of Use say that obtaining API credentials or calling an endpoint constitutes agreement to the Terms. Registration returns JWT credentials. Stop before `POST /auth/register/` until the operator has reviewed the Terms and explicitly confirms acceptance immediately before the binding action.
+- Registration requires an email and password. Do not request or handle the operator's password in chat; the account holder must enter it through a secure provider flow.
+- The official docs state that new accounts default to `canCreateMarkets: true`. The documented account PATCH only changes the display name, and the API-key creation contract documents no permission scopes. Treat the created key/account as capable of broader write operations than this project's read-only probe; this is an unresolved least-privilege limitation.
+- The API key's plaintext secret is returned only once. Do not ask the operator to paste it into chat. A secure execution-time secret handoff is still needed before authenticated GET validation.
+
 ## BLOCKED
 
 Phase 2 schema freezing and product implementation are intentionally blocked until live read-only Panta responses are observed.
