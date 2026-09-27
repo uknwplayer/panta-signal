@@ -132,9 +132,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Live Panta test authentication works. Bounded reads through Termux `curl` returned HTTP 200 for categories, market list, matching detail, and the selected market's trade tape. The sampled trade endpoint returned zero rows, so no populated trade-row schema was observed. The list response with `limit=2` had one item and `nextCursor: null`; it does not provide a next-page token or reproduce the external pagination report. The earlier Python `urllib` probe returned 403 without per-request output; isolated calls via `curl` succeeded, leaving a client-dependent cause plausible but unconfirmed.
+Live Panta test authentication works. Bounded reads through Termux `curl` returned HTTP 200 for categories, list, matching detail, and the sampled market's trade tape. A `limit=50` list call returned one primary item and no nonempty cursor. The detail sample included `onChain` and omitted `question`, `resolutionRule`, `sources`, and `totalTrades`; the trade-tape response had zero rows. This is a narrow sample, not a statement about the full catalogue. Cursor advancement, populated trade rows, and optional-field variation remain unverified. The earlier Python `urllib` 403 is not attributed to any endpoint; isolated `curl` calls succeeded.
 
-Next, make one `GET /markets/?limit=50` request and report only total item count, phase counts, and cursor truthiness. If the catalog still exposes only the same single market, use the validated routes to begin a read-only Panta provider with explicit empty-trade handling, then keep schema uncertainty visible. Do not create markets, call quote endpoints, trade, sign transactions, claim funds, or perform monetary actions.
+Next block: implement a read-only Panta provider for categories, list, detail, and trade tape. It must preserve provenance, tolerate omitted/null fields, and represent empty trade arrays explicitly. Mark live compatibility partial and keep synthetic fixtures distinct from captured responses. Do not add market creation, quote, trade, signing, or claim operations.
 
 ### Development fallback prototype
 
