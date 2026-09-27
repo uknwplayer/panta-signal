@@ -40,7 +40,8 @@ Status vocabulary:
 
 - [x] Read the published Panta public API documentation and playground contract.
 - [x] Document live/staging API base URLs and documented authentication model.
-- [ ] Resolve the observed API signup HTTP 403; verify the API auth path and create a test key without committing credentials.
+- [x] Find and verify the official support route for the observed API signup HTTP 403 (#dev-chat in the Panta Discord).
+- [ ] Resolve the observed API signup HTTP 403 with Panta; verify the API auth path and create a test key without committing credentials.
 - [x] Inventory MVP-relevant read endpoints: categories, markets list, market detail, market trade tape.
 - [x] Confirm documented pagination/limits, market identifiers, Unix timestamps, error envelope, rate-limit headers, and default limits.
 - [x] Record Panta Terms constraints for credentials, attribution, stale data, caching/context, and raw-data resale.
@@ -127,4 +128,4 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Find and verify an official route for the API signup 403 without repeating the registration POST. The offline fixture validator is available with `python -m unittest discover -s tests -v`; use it while continuing UI/data work with synthetic fixtures only. Keep the docs-derived contract provisional and do not present fixtures as captured Panta payloads. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
+Ask Panta support in #dev-chat (official invite: https://discord.gg/M76nH6fUwc) how to resolve the API signup 403; the route is verified, but the cause remains unknown. Do not repeat the registration POST while waiting. The offline fixture validator is available with `python -m unittest discover -s tests -v`; use it while continuing UI/data work with synthetic fixtures only. Keep the docs-derived contract provisional and do not present fixtures as captured Panta payloads. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
