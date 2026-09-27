@@ -33,6 +33,14 @@ One market observation represents the latest accepted state for one market at on
 The provider preserves the source market object and reports its actual `presentFields`; it does not synthesize omitted fields. The internal wrapper is not a claim that all upstream records have the same shape. Broader field mapping requires more live samples.
 
 ## One-market price-field observation
+## Additional bounded live observations
+
+Subsequent on-device reads for the same sampled market found `yesPrice` present and unchanged across three consecutive list-to-list comparisons. This is evidence only for that market and those observed intervals; it is not a freshness guarantee or a useful movement signal. A later one-page list request with `limit=50` returned one item, with `nextCursor` present but empty. The result does not establish total catalogue size or prove a pagination defect.
+
+The sampled list item reported `phase=primary`, `status=primary`, `resolved=false`, and `onChain=null`. The matching saved detail record had phase/status as strings, resolved as boolean, and onChain null, matching list presence/type/nullness. The non-null detail values were not compared. Treat `onChain` as tri-state: `true` = affirmed on-chain by this field, `false` = explicitly reported false, and `null`/missing = unknown. Do not infer a missing Solana account from null.
+
+These observations remain a one-market sample. No numeric prices, titles, IDs, or raw responses were shared or committed.
+
 
 A sanitized Termux summary inspected only price-related field names, JSON types, and null/present status for one market's list and matching detail snapshots. In both observations, `yesPrice`, `noPrice`, and `primaryYesPrice` were strings; `primaryNoPrice`, `secondaryYesPrice`, and `secondaryNoPrice` were null. Numeric values and the market identifier remained on the device and were not reported. This is one market only; it does not establish price semantics, update frequency, or a usable time-series movement signal.
 
@@ -42,7 +50,7 @@ A trade observation should preserve the source market identifier, transaction si
 
 ## Provisional snapshot record and local format
 
-**Status:** DESIGN ONLY — persistence is not implemented.
+**Status:** IMPLEMENTED — local JSONL append/read library and bounded one-read CLI; upstream payload contract remains provisional.
 
 A snapshot is one complete return value from a single PantaReadClient market-list, market-detail, or trade-tape call, wrapped as one versioned record. Store records as UTF-8 JSON Lines (JSONL), one record per line, in append-only order. A market-list page stays one record containing that page's items; do not split it into invented per-market responses or overwrite earlier observations. Detail and trade-tape calls are separate records. Category allowlists are configuration observations and are outside this market snapshot format.
 
