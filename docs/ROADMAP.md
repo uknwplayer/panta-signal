@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The limit-50 list call returned one primary item, with resolved false and onChain null. Null means the API did not assert an on-chain state; it must not be interpreted as false or as proof that a Solana account is absent. This is one response only.
+The limit-50 list call returned one primary item; nextCursor was present but empty. The sampled item had status/phase primary, resolved false, and onChain null. The already-saved detail response contains phase/status strings, resolved boolean, and onChain null, matching list field presence and type/nullness. Non-null values were not compared. Treat onChain null as unknown, never as false.
 
-Next, compare the already-saved detail response with the list response for phase, status, onChain, and resolved. Report only detail-field presence, JSON type, and nullness. Keep IDs, titles, dates, and prices on-device. Use the result to document list/detail consistency before choosing a product behavior for unknown on-chain state.
+Update the provisional data contract with the narrow live evidence and tri-state onChain handling. Snapshot JSONL storage and the one-read CLI are implemented and smoke-tested locally; upstream schema and signal logic remain provisional. Continue to keep raw snapshots, IDs, prices, and credentials on-device.
 
 ### Development fallback prototype
 
