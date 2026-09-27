@@ -81,7 +81,7 @@ Status vocabulary:
 - [x] Keep the API key out of URLs, process arguments, client output, and error messages.
 - [ ] Expand malformed-response and provider-error tests.
 - [x] Implement a versioned local JSONL snapshot append/read library with envelope-only validation.
-- [x] Build explicit one-read-at-a-time snapshot ingestion CLI around the verified provider methods; Termux CLI smoke test remains pending.
+- [x] Build explicit one-read-at-a-time snapshot ingestion CLI and smoke-test one list read in Termux; broader market coverage remains limited.
 
 ## Phase 4 — Snapshots and Signal Engine
 
@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Authenticated test credentials and bounded live reads are verified on a narrow sample. All four Panta provider methods passed authenticated Termux smoke tests. The explicit CLI now makes one bounded list, detail, or trade-tape read and appends a versioned JSONL snapshot outside the repository by default. The 34-test offline suite passes on Python 3.12.14.
+Authenticated provider reads passed on-device for categories, a one-item market list, matching detail, and an empty trade tape. The snapshot CLI also completed one Termux list read and appended one local JSONL record. The operator verified the record count without exposing its contents. The 34-test offline suite passes on Python 3.12.14.
 
-Next, smoke-test one CLI list call on Termux using the device-local test key and verify that one JSONL record was appended without printing or sharing its contents. Then broaden live samples when available, especially for cursor movement and populated trade rows. Do not enable scheduling or automatic pagination yet. No write routes are in scope.
+Next, exercise the JSONL reader on the device using only a sanitized summary (record count, provider, and item count), then collect additional bounded observations if needed for signal work. One market and one empty tape are insufficient evidence for movement or trade-based signals. No scheduler, automatic pagination, or write routes are in scope.
 
 ### Development fallback prototype
 
