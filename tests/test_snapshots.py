@@ -117,7 +117,8 @@ class SnapshotRecordTests(unittest.TestCase):
     def test_reader_reports_malformed_jsonl_line_number(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "broken.jsonl"
-            path.write_text("{}\nnot-json\n", encoding="utf-8")
+            valid_line = json.dumps(build_snapshot_record(sample_response()))
+            path.write_text(valid_line + "\nnot-json\n", encoding="utf-8")
 
             with self.assertRaisesRegex(SnapshotError, "line 2"):
                 list(iter_snapshots(path))
