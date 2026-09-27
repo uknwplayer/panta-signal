@@ -52,9 +52,9 @@ The envelope is:
 
 The response object retains the provider wrapper fields, including provider, sourceRoute, and observedAt. For list/detail responses, the nested source market object and its reported presentFields are retained as returned. For trades, source trade rows are retained as returned; the current client adapts the API envelope's items array to trades and reports response presentFields. Therefore this format is faithful to the client observation, not a byte-for-byte HTTP archive. It must not be described as raw API capture.
 
-Keep source field names, values, missing fields, nulls, array order, decimal representations, and route query parameters intact. Do not fill omitted values, coerce numbers, deduplicate observations, or mix derived signals into response. Future derived records must use a distinct record type and version. A change to envelope semantics requires a new snapshotVersion; this does not freeze the upstream market schema.
+Keep source field names and JSON values, missing fields, nulls, array order, decimal-like strings, and route query parameters intact; do not coerce numbers. Do not fill omitted values, coerce numbers, deduplicate observations, or mix derived signals into response. Future derived records must use a distinct record type and version. A change to envelope semantics requires a new snapshotVersion; this does not freeze the upstream market schema.
 
-This choice is provisional and bounded to the current Panta client. It is not a commitment to a database, rotation policy, retention period, or cross-provider storage design. Persistence and round-trip validation remain future implementation work after broader live samples.
+This choice is provisional and bounded to the current Panta client. A standard-library module now appends and reads the versioned JSONL envelope, validating the envelope and minimal Panta provenance without validating upstream market or trade schemas. Offline tests verify round trips with synthetic responses; no live payload has been persisted. This is not a commitment to a database, rotation policy, retention period, or cross-provider storage design.
 
 ## Deliberately deferred
 
@@ -77,7 +77,7 @@ Run from the repository root:
 python -m unittest discover -s tests -v
 ```
 
-`panta_signal/contracts.py` validates only the marked synthetic fixtures. It does not validate upstream responses and does not make the provisional contract authoritative.
+`panta_signal/contracts.py` validates only the marked synthetic fixtures. It does not validate upstream responses and does not make the provisional contract authoritative. The separate `panta_signal/snapshots.py` validator checks only the local snapshot envelope and minimal provider provenance.
 
 ## Fixture acceptance checks
 
