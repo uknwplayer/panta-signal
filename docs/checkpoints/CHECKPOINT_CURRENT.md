@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 027 — Termux JSONL reader verified on the saved live snapshot  
+**Block:** 028 — Termux CLI detail read appended a second snapshot  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / ONE TERMUX CLI SNAPSHOT SMOKE TEST PASSED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -395,3 +395,12 @@ After the list CLI smoke test, the operator ran the project snapshot reader agai
 ### Next
 
 Use the market identifier already stored in the local list snapshot to run exactly one CLI detail read. Keep the identifier and response local. Report only the success message and the updated record count.
+
+
+## Block 028 — Termux CLI Detail Read
+
+After the list snapshot and local reader check, the operator ran the detail CLI command using the market ID from the device-local list snapshot. The subsequent JSONL count was 2, up from 1, confirming the detail observation was appended. The market ID and response were not shared. No snapshot was committed to the repository.
+
+### Next
+
+Run one bounded CLI trade-tape read for the same market, obtaining its ID from the most recent local JSONL record without printing it. Report only whether the CLI saved the record and the updated line count. Keep all snapshot contents and identifiers on-device.
