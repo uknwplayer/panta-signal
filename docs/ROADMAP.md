@@ -65,6 +65,7 @@ Status vocabulary:
 - [x] Draft a documentation-derived provisional market/trade contract and three synthetic fixtures (`docs/PROVISIONAL_DATA_CONTRACT.md`, `fixtures/panta/v0-provisional/`).
 - [x] Implement and test a standard-library validator for the explicitly synthetic fixtures (`panta_signal/contracts.py`, `tests/test_contracts.py`).
 - [ ] Freeze internal market schema only after live response validation.
+- [x] Define a provisional source-faithful Panta snapshot envelope and JSONL format; upstream schema remains provisional.
 - [ ] Freeze snapshot schema.
 - [ ] Freeze signal record schema.
 - [ ] Define source/derived/AI provenance metadata in machine-readable contracts.
