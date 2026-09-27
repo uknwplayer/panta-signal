@@ -49,6 +49,16 @@ Do not freeze these items from fixtures alone:
 - final persistence schema;
 - signal formulas, thresholds, or composite score.
 
+## Local validator
+
+Run from the repository root:
+
+```sh
+python -m unittest discover -s tests -v
+```
+
+`panta_signal/contracts.py` validates only the marked synthetic fixtures. It does not validate upstream responses and does not make the provisional contract authoritative.
+
 ## Fixture acceptance checks
 
 - Every fixture is explicitly marked synthetic and `liveValidated: false`.
