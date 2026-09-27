@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 015 — Trade-tape endpoint returns an empty sample  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY CATEGORIES, LIST, DETAIL, AND EMPTY TRADE-TAPE RESPONSE VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
+**Block:** 016 — Bounded live reads complete; Panta provider is next  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / CATEGORIES, LIST, DETAIL, AND EMPTY TRADE TAPE OBSERVED / READ-ONLY PROVIDER IMPLEMENTATION NEXT / OFFLINE FIXTURE VALIDATOR TESTED
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -265,3 +265,12 @@ The result is recorded in `docs/checkpoints/history/CHECKPOINT_2026-09-27_014.md
 A matching market-list bootstrap returned HTTP 200 with one item. The selected market's `GET /markets/{marketId}/trades/?limit=10` returned HTTP 200 with zero items. This confirms access to the trade-tape route and an empty result for that market. No trade-row fields can be inferred from an empty array, and trade pagination remains unverified.
 
 The result is recorded in `docs/checkpoints/history/CHECKPOINT_2026-09-27_015.md`. Next: one `GET /markets/?limit=50` read to report total item count, phase counts, and cursor truthiness only.
+
+
+## Block 016 — Bounded Live Read Set Complete
+
+The operator reported `GET /markets/?limit=50` returned HTTP 200 with one item, phase `primary`, and no nonempty cursor. Across the bounded live checks, categories, list, matching detail, and trade-tape routes returned HTTP 200. The sampled detail included `onChain` and omitted `question`, `resolutionRule`, `sources`, and `totalTrades`; the sampled trade tape returned zero items.
+
+This is a narrow sample, not a statement about the full catalogue. It does not validate pagination advancement, populated trade-row fields, or optional-field variation across multiple markets. See `docs/checkpoints/history/CHECKPOINT_2026-09-27_016.md`.
+
+Next block: implement the read-only Panta provider with sparse-field and empty-trade handling; do not add write routes.
