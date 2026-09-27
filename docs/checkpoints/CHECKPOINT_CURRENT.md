@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 037 — Limit-50 list returned one item  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LIMIT-50 PANTA LIST READ RETURNED ONE ITEM; CURSOR FIELD EMPTY
+**Block:** 038 — Single returned market state inspected  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LIMIT-50 LIST RETURNED ONE PRIMARY ITEM; onChain NULL; resolved FALSE
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -501,3 +501,14 @@ The operator ran one bounded list request with limit 50 and summarized the saved
 ### Next
 
 Inspect the single returned item's phase, status, onChain, and resolved values locally, without printing identifiers, title, dates, or price fields. Report only those four fields or their types/nullness so the sample's operational state can be understood.
+
+
+## Block 038 — Single Returned Market State Inspected
+
+The operator locally summarized the sole item returned by the limit-50 list request. Its phase and status were both reported as primary, resolved was false, and onChain was null. The null value is absence of a positive/negative on-chain assertion; it must not be converted to false. No title, identifier, date, price, credential, or raw payload was shared.
+
+This is one authenticated API sample and does not establish the item's actual Solana-account state or the catalogue-wide prevalence of null onChain values.
+
+### Next
+
+Compare the already-saved detail response with the list response for phase, status, onChain, and resolved. Report only field presence, JSON type, and nullness for the detail response; keep IDs, titles, dates, and prices private.
