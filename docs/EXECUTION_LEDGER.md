@@ -287,3 +287,14 @@ Each entry should include:
 **Interpretation:** This read yields one available sample for this request. It does not prove the global catalogue contains one market. With no nonempty cursor and no other observed item, pagination advancement and cross-market field consistency remain unverified.
 
 **Status:** COMPLETED for the bounded read set. Next block is the read-only Panta provider implementation, with no write endpoints.
+
+
+## 2026-09-27 — Block 017: Read-only Panta Provider
+
+**Action:** Added `panta_signal/providers/panta.py`, six offline tests in `tests/test_panta.py`, and provider/contract documentation.
+
+**Implementation:** Only GET routes are exposed: categories, one market-list page, one detail, and one trade-tape page. List limit is 1–50; trade limit is 1–200. cURL receives configuration on stdin; the API key is not placed in the URL or cURL argument list. The base URL is restricted to the published Panta live/staging API hosts. Sparse source fields and empty trade arrays are preserved.
+
+**Verification:** The six new tests passed. The full suite passed 19 tests on Python 3.12.14. Tests use synthetic responses and a fake runner; the new provider itself has not been live-smoke-tested.
+
+**Status:** COMPLETED on the research branch; live provider compatibility remains PARTIAL pending an on-device smoke test and representative source data.
