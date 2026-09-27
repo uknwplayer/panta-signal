@@ -46,7 +46,7 @@ class PantaReadClientTests(unittest.TestCase):
 
         args, kwargs = calls[0]
         config = kwargs["input"]
-        self.assertEqual(args, ["curl", "--config", "-"])
+        self.assertEqual(args, ["curl", "-q", "--config", "-"])
         self.assertIn('request = "GET"', config)
         self.assertIn("X-Api-Key: pk_test_synthetic", config)
         self.assertNotIn("pk_test_synthetic", " ".join(args))
