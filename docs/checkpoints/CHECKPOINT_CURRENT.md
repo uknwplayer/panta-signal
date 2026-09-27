@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 032 — Two list snapshots compared locally  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / FOUR TERMUX CLI SNAPSHOTS SAVED; TWO LIST OBSERVATIONS COMPARED LOCALLY
+**Block:** 033 — Third list snapshot saved  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / FIVE TERMUX CLI SNAPSHOTS SAVED; THREE LIST OBSERVATIONS AVAILABLE
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -448,3 +448,14 @@ This is one unchanged comparison over the observed interval for one market. It d
 ### Next
 
 After at least 15 minutes from the second list observation, append one more bounded list snapshot. Compare the same market against the latest observation locally and report only record/list counts, same-market availability, yesPrice availability, and whether it changed. Keep values and identifiers on-device.
+
+
+## Block 033 — Third List Snapshot Saved
+
+The operator reported that the device-local JSONL snapshot file now contains five records, up from four. The just-completed command was the next bounded list read, so this records a third list snapshot alongside the earlier detail and trades observations. No payload, price, market identifier, or credential was shared.
+
+The new list observation is saved locally, but its same-market price comparison has not yet been reported. No conclusion about movement is made in this block.
+
+### Next
+
+Compare the two latest list observations locally for the same market. Report only total/list record counts, same-market availability, yesPrice availability, and whether its numeric value changed. Keep values and identifiers on-device.
