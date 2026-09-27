@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-All three CLI read modes have now completed a Termux smoke test: one list read, one detail read, and one trade-tape read. The operator's successive local JSONL record counts reached three. No API key, market identifier, or response content was shared. The repository's 34 offline tests pass on Python 3.12.14.
+The operator used the local reader to summarize three device-only snapshots: one list, one detail, one trades response, with zero trade rows. No market IDs or response values were exposed. The 34-test offline suite passes on Python 3.12.14.
 
-Next, read the three device-local records through the snapshot reader and print only counts by record route and the trade-row count. This confirms the saved list/detail/trades records are all readable. Keep the one-market sample limits visible; do not derive or claim market signals until time-separated observations and field semantics are established.
+Next, inspect only the names, JSON types, and null/present status of price-related fields in the saved list and detail records. Do not print numeric prices or identifiers. Then establish whether the same price field is available in repeated list observations before implementing probability-movement signals; no movement or trade signal can be established from the current three records.
 
 ### Development fallback prototype
 
