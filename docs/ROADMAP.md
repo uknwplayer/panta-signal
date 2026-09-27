@@ -21,18 +21,38 @@ Status vocabulary:
 - [x] Complete product/hackathon-specific documentation.
 - [x] Create current and historical checkpoints.
 - [x] Verify foundation links, status claims, and secret boundaries.
+- [x] Merge reviewed documentation foundation into `main` through PR #1.
 
-**Phase 0 state:** COMPLETED on review branch `docs/foundation-2026-09-26`; merge/integration into `main` remains a separate review action.
+**Phase 0 state:** COMPLETED and merged into `main` on 2026-09-27 via merge commit `152d1e143033829ae79ee07a6a41dcf604d41095`.
 
 ## Phase 1 — Authoritative External Validation
 
-- [ ] Revalidate official Panta hackathon/side-track requirements.
-- [ ] Revalidate authoritative deadline, eligibility, judging criteria, and required submission artifacts.
-- [ ] Read authoritative Panta API documentation.
-- [ ] Validate authentication method and test-key flow without committing credentials.
-- [ ] Inventory read-only market endpoints relevant to the MVP.
-- [ ] Confirm rate limits, pagination, timestamps, identifiers, and error behavior.
-- [ ] Record authoritative research evidence in `docs/research/`.
+### Competition / sidetrack
+
+- [x] Revalidate official Colosseum Crypto World's Fair timing and controlling rules.
+- [x] Revalidate main-hackathon eligibility framework, judging criteria, language rule, team/submission limits, and IP treatment.
+- [x] Revalidate Panta API Sidetrack reward structure, eligibility, submission requirements, and judging criteria.
+- [ ] Revalidate exact live Colosseum Arena submission-field/media checklist.
+- [ ] Confirm whether the Panta Sidetrack has a distinct submission cutoff/time from the main hackathon deadline.
+- [ ] Confirm operator-specific eligibility against the official rule set.
+
+### Panta API
+
+- [x] Read the published Panta public API documentation and playground contract.
+- [x] Document live/staging API base URLs and documented authentication model.
+- [ ] Live-validate signup/login and test-key creation without committing credentials.
+- [x] Inventory MVP-relevant read endpoints: categories, markets list, market detail, market trade tape.
+- [x] Confirm documented pagination/limits, market identifiers, Unix timestamps, error envelope, rate-limit headers, and default limits.
+- [x] Record Panta Terms constraints for credentials, attribution, stale data, caching/context, and raw-data resale.
+- [ ] Execute controlled live read-only calls and record real response shapes/rate-limit headers.
+
+### Evidence
+
+- [x] Record main-hackathon authoritative research in `docs/research/2026-09-27-crypto-worlds-fair-official-validation.md`.
+- [x] Record Panta Sidetrack/API research in `docs/research/2026-09-27-panta-sidetrack-api-validation.md`.
+- [x] Update `docs/HACKATHON_CRITERIA.md` from verified evidence.
+
+**Phase 1 state:** IN PROGRESS. Documentation-level external validation is substantially complete; live Panta credential/API validation remains open.
 
 ## Phase 2 — Technical Specification and Data Contracts
 
@@ -105,4 +125,4 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Begin Phase 1 with authoritative Panta/hackathon/API validation. Do not start product implementation from prior chat summaries or unverified API assumptions.
+Finish Phase 1 with a valid Panta test credential and **read-only live validation**. The first live probe should be deliberately small: categories, a market page capped at five rows, one market detail, and up to ten trades. Do not create markets, trade, sign transactions, claim funds, or freeze Phase 2 schemas until these reads are evidenced.
