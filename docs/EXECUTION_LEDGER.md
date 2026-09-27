@@ -100,6 +100,31 @@ Each entry should include:
 
 **Status:** COMPLETED
 
+### Ruling — commit granularity under connector execution
+**Finding:** The implementation plan grouped each task into a single conceptual commit, but the connected GitHub `create_file` action creates one commit per file operation.
+
+**Ruling:** Preserve task boundaries through commit messages, branch isolation, checkpoint/ledger evidence, and final branch comparison rather than attempting history rewriting solely to reduce commit count. This changes commit granularity, not repository content or reviewability.
+
+**Cost if wrong:** More commits than the plan originally envisioned; no functional or documentation-state difference.
+
+### Final review — self-review (no subagent tool available)
+**Action:** Performed a separate whole-branch review against the approved design, implementation plan, and Review Focus criteria.
+
+**Fresh evidence:** Final pre-review branch comparison reported `ahead_by: 24`, `behind_by: 0`, with the full 21-file foundation change set. Key files were re-read directly from the review branch, including `.env.example`, `HACKATHON_CRITERIA.md`, and `CHECKPOINT_CURRENT.md`.
+
+**Review Focus result:**
+- Secret leakage: no usable credential found in the inspected configuration template; explicit secret-handling rules are present.
+- Fact/plan confusion: API integration, implementation, deployment, evaluation, and submission remain unclaimed/uncompleted.
+- Provenance ambiguity: source / deterministic-derived / AI-generated classes are explicitly separated.
+- Resume failure: current checkpoint records the exact Phase 1 next step and points to roadmap.
+- Hackathon overclaiming: current external competition facts remain `UNVERIFIED` pending authoritative revalidation.
+
+**Findings:** No Critical or Important documentation defect identified in the self-review. No runtime behavior was reviewed because no runtime exists yet.
+
+**Limitation:** This is author self-review, not an independent fresh-context reviewer; integration into `main` remains a separate operator decision.
+
+**Status:** COMPLETED
+
 ## Execution Notes
 
 - This ledger does not claim any Panta API call, authentication, live signal generation, deployment, AI integration, or hackathon submission.
