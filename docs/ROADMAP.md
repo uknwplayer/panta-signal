@@ -17,10 +17,12 @@ Status vocabulary:
 - [x] Create documentation-foundation implementation plan.
 - [x] Establish safe root configuration template and ignore rules.
 - [x] Create README entrypoint.
-- [ ] Complete all core documentation.
-- [ ] Complete product/hackathon-specific documentation.
-- [ ] Create current and historical checkpoints.
-- [ ] Verify foundation links, status claims, and secret boundaries.
+- [x] Complete all core documentation.
+- [x] Complete product/hackathon-specific documentation.
+- [x] Create current and historical checkpoints.
+- [x] Verify foundation links, status claims, and secret boundaries.
+
+**Phase 0 state:** COMPLETED on review branch `docs/foundation-2026-09-26`; merge/integration into `main` remains a separate review action.
 
 ## Phase 1 — Authoritative External Validation
 
@@ -103,4 +105,4 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Finish Phase 0. After the foundation is verified, begin Phase 1 with authoritative Panta/hackathon/API validation. Do not start product implementation from unverified API assumptions.
+Begin Phase 1 with authoritative Panta/hackathon/API validation. Do not start product implementation from prior chat summaries or unverified API assumptions.
