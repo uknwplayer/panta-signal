@@ -1,7 +1,7 @@
 # Panta API Sidetrack and API Validation
 
 **Checked:** 2026-09-27  
-**Status:** PARTIALLY VERIFIED — sponsor brief and public API documentation verified; live credential flow not executed  
+**Status:** PARTIALLY VERIFIED — sponsor brief and public API documentation verified; authorized signup attempt returned HTTP 403; no API key obtained  
 **Scope:** Panta Sidetrack requirements, public API contract, security/branding constraints, and MVP-relevant read endpoints
 
 ## Sources
@@ -20,6 +20,8 @@
 4. Live API base published in the docs/playground: `https://live-api.panta.market/api/v1`
 
 The `docs.panta.market` website was not directly retrievable by the browsing tool during this block. The published GitHub documentation/playground were therefore used as the inspectable contract surface. No undocumented behavior is treated as fact.
+
+The operator also supplied a website Terms of Use copy dated August 5, 2026. It contains no support email, form, or contact address. The API Terms previously found in the published API docs have a different stated effective date (September 7, 2026); keep these as distinct document versions unless Panta confirms they are the same terms.
 
 ## VERIFIED — Panta Sidetrack Reward
 
@@ -87,7 +89,7 @@ Documented authentication flow:
 6. The plaintext API secret is shown only once.
 7. API keys in query parameters are rejected; credentials belong in headers.
 
-No account was created and no live credential was minted in this research block. The flow is **documentation-verified but not live-validated**.
+The flow remains **documentation-verified but not live-validated**. On 2026-09-27 the operator submitted the documented registration from Termux after explicitly authorizing account creation; the API returned HTTP 403. The script's recovery file was absent when checked, so no API JWT/key is available. The exact API error body and remote account state are unverified. The user can sign into the website and sees a profile/wallet, which does not by itself validate API auth or API-key creation.
 
 ## VERIFIED — MVP-Relevant Read Endpoints
 
@@ -205,8 +207,8 @@ This strengthens the existing provenance design:
 
 ## UNVERIFIED / Still Needed
 
-1. **Live auth validation:** no account registration/login was performed.
-2. **Live test key:** no `pk_test_…` credential was created.
+1. **Live auth validation:** the authorized registration attempt returned HTTP 403; API auth remains unvalidated. No repeated signup attempt should be made until the error path is understood.
+2. **Live test key:** no `pk_test_…` credential is available.
 3. **Live read calls:** `/categories/`, `/markets/`, market detail and trade tape have not yet been called from this project.
 4. **Exact live response samples:** published schemas are verified; real production payloads are not.
 5. **Current effective account-level rate limits:** docs provide defaults, but response headers from a live credential are still required.
@@ -215,7 +217,7 @@ This strengthens the existing provenance design:
 
 ## Exact Next Technical Validation
 
-After obtaining a valid Panta test credential without committing it:
+First resolve the 403 through an official support/documentation path or verified alternative; do not blindly repeat the registration POST. After obtaining a valid Panta test credential without committing it:
 
 1. `GET /categories/`;
 2. `GET /markets/?limit=5`;
