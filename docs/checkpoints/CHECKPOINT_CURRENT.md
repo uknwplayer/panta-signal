@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 036 — Three unchanged list comparisons  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / SIX TERMUX CLI SNAPSHOTS SAVED; FOUR LIST OBSERVATIONS; THREE ADJACENT COMPARISONS UNCHANGED
+**Block:** 037 — Limit-50 list returned one item  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LIMIT-50 PANTA LIST READ RETURNED ONE ITEM; CURSOR FIELD EMPTY
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -492,3 +492,12 @@ This supports only that the sampled field did not change across the observed int
 ### Next
 
 Run one bounded market-list request with limit 50 (maximum one page, no cursor traversal). Report only item count and whether a cursor is present/nonempty. Keep market IDs and response values on-device. Use this to determine whether the narrow sample resulted from the small page limit.
+
+
+## Block 037 — Large List Limit Still Returned One Item
+
+The operator ran one bounded list request with limit 50 and summarized the saved response locally. It contained one item. The response included a nextCursor field, but its value was empty. This indicates that increasing the requested page size did not increase the returned sample in this invocation; it does not establish the total catalogue size or prove a pagination defect. No item identifier, title, prices, or raw response were shared.
+
+### Next
+
+Inspect the single returned item's phase, status, onChain, and resolved values locally, without printing identifiers, title, dates, or price fields. Report only those four fields or their types/nullness so the sample's operational state can be understood.
