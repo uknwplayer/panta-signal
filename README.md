@@ -8,9 +8,9 @@ Panta Signal is a prediction-market intelligence layer designed to turn market m
 
 ## Current Status
 
-**Current phase:** Phase 1 live reads validated; read-only Panta provider implemented on the research branch.
+**Current phase:** Phase 1 authenticated reads validated on a narrow sample; read-only Panta provider and local JSONL snapshot library implemented on the research branch.
 
-The operator completed the documented account and test-key flow. Bounded live reads via Termux `curl` returned HTTP 200 for categories, market list, market detail, and one trade-tape query (empty for the sampled market). A new read-only client is implemented in `panta_signal/providers/panta.py` with offline tests. The provider itself has not yet been live-smoke-tested, so live compatibility remains partial; no signal engine, public deployment, or hackathon submission is claimed. The provisional contract and synthetic fixtures are documented in `docs/PROVISIONAL_DATA_CONTRACT.md` and `fixtures/panta/v0-provisional/`. The full local suite is available via `python -m unittest discover -s tests -v`. A separate Polymarket Gamma reader prototype remains in `panta_signal/providers/polymarket.py` and is not wired into the product.
+The operator completed the documented account and test-key flow. All four provider methods passed authenticated Termux smoke tests: categories, one market-list page, detail, and an empty trade tape. The repository now includes a versioned JSONL writer/reader and an explicit one-read ingestion CLI. The full offline suite passes 34 tests on Python 3.12.14; the CLI has not yet been smoke-tested on Termux and no live payload is committed. The sampled catalogue remains one primary market without a usable cursor or populated trade rows. No signal engine, public deployment, or hackathon submission is claimed. The provisional contract and synthetic fixtures are documented in docs/PROVISIONAL_DATA_CONTRACT.md and fixtures/panta/v0-provisional/. Run tests with python -m unittest discover -s tests -v. A separate Polymarket Gamma reader prototype remains isolated in panta_signal/providers/polymarket.py.
 
 ## Offline Contract Check
 
