@@ -40,7 +40,7 @@ Status vocabulary:
 
 - [x] Read the published Panta public API documentation and playground contract.
 - [x] Document live/staging API base URLs and documented authentication model.
-- [ ] Live-validate signup/login and test-key creation without committing credentials.
+- [ ] Resolve the observed API signup HTTP 403; verify the API auth path and create a test key without committing credentials.
 - [x] Inventory MVP-relevant read endpoints: categories, markets list, market detail, market trade tape.
 - [x] Confirm documented pagination/limits, market identifiers, Unix timestamps, error envelope, rate-limit headers, and default limits.
 - [x] Record Panta Terms constraints for credentials, attribution, stale data, caching/context, and raw-data resale.
@@ -52,11 +52,12 @@ Status vocabulary:
 - [x] Record Panta Sidetrack/API research in `docs/research/2026-09-27-panta-sidetrack-api-validation.md`.
 - [x] Update `docs/HACKATHON_CRITERIA.md` from verified evidence.
 
-**Phase 1 state:** IN PROGRESS. Documentation-level external validation is substantially complete; live Panta credential/API validation remains open.
+**Phase 1 state:** IN PROGRESS / API AUTH BLOCKED. Documentation-level external validation is substantially complete. On 2026-09-27 the authorized local signup attempt returned HTTP 403; no recovery JSON or API key is available. Website email/wallet sign-in works, but does not prove API authentication. Do not repeat the signup POST until the error path or an official alternative is established.
 
 ## Phase 2 — Technical Specification and Data Contracts
 
-- [ ] Freeze internal market schema.
+- [ ] Draft documentation-derived provisional market/snapshot/signal schemas and synthetic fixtures (explicitly not live-validated).
+- [ ] Freeze internal market schema only after live response validation.
 - [ ] Freeze snapshot schema.
 - [ ] Freeze signal record schema.
 - [ ] Define source/derived/AI provenance metadata in machine-readable contracts.
@@ -125,4 +126,4 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Finish Phase 1 with a valid Panta test credential and **read-only live validation**. The first live probe should be deliberately small: categories, a market page capped at five rows, one market detail, and up to ten trades. Do not create markets, trade, sign transactions, claim funds, or freeze Phase 2 schemas until these reads are evidenced.
+Continue with a docs-derived provisional contract and synthetic local fixtures while investigating the API signup 403 through an official route. Label all fixtures as synthetic and all schemas as provisional. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
