@@ -67,4 +67,4 @@ Usage:
     python -m panta_signal.snapshot_cli detail MARKET_ID
     python -m panta_signal.snapshot_cli trades MARKET_ID --limit 10
 
-Set PANTA_API_KEY in the environment from a device-local secret source before running the command. Never pass the key as a command-line argument, print it, or commit snapshots. The CLI has passed offline tests and the operator ran one Termux list smoke test: the command reported a saved snapshot and a separate local check counted one JSONL record. That test created one live snapshot on the operator's device; no snapshot content was shared or committed to the repository.
+Set PANTA_API_KEY in the environment from a device-local secret source before running the command. Never pass the key as a command-line argument, print it, or commit snapshots. The CLI has passed offline tests and the operator ran Termux list and detail smoke tests. The list call appended one local record; after the detail call, the operator reported that the JSONL file contained two records. No snapshot content or market identifier was shared or committed to the repository.
