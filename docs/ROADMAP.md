@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The operator has six device-local snapshots: four list observations, one detail response, and one trades response with zero rows. Two adjacent comparisons previously found yesPrice present and unchanged for the same sampled market. This narrow sample does not establish price freshness, field semantics, catalogue-wide behavior, or a useful movement signal.
+The operator has six device-local snapshots: four list observations, one detail response, and one trades response with zero rows. In three consecutive comparisons, the same sampled market was present and yesPrice was present but unchanged. This does not establish price freshness, field semantics, catalogue-wide behavior, or a useful movement signal.
 
-The fourth list snapshot has been saved. Next, compare the two latest list observations locally and report only sanitized counts, same-market availability, field availability, and whether yesPrice changed. Keep identifiers, values, credentials, and raw snapshots on-device. Do not implement movement logic from these unchanged samples.
+Next, make one bounded market-list request with limit 50 (one page only, no cursor traversal) and report only item count and cursor presence/nonemptiness. This will test whether the narrow sample came from the earlier small page limit. Keep IDs, values, credentials, and raw snapshots on-device.
 
 ### Development fallback prototype
 
