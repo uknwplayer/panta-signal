@@ -287,3 +287,14 @@ Documentation: `docs/PANTA_PROVIDER.md`, `docs/PROVISIONAL_DATA_CONTRACT.md`, `d
 ### Next
 
 Run a one-call smoke test of `PantaReadClient.get_categories()` from Termux after checking out this branch. Read the test key only from the device-local file/environment and print no secret. Then smoke-test list and detail. Keep compatibility marked partial until these new client calls and broader samples are verified.
+
+
+## Block 018 — Termux cURL Configuration Diagnostic
+
+The operator's first provider smoke test failed before receiving an HTTP response: Termux cURL exited with status 2 and reported unsupported trailing garbage while processing `--config`. A minimal read-only request using `curl -q --config -` then returned HTTP 401 without an API key. This confirms that the cURL configuration was parsed and the request reached the API; 401 is expected for this unauthenticated diagnostic and does not validate the provider's authenticated call.
+
+Updated the provider to pass `-q` as cURL's first argument, preventing user-level `.curlrc` settings from interfering. Updated the request-construction test to assert this behavior. The complete offline suite passes all 19 tests on Python 3.12.14. Commit: `b7db7668d1a4660ade05ab2e13bfac4be3773904`.
+
+### Next
+
+Pull the research branch in Termux, then repeat the sanitized `get_categories()` smoke test with the device-local test key. Report only success/count or the sanitized error. Keep live-client compatibility partial until that authenticated call succeeds.
