@@ -244,3 +244,10 @@ This establishes where to ask about the observed HTTP 403. It does **not** estab
 The operator provided a screenshot showing the prepared HTTP 403/API test-key question posted in Panta's `#dev-chat` at approximately 02:04 local time. The same screenshot shows a community reply advising another user to open a support ticket to connect with the team. The operator's own question has no visible answer in the screenshot.
 
 This is evidence of the question being posted and of the displayed ticket guidance only. It does not establish that the guidance came from Panta staff, explain the 403, or confirm account/API access. Recommended next step: open the server's support-ticket channel/flow and ask the same question there without reposting account secrets. No new registration POST was made.
+
+
+## Private Support Ticket Opened — 2026-09-27
+
+A second operator-provided screenshot shows private Discord channel `#ticket-0160` open with the API HTTP 403/test-key question posted. The Ticket Tool bot acknowledged the request and said a Panta team member would join shortly.
+
+This is an automated ticket acknowledgement, not a response from Panta support and not an explanation of the failure. No registration retry was made. Wait for the Panta team reply in the private ticket; provide only non-secret diagnostics if requested.
