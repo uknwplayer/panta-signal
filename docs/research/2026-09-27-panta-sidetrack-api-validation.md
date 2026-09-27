@@ -274,3 +274,14 @@ Source reviewed: current README on the linked repository, fetched 2026-09-27. Ex
 This update supersedes the earlier "no API key obtained" status above. The documented account/key flow has now succeeded: registration and test-key creation each returned HTTP 201. Authenticated `GET /account/` returned HTTP 200. One list/detail pair also returned HTTP 200 as described in "Exact Next Technical Validation". The test secret remains on the operator's device and is not recorded here.
 
 Only that one list/detail sample is independently validated by this project so far. The external `settlement-check` catalogue and seven-behavior report remains externally reported pending additional controlled reproduction. No quote or other write endpoint was called.
+
+
+## Isolated Categories and List GETs — 2026-09-27 (Block 013)
+
+The operator reported:
+- `GET /categories/` returned HTTP 200 via Termux `curl`;
+- `GET /markets/?limit=2` returned HTTP 200 with one item and a `nextCursor` field.
+
+The cursor value was not printed; its truthiness and any page movement remain unverified. A prior combined Python `urllib` probe ended in HTTP 403 without per-request results. Because the isolated routes succeeded via `curl`, a client-dependent difference is plausible, but the exact failed request/cause is unknown. No IDs, raw payloads, or credentials were recorded.
+
+Next read-only checks: determine whether the cursor is nonempty, request one next page if available, and query one market's trade tape with `curl`.
