@@ -36,6 +36,26 @@ The provider preserves the source market object and reports its actual `presentF
 
 A trade observation should preserve the source market identifier, transaction signature where present, primary/secondary marker, YES/NO share amounts, fee, block time, and quote asset. Decimal-like values are represented as strings internally until the provider's wire types and precision are verified. The provider currently retains populated trade rows without field renaming; no populated live row has been observed, so trade field mapping and nullability remain provisional.
 
+## Provisional snapshot record and local format
+
+**Status:** DESIGN ONLY — persistence is not implemented.
+
+A snapshot is one complete return value from a single PantaReadClient market-list, market-detail, or trade-tape call, wrapped as one versioned record. Store records as UTF-8 JSON Lines (JSONL), one record per line, in append-only order. A market-list page stays one record containing that page's items; do not split it into invented per-market responses or overwrite earlier observations. Detail and trade-tape calls are separate records. Category allowlists are configuration observations and are outside this market snapshot format.
+
+The envelope is:
+
+| Field | Type | Meaning |
+|---|---|---|
+| recordType | string | Constant panta-read-snapshot |
+| snapshotVersion | integer | Envelope format version; starts at 1 |
+| response | object | The complete object returned by one supported PantaReadClient market read method, stored without further edits |
+
+The response object retains the provider wrapper fields, including provider, sourceRoute, and observedAt. For list/detail responses, the nested source market object and its reported presentFields are retained as returned. For trades, source trade rows are retained as returned; the current client adapts the API envelope's items array to trades and reports response presentFields. Therefore this format is faithful to the client observation, not a byte-for-byte HTTP archive. It must not be described as raw API capture.
+
+Keep source field names, values, missing fields, nulls, array order, decimal representations, and route query parameters intact. Do not fill omitted values, coerce numbers, deduplicate observations, or mix derived signals into response. Future derived records must use a distinct record type and version. A change to envelope semantics requires a new snapshotVersion; this does not freeze the upstream market schema.
+
+This choice is provisional and bounded to the current Panta client. It is not a commitment to a database, rotation policy, retention period, or cross-provider storage design. Persistence and round-trip validation remain future implementation work after broader live samples.
+
 ## Deliberately deferred
 
 Do not freeze these items from fixtures alone:
