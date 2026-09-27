@@ -8,9 +8,9 @@ Panta Signal is a prediction-market intelligence layer designed to turn market m
 
 ## Current Status
 
-**Current phase:** documentation foundation.
+**Current phase:** Phase 1 authoritative validation; API signup is blocked by HTTP 403.
 
-No live Panta API integration, signal engine implementation, public deployment, or hackathon submission is claimed yet. This repository currently defines the product direction, security boundaries, provenance rules, roadmap, and continuity model required before implementation begins.
+The operator can sign into the Panta website, but no API JWT or test key is available. No live API integration, signal engine implementation, public deployment, or hackathon submission is claimed. Provisional docs-derived contracts and synthetic fixtures may be developed while access is investigated; they must not be presented as live-validated.
 
 ## Product Thesis
 
