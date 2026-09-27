@@ -251,3 +251,25 @@ This is evidence of the question being posted and of the displayed ticket guidan
 A second operator-provided screenshot shows private Discord channel `#ticket-0160` open with the API HTTP 403/test-key question posted. The Ticket Tool bot acknowledged the request and said a Panta team member would join shortly.
 
 This is an automated ticket acknowledgement, not a response from Panta support and not an explanation of the failure. No registration retry was made. Wait for the Panta team reply in the private ticket; provide only non-secret diagnostics if requested.
+
+
+## External API Behavior Report — 2026-09-27 (Not Independently Validated)
+
+The operator supplied a correction to earlier API notes and linked the public reproduction repository:
+https://github.com/bisale24-ops/settlement-check
+
+The repository README's section **“Five things this project got wrong”** explicitly withdraws or narrows these earlier conclusions:
+
+1. The claim that most markets lack questions was based on the wrong listing fields; market cards and Panta pages expose the question and resolution criteria.
+2. The claim that buyers cannot find the resolution rule is withdrawn; the page displays it.
+3. The `sentToUma` flag alone does not establish UMA settlement. The README says Panta's page describes agent resolution with confidence, rationale, and a dispute window; no conclusion should be drawn from that flag alone.
+
+The same README reports the following observations. These are **externally reported and reproducible according to that repository, but have not been independently reproduced by Panta Signal**:
+
+- 13 of 100 sampled catalogue markets were in primary/secondary phases without a Solana account; the Panta page displayed “Market not found on-chain”. The report proposes exposing an `onChain` indicator or filtering these from listing clients.
+- Market cards appeared in complete and stripped shapes, with fields such as `question`, `resolutionRule`, `sources`, and `totalTrades` omitted in the stripped shape without an explicit shape indicator.
+- Seven API behaviors were reported: cursor pagination not advancing; `GET /markets/categories/` returning `MARKET_NOT_FOUND`; `status=resolved` and `status=cancelled` returning zero rows; volume fields varying between calls; listing/card question disagreement; non-stable catalogue slices between reads; and `POST /markets/create/quote/` intermittently rejecting drafts with `INVALID_MARKET_PARAMS`, without fields, where the documented code reportedly says `DUPLICATE_MARKET`.
+
+The README describes read-only catalogue and Solana checks, plus a quote POST that does not sign, submit, or pay but may reserve a create session. Panta Signal will not repeat that POST or make authenticated probes until API access is resolved and the request's side effects are understood. No private keys or wallet signing are needed for the report's stated reproduction.
+
+Source reviewed: current README on the linked repository, fetched 2026-09-27. Exact independent live verification remains blocked because Panta Signal has no API credential.
