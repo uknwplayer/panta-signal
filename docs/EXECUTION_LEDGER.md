@@ -265,3 +265,14 @@ Each entry should include:
 **Interpretation:** This does not reproduce the external pagination-defect report; page advancement cannot be tested from this one-item response.
 
 **Status:** COMPLETED for cursor inspection. Trade-tape read remains pending.
+
+
+## 2026-09-27 — Block 015: Trade Tape Read
+
+**Action:** Queried the trade tape for the selected market with `limit=10`.
+
+**Evidence and result:** Operator reported HTTP 200 and zero items. The list bootstrap returned HTTP 200 with one item.
+
+**Interpretation:** The route is accessible, but this sample contains no rows, so it cannot validate the fields of a populated trade record or trade pagination.
+
+**Status:** COMPLETED for this bounded read.
