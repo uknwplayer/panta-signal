@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 007 — Support question posted; ticket guidance received  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / SUPPORT QUESTION POSTED / LIVE API BLOCKED  
+**Block:** 008 — Private support ticket opened  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / LIVE API BLOCKED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -176,11 +176,11 @@ Final schema freezing and live-dependent implementation remain gated on observed
 
 The Panta Sidetrack listing names **#dev-chat** in the Panta Discord for technical questions and integration support during the hackathon: https://superteam.fun/earn/listing/panta-api-side-track. Its listed Discord invite is https://discord.gg/M76nH6fUwc.
 
-The operator posted the prepared question in #dev-chat at approximately 02:04 local time on 2026-09-27, as shown in an operator-provided screenshot. A reply in the visible conversation advises opening a support ticket to connect with the team. That advice is recorded as screenshot evidence, not as a confirmed explanation of the 403. The cause remains unknown; no registration retry was made. Do not post credentials, wallet secrets, or private account details.
+The operator posted the API question in #dev-chat and then opened private Discord channel #ticket-0160, as shown in two operator-provided screenshots from approximately 02:04–02:07 local time on 2026-09-27. The ticket bot acknowledged the issue and stated that a Panta team member would join shortly. This is an automated acknowledgement, not a technical answer. The cause remains unknown; no registration retry was made. Do not post credentials, wallet secrets, or private account details.
 
 ## Exact Next Step
 
-**Follow the Discord guidance and open a support ticket for the API question; avoid reposting the same details publicly. Ask whether API registration is restricted or website accounts need separate API enablement, and request the supported test-key path. Continue offline UI/data work only with clearly labeled synthetic fixtures while awaiting a response.**
+**Wait for the Panta team response in private ticket #ticket-0160. If they request details, share only non-secret diagnostics (HTTP status, endpoint path, approximate time, and sanitized response body if available). Continue offline work only with clearly labeled synthetic fixtures. Do not retry registration until support explains the path.**
 
 For any later live validation, after a valid Panta test credential is available:
 
