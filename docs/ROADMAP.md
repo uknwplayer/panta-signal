@@ -57,6 +57,9 @@ Status vocabulary:
 
 ## Phase 2 — Technical Specification and Data Contracts
 
+- [x] Prototype an isolated, public-GET-only Polymarket Gamma reader for market lists and details; six offline tests use synthetic responses. Not live-validated and not wired into the product.
+- [ ] Define a provider-neutral internal market record with explicit provider/source provenance before connecting alternate providers to the product.
+
 - [x] Draft a documentation-derived provisional market/trade contract and three synthetic fixtures (`docs/PROVISIONAL_DATA_CONTRACT.md`, `fixtures/panta/v0-provisional/`).
 - [x] Implement and test a standard-library validator for the explicitly synthetic fixtures (`panta_signal/contracts.py`, `tests/test_contracts.py`).
 - [ ] Freeze internal market schema only after live response validation.
@@ -129,3 +132,7 @@ Status vocabulary:
 ## Current Next Stage
 
 The operator opened private Discord support ticket #ticket-0160 about the signup 403. Separately, an external reproduction repo reports market-list/card behavior and seven API defects; its corrections to earlier claims are recorded in the Panta API research note but are not independently live-validated here. File the defect report in a separate ticket with the repo link. Do not repeat signup or quote POSTs while waiting for support. The offline fixture validator is available with `python -m unittest discover -s tests -v`; use it while continuing UI/data work with synthetic fixtures only. Keep the docs-derived contract provisional and do not present fixtures as captured Panta payloads. Resume live validation only after obtaining a valid test credential; keep the probe small (categories, up to five markets, one detail, up to ten trades). Do not create markets, trade, sign transactions, claim funds, or freeze final schemas until live reads are evidenced.
+
+### Development fallback prototype
+
+A read-only Polymarket Gamma adapter now exists for development experiments while Panta API authentication is blocked. It makes one bounded list request or one detail request per call and does not fetch prices, trades, or order books. Do not treat it as Panta data or as a replacement for the Panta Sidetrack integration requirement. See `docs/POLYMARKET_PROVIDER.md`.
