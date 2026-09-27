@@ -36,11 +36,11 @@
   - `docs/specs/README.md`.
 - Historical milestone snapshot created at `docs/checkpoints/history/2026-09-26_001.md`.
 - Roadmap Phase 0 closed as completed on the review branch.
-- Execution ledger updated with foundation verification evidence in commit `ac865f29bcb1b6622a425957f727bfcf623fd0e3`.
+- Execution ledger contains verification evidence, the connector commit-granularity ruling, and final author self-review; latest ledger-review commit: `f861c9a8d58c89d0e9e4b4d5ac3f90bc03cee6d1`.
 
 ## Evidence / Verification Performed
 
-- Branch comparison against `main` after foundation closure showed the review branch ahead with the full planned foundation file set and no missing Phase 0 artifact.
+- Branch comparison against `main` showed the review branch ahead with the full planned 21-file foundation change set and no missing Phase 0 artifact.
 - README was fetched from the isolated branch and confirmed to state documentation-only status rather than claiming implementation.
 - `.env.example` was fetched and confirmed to use `example.invalid` / `replace_with_...` placeholders rather than usable credentials.
 - Security model explicitly keeps Panta/AI credentials server-side and excludes trading/capital movement from the initial MVP.
@@ -48,6 +48,7 @@
 - Roadmap marks Phase 0 complete but leaves API integration, implementation, deployment, evaluation, and submission work unchecked.
 - `HACKATHON_CRITERIA.md` marks current external competition claims as `UNVERIFIED` until authoritative Phase 1 revalidation.
 - Submission checklist remains entirely unchecked because no implementation/deployment/submission evidence exists yet.
+- A separate whole-branch author self-review found no Critical or Important documentation defect. No independent subagent reviewer was available in this session.
 - No application runtime/package/test suite exists yet; therefore Phase 0 verification is structural/documentary only and does not claim executable application behavior.
 
 ## Accepted Decisions
