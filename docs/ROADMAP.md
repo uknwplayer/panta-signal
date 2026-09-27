@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The three Termux CLI snapshots are readable: one list, one detail, and one trades response, with zero trade rows. For one market's list and detail responses, the sanitized type inventory found yesPrice, noPrice, and primaryYesPrice as strings; primaryNoPrice and the secondary price fields were null. Numeric values and the market identifier remain device-local.
+The operator has four device-local snapshots: two list observations, one detail response, and one trades response with zero rows. The two list observations contain the same market; yesPrice is present in both and unchanged across the observed interval. This single comparison does not establish field semantics, freshness, catalogue-wide behavior, or a usable movement signal.
 
-Next, capture a second list snapshot at least 15 minutes after the first list observation. Then compare the same market's yesPrice locally and report only whether the field was present and whether its numeric value changed. Do not print price values or identifiers. This repeated observation is the minimum evidence needed before implementing a probability-movement signal.
+Next, after at least 15 minutes from the second list observation, append one bounded list snapshot. Compare the same market against the latest observation locally and report only sanitized counts, field availability, and whether yesPrice changed. Keep all IDs, values, credentials, and raw snapshots on-device. Do not implement movement logic until repeated observations provide evidence of useful behavior.
 
 ### Development fallback prototype
 
