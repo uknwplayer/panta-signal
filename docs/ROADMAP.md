@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The operator has five device-local snapshots: three list observations, one detail response, and one trades response with zero rows. Two list observations previously contained the same market; yesPrice was present and unchanged between them. That comparison did not establish field semantics, freshness, catalogue-wide behavior, or a usable movement signal.
+The operator has five device-local snapshots: three list observations, one detail response, and one trades response with zero rows. In two consecutive comparisons, the same sampled market was present and yesPrice was present but unchanged. This limited observation does not establish freshness, semantics, catalogue-wide behavior, or a useful movement signal.
 
-The third bounded list snapshot has now been saved. Next, compare the two latest list observations locally for the same market and report only sanitized counts, field availability, and whether yesPrice's numeric value changed. Keep all IDs, values, credentials, and raw snapshots on-device. Do not implement movement logic until repeated observations support it.
+After at least 15 minutes from the third list observation, append one final bounded list snapshot. Compare it locally with the prior list observation and report only sanitized counts, same-market availability, field availability, and whether yesPrice changed. Keep all IDs, values, credentials, and raw snapshots on-device. Do not implement movement logic from these unchanged samples.
 
 ### Development fallback prototype
 
