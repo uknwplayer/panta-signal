@@ -1,0 +1,21 @@
+{
+  "fixtureStatus": "synthetic_not_provider_response",
+  "schemaVersion": "panta-signal.trade-tape.v0-provisional",
+  "provider": "panta",
+  "route": "/markets/fixture-market-001/trades/?limit=10",
+  "fetchedAt": "2026-09-27T04:10:00Z",
+  "liveValidated": false,
+  "marketId": "fixture-market-001",
+  "trades": [
+    {
+      "marketId": "fixture-market-001",
+      "transactionSignature": "synthetic-signature-001",
+      "phase": "primary",
+      "yesShareAmount": "3.00",
+      "noShareAmount": "0.00",
+      "fee": "0.06",
+      "blockTime": "2026-09-27T04:09:00Z",
+      "quoteAsset": "USDC"
+    }
+  ]
+}
