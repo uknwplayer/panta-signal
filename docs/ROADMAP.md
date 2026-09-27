@@ -66,7 +66,7 @@ Status vocabulary:
 - [x] Implement and test a standard-library validator for the explicitly synthetic fixtures (`panta_signal/contracts.py`, `tests/test_contracts.py`).
 - [ ] Freeze internal market schema only after live response validation.
 - [x] Define a provisional source-faithful Panta snapshot envelope and JSONL format; upstream schema remains provisional.
-- [ ] Freeze snapshot schema.
+- [x] Freeze local JSONL envelope v1; upstream market/trade schema remains provisional.
 - [ ] Freeze signal record schema.
 - [ ] Define source/derived/AI provenance metadata in machine-readable contracts.
 - [ ] Select runtime and persistence provider.
@@ -80,11 +80,12 @@ Status vocabulary:
 - [x] Preserve upstream identifiers and fields while adding provider, route, and observation-time provenance.
 - [x] Keep the API key out of URLs, process arguments, client output, and error messages.
 - [ ] Expand malformed-response and provider-error tests.
+- [x] Implement a versioned local JSONL snapshot append/read library with envelope-only validation.
 - [ ] Build local snapshot/ingestion flow around the verified provider methods.
 
 ## Phase 4 — Snapshots and Signal Engine
 
-- [ ] Implement snapshot persistence.
+- [x] Implement local JSONL snapshot persistence (append/read library; no automated collection).
 - [ ] Implement probability movement.
 - [ ] Implement movement velocity.
 - [ ] Implement abnormal-change detection.
