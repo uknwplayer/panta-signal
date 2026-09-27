@@ -353,3 +353,14 @@ Defined a provisional snapshot envelope (recordType: panta-read-snapshot, snapsh
 ### Next
 
 Implement a small offline-tested JSONL snapshot writer/reader that validates only the versioned local envelope and round-trips provider observations without rewriting them. Keep it separate from the synthetic fixture validator and do not add signal derivation or automatic live polling yet.
+
+
+## Block 024 — JSONL Snapshot Library Implemented
+
+Added panta_signal/snapshots.py with a versioned panta-read-snapshot envelope, one-record-per-line UTF-8 JSONL append, ordered reading, envelope/version checks, and minimal Panta provenance checks. The response object is wrapped without mutation; market and trade schemas are not normalized or validated by this module. Malformed JSON and invalid envelopes report the line number. The library has no network behavior and is not wired to polling or a CLI.
+
+Added eight offline tests for sparse/null observations, unchanged decimal-like strings, append/read round trips, invalid version/type/provenance, malformed lines, and empty files. The full suite passed: 27 tests. Tests use synthetic data only; no live payload was persisted and no live API call was made. Updated the provisional contract, provider docs, and roadmap. Upstream payload schema remains provisional.
+
+### Next
+
+Add a small explicit ingestion command that performs one bounded read at a time and appends its provider result through this library, with no scheduler or automatic page traversal. Keep test-key configuration device-local and do not commit secrets or captured live payloads.
