@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The operator used the local reader to summarize three device-only snapshots: one list, one detail, one trades response, with zero trade rows. No market IDs or response values were exposed. The 34-test offline suite passes on Python 3.12.14.
+The three Termux CLI snapshots are readable: one list, one detail, and one trades response, with zero trade rows. For one market's list and detail responses, the sanitized type inventory found yesPrice, noPrice, and primaryYesPrice as strings; primaryNoPrice and the secondary price fields were null. Numeric values and the market identifier remain device-local.
 
-Next, inspect only the names, JSON types, and null/present status of price-related fields in the saved list and detail records. Do not print numeric prices or identifiers. Then establish whether the same price field is available in repeated list observations before implementing probability-movement signals; no movement or trade signal can be established from the current three records.
+Next, capture a second list snapshot at least 15 minutes after the first list observation. Then compare the same market's yesPrice locally and report only whether the field was present and whether its numeric value changed. Do not print price values or identifiers. This repeated observation is the minimum evidence needed before implementing a probability-movement signal.
 
 ### Development fallback prototype
 
