@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The operator has six device-local snapshots: four list observations, one detail response, and one trades response with zero rows. In three consecutive comparisons, the same sampled market was present and yesPrice was present but unchanged. This does not establish price freshness, field semantics, catalogue-wide behavior, or a useful movement signal.
+Repeated list reads for one sampled market showed yesPrice present but unchanged across three adjacent intervals. A separate single-page list request with limit 50 still returned one item; nextCursor was present but empty. This is a bounded observation of one authenticated invocation, not evidence of total catalogue size or a pagination defect.
 
-Next, make one bounded market-list request with limit 50 (one page only, no cursor traversal) and report only item count and cursor presence/nonemptiness. This will test whether the narrow sample came from the earlier small page limit. Keep IDs, values, credentials, and raw snapshots on-device.
+Next, inspect the returned sample's phase, status, onChain, and resolved values locally, without printing identifiers, title, dates, or price fields. Then choose whether to probe another documented read-only filter or proceed with the product contract. Keep credentials and raw snapshots on-device.
 
 ### Development fallback prototype
 
