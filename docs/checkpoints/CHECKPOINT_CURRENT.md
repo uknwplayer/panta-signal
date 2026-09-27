@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 009 — External API report corrected and recorded  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / EXTERNAL API DEFECT REPORT RECORDED / LIVE API BLOCKED  
+**Block:** 010 — Read-only Polymarket development prototype added  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / PRIVATE SUPPORT TICKET OPEN / EXTERNAL API DEFECT REPORT RECORDED / POLYMARKET DEV PROTOTYPE AVAILABLE / LIVE PANTA API BLOCKED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -208,3 +208,16 @@ Run the fixture checks with `python -m unittest discover -s tests -v`. Resume wi
 Reviewed the operator-linked `bisale24-ops/settlement-check` README and recorded its corrections and seven reported API behaviors in the research note. The withdrawn statements about missing questions, invisible resolution criteria, and inferring UMA settlement from `sentToUma` are no longer treated as findings.
 
 The README reports 13/100 sampled tradeable listings without Solana accounts, inconsistent complete/stripped cards, and seven API behaviors. These remain externally reported, not independently live-validated by Panta Signal. The quote endpoint item involves a POST; do not repeat it in this project until its reservation/session side effects are clarified.
+
+
+## Read-only Polymarket development prototype — Block 010
+
+An isolated standard-library client was added on this research branch at `panta_signal/providers/polymarket.py`. It uses only public HTTP GET requests to Gamma API market keyset listing and market detail routes. List calls are limited to one page (1–20 records) and never auto-fetch another page. Normalized output labels `provider: polymarket`, source route, observation time, condition id, question, and outcome token IDs when provided. Missing values are not synthesized. No prices, trades, order books, wallet, signing, order, or transaction features are implemented.
+
+Six new offline tests use synthetic Polymarket-like responses. The available local test suite passed all 13 tests (the existing seven synthetic Panta contract tests plus the six new provider tests). These results do not establish live compatibility. A direct API read was not completed: the browsing tool could not access the Gamma API host. The code is not wired into application flows and does not fulfill the Panta Sidetrack's meaningful Panta API integration requirement.
+
+Added `docs/POLYMARKET_PROVIDER.md` to state scope, status, and exclusions. README and roadmap distinguish this development fallback from the blocked Panta integration. No changes were made to `main`; the prototype and documentation updates are on `research/phase1-authoritative-validation-2026-09-27`.
+
+### Next
+
+Keep the Panta signup 403 and support ticket #ticket-0160 open without retrying registration. For product development, define a provider-neutral market record with source provenance before connecting any provider; keep the Panta contract provisional until authenticated live reads are available. Continue using synthetic fixtures for offline work and keep this Polymarket prototype isolated until its live schema can be checked safely.
