@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 012 — Live Panta authentication and bounded list/detail reads verified  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY LIST AND DETAIL VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
+**Block:** 013 — Isolated categories and market-list GETs return 200  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / LIVE PANTA TEST AUTH VERIFIED / READ-ONLY CATEGORIES, LIST, AND DETAIL VERIFIED / OFFLINE FIXTURE VALIDATOR TESTED / POLYMARKET DEV PROTOTYPE AVAILABLE
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -187,7 +187,7 @@ The operator posted the API question in #dev-chat and then opened private Discor
 
 ## Exact Next Step
 
-Continue live validation with bounded, read-only requests: categories, the trade tape for the already observed market, and a second small list read to check cursor behavior. Record only statuses, counts, field names, and cursor presence; do not print identifiers, credentials, or raw account data. Keep the provisional contract provisional until representative live reads are captured. Do not create markets, call quote endpoints, trade, sign transactions, or claim funds.
+Categories and one `/markets/?limit=2` read returned HTTP 200 through Termux curl. Check whether the returned `nextCursor` value is nonempty; if so, request one next page and compare page movement internally. Then test one market's trade tape through curl. Record only statuses, counts, field names, and boolean comparisons; do not print identifiers, credentials, or raw account data. Keep the provisional contract provisional. Do not create markets, call quote endpoints, trade, sign transactions, or claim funds.
 
 ## Operator Confirmation
 
@@ -242,3 +242,12 @@ No credentials, email, user ID, market ID, or raw response were saved to the rep
 ### Next
 
 Make bounded read-only calls to categories and the selected market's trade tape, then repeat one small list read to investigate cursor behavior. Record statuses, counts, field names, and cursor presence without exposing identifiers or secrets.
+
+
+## Block 013 — Isolated GET Statuses
+
+A standalone `GET /categories/` through Termux `curl` returned HTTP 200. A standalone `GET /markets/?limit=2` through `curl` returned HTTP 200 with one item and a `nextCursor` field. The cursor value was not printed and may be null/empty; cursor-based page movement remains unverified.
+
+A previous combined probe using Python `urllib` ended with HTTP 403 before per-request results were reported. The categories and list calls have now succeeded via `curl`; a client-dependent difference is plausible, but the exact failed request/cause has not been established. Avoid Python `urllib` for further probes; use `curl` while keeping the secret read from the local file.
+
+See `docs/checkpoints/history/CHECKPOINT_2026-09-27_013.md`. Next: inspect cursor truthiness and test one market trade-tape GET with curl.
