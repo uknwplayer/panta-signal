@@ -320,3 +320,14 @@ The provider status remains partial: only its categories method has been smoke-t
 ### Next
 
 Using the same updated checkout and local environment key, call `list_markets(limit=2)`. Print only HTTP success, item count, cursor-present/nonempty booleans, and the selected market's phase. If at least one item exists, call `get_market(marketId)` for the first item and print only whether IDs match and the field names. Do not print the market ID, title, raw response, or key.
+
+
+## Block 021 — Authenticated Provider List and Detail Smoke Tests
+
+The operator ran the updated `PantaReadClient` in Termux with the local test key. `list_markets(limit=2)` returned HTTP 200 with one item. The page reported `cursorPresent=true` and an empty cursor; its first item was phase `primary`. A subsequent `get_market()` returned HTTP 200 and its `marketId` matched the selected list item. The output included the actual detail field names without printing an identifier, title, or raw payload.
+
+Together with Block 020, the provider's categories, one-page list, and market-detail methods now have successful authenticated live smoke tests. The provider's trade method still needs an on-device smoke test. Catalog coverage remains a one-item sample; the empty cursor does not exercise cursor advancement. Offline tests remain 19 passing tests.
+
+### Next
+
+Repeat the small list bootstrap and call `get_trades(market_id, limit=10)` for its first item. Print only list status/count and trade status/count/field names; do not print IDs, titles, raw trade rows, or the key. The previous standalone cURL call to this route returned HTTP 200 with zero items, so an empty tape is an expected possible result.
