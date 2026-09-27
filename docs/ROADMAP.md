@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Repeated list reads for one sampled market showed yesPrice present but unchanged across three adjacent intervals. A separate single-page list request with limit 50 still returned one item; nextCursor was present but empty. This is a bounded observation of one authenticated invocation, not evidence of total catalogue size or a pagination defect.
+The limit-50 list call returned one primary item, with resolved false and onChain null. Null means the API did not assert an on-chain state; it must not be interpreted as false or as proof that a Solana account is absent. This is one response only.
 
-Next, inspect the returned sample's phase, status, onChain, and resolved values locally, without printing identifiers, title, dates, or price fields. Then choose whether to probe another documented read-only filter or proceed with the product contract. Keep credentials and raw snapshots on-device.
+Next, compare the already-saved detail response with the list response for phase, status, onChain, and resolved. Report only detail-field presence, JSON type, and nullness. Keep IDs, titles, dates, and prices on-device. Use the result to document list/detail consistency before choosing a product behavior for unknown on-chain state.
 
 ### Development fallback prototype
 
