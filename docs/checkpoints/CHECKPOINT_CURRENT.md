@@ -298,3 +298,14 @@ Updated the provider to pass `-q` as cURL's first argument, preventing user-leve
 ### Next
 
 Pull the research branch in Termux, then repeat the sanitized `get_categories()` smoke test with the device-local test key. Report only success/count or the sanitized error. Keep live-client compatibility partial until that authenticated call succeeds.
+
+
+## Block 019 — Minimal Termux cURL Configuration
+
+The operator ran a bounded authenticated GET to `/categories/` using cURL with only the URL and `X-Api-Key` header in its stdin config and returned `exit=0, HTTP 200`. This confirms the device-local key and authenticated route work with the minimal cURL configuration.
+
+The provider still failed when its config also held request, timeout, quiet/error, and write-out options. The exact individual directive was not isolated; the evidenced incompatibility is in the extra cURL config content. Updated the client to keep only URL and headers in stdin config and pass non-secret GET, timeout, output, and status-marker options as cURL arguments. The key remains out of process arguments. Updated its synthetic request test and provider documentation. The full local suite passes all 19 tests on Python 3.12.14.
+
+### Next
+
+Pull the latest research branch and rerun the sanitized `PantaReadClient.get_categories()` smoke test from Termux. If it succeeds, record the returned count and proceed to the bounded list and detail smoke tests. If it fails, report the sanitized error; the current generic transport message still does not expose cURL stderr.
