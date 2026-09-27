@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 004 — Provisional data contract and synthetic fixtures  
-**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / PROVISIONAL DATA CONTRACT CREATED / LIVE API BLOCKED  
+**Block:** 005 — Synthetic fixture validator and tests  
+**Overall state:** PHASE 0 MERGED / PHASE 1 IN PROGRESS / OFFLINE FIXTURE VALIDATOR TESTED / LIVE API BLOCKED  
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -89,8 +89,12 @@ Documented API facts now verified include:
 - `docs/ROADMAP.md` records Phase 0 as merged, the API-auth blocker, and provisional contract work.
 - `docs/PROVISIONAL_DATA_CONTRACT.md` defines docs-derived normalized market/trade observation shapes and deferred decisions.
 - Added synthetic fixtures under `fixtures/panta/v0-provisional/` for market list, market detail, and trade tape. They are explicitly marked synthetic and `liveValidated: false`; no live API response was captured.
+- Added `panta_signal/contracts.py` and `tests/test_contracts.py`, using only Python's standard library, to validate the explicitly synthetic fixture contract.
 
 ## Evidence / Verification Performed
+
+- TDD red/green check: the new seven-test suite first failed because the validator was absent; after implementation, `python -m unittest discover -s tests -v` passed all 7 tests.
+- The test suite exercises the actual synthetic fixture files and rejects a live-validation claim, missing market identity, malformed decimal strings, and a trade linked to another market. No Panta API calls were made in this block.
 
 - Colosseum event page and official rules were read during this block.
 - Relevant official-rules PDF pages for timing, registration/judging, English-content rules, and prizes were visually inspected as well as text-extracted.
@@ -170,7 +174,7 @@ Final schema freezing and live-dependent implementation remain gated on observed
 
 ## Exact Next Step
 
-**Build and validate a small parser/contract checker against the synthetic fixtures only, while continuing to investigate an official route for the API signup 403. Do not repeat the registration POST.**
+**Find and verify an official route for understanding the API signup 403, without repeating the registration POST. In parallel, continue offline UI/data work only with the clearly labeled synthetic fixtures.**
 
 For any later live validation, after a valid Panta test credential is available:
 
@@ -190,4 +194,4 @@ Read-only research and the free test-account creation remain explicitly authoriz
 
 ## Continuity
 
-Resume with this file, then `docs/ROADMAP.md`, then the two 2026-09-27 research files. Planned or documentation-verified behavior must not be reported as live-tested behavior.
+Run the fixture checks with `python -m unittest discover -s tests -v`. Resume with this file, then `docs/ROADMAP.md`, then the provisional contract and the 2026-09-27 research files. Planned or documentation-verified behavior must not be reported as live-tested behavior.
