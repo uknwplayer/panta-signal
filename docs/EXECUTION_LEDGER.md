@@ -52,9 +52,51 @@ Each entry should include:
 ### Isolated foundation branch created
 **Action:** Created branch `docs/foundation-2026-09-26` from `main`.
 
-**Evidence:** GitHub branch creation succeeded. A later duplicate creation attempt returned `Reference already exists`, confirming the branch was already present; no destructive action occurred.
+**Evidence:** GitHub branch creation succeeded. Later duplicate creation attempts returned `Reference already exists`, confirming the branch was already present; no destructive action occurred.
 
 **Result:** Foundation work isolated from `main` for review.
+
+**Status:** COMPLETED
+
+## 2026-09-26 — Block 001: Documentation Foundation Execution
+
+### Foundation artifacts created
+**Action:** Executed the approved five-task documentation-foundation plan on `docs/foundation-2026-09-26`.
+
+**Evidence:** Branch comparison against `main` after Phase 0 closure reported status `ahead`, `ahead_by: 22`, `behind_by: 0`, with 21 added/changed foundation files including root safety files, core documentation, product/hackathon documents, and checkpoints. Merge base was `fb918f39809d524db58e66b4a25ea6946be21d3c`.
+
+**Result:** The planned documentation structure exists on the isolated review branch.
+
+**Status:** COMPLETED
+
+### Root safety verification
+**Action:** Re-read `.env.example` from the review branch.
+
+**Evidence:** It contains `https://example.invalid` and explicit `replace_with_...` placeholders for Panta/database/AI settings; no usable credential was present in the inspected template.
+
+**Result:** Configuration template is safe to publish as a placeholder template.
+
+**Status:** COMPLETED
+
+### Truth/status verification
+**Action:** Re-read README, hackathon criteria, roadmap, and current checkpoint and compared the branch against `main`.
+
+**Evidence:**
+- README states documentation-foundation status and explicitly says no live Panta integration, Signal Engine implementation, deployment, or submission is claimed.
+- `HACKATHON_CRITERIA.md` marks competition requirements `UNVERIFIED` pending authoritative Phase 1 research.
+- Roadmap marks only Phase 0 complete and leaves Phases 1–8 unchecked.
+- `CHECKPOINT_CURRENT.md` states `PRODUCT IMPLEMENTATION NOT STARTED` and records Phase 1 authoritative validation as the exact next step.
+
+**Result:** No reviewed project-state document promotes planned API/code/deployment/submission work to completed status.
+
+**Status:** COMPLETED
+
+### Documentation-level verification boundary
+**Action:** Applied structural review appropriate to a documentation/configuration-only repository stage.
+
+**Evidence:** No runtime/package/test suite exists yet, so there is no executable build/test command that could truthfully verify application behavior. Verification therefore covered repository diff/file presence, configuration placeholders, cross-document state claims, provenance boundaries, and checkpoint/roadmap consistency.
+
+**Result:** Phase 0 documentation can be considered complete on the review branch; application behavior remains unimplemented and untested.
 
 **Status:** COMPLETED
 
@@ -62,3 +104,4 @@ Each entry should include:
 
 - This ledger does not claim any Panta API call, authentication, live signal generation, deployment, AI integration, or hackathon submission.
 - External Panta/hackathon facts must be revalidated from authoritative sources in Phase 1 before being recorded as authoritative project requirements.
+- The foundation remains on a review branch; integration into `main` is a separate action.
