@@ -32,15 +32,18 @@ One market observation represents the latest accepted state for one market at on
 
 The provider preserves the source market object and reports its actual `presentFields`; it does not synthesize omitted fields. The internal wrapper is not a claim that all upstream records have the same shape. Broader field mapping requires more live samples.
 
-## One-market price-field observation
+The derived helper `panta_signal.market_state.classify_on_chain(market)` returns a display-oriented state and a source-field classification. It maps explicit booleans to `reported_on_chain` or `reported_off_chain`; missing, null, and non-boolean values map to `unknown`. It does not mutate the source object. Preserve the raw snapshot and `presentFields` alongside any derived display value.
+
 ## Additional bounded live observations
 
 Subsequent on-device reads for the same sampled market found `yesPrice` present and unchanged across three consecutive list-to-list comparisons. This is evidence only for that market and those observed intervals; it is not a freshness guarantee or a useful movement signal. A later one-page list request with `limit=50` returned one item, with `nextCursor` present but empty. The result does not establish total catalogue size or prove a pagination defect.
 
-The sampled list item reported `phase=primary`, `status=primary`, `resolved=false`, and omitted `onChain`. The matching saved detail record had phase/status as strings, resolved as boolean, and `onChain=null`; phase/status/resolved matched the list response. This is an endpoint representation difference, not an on-chain false result. For consumers, explicit booleans may be treated as assertions; missing and null both map to semantic `unknown`, while source storage and `presentFields` preserve whether the field was omitted or explicitly null. No explicit boolean `onChain` value has been observed in this sample. Do not infer a missing Solana account from either missing or null.
+The sampled list item reported `phase=primary`, `status=primary`, `resolved=false`, and omitted `onChain`. The matching saved detail record had phase/status as strings, resolved as boolean, and `onChain=null`; phase/status/resolved matched the list response. This is an endpoint representation difference, not an on-chain false result. For consumers, explicit booleans map to reported_on_chain/reported_off_chain; missing, null, and non-boolean values map to unknown. Source storage and `presentFields` retain whether the field was omitted or explicitly null. The explicit boolean cases are synthetic-test behavior; no boolean onChain value has been observed live. Do not infer a missing Solana account from either missing or null.
 
 These observations remain a one-market sample. No numeric prices, titles, IDs, or raw responses were shared or committed.
 
+
+## One-market price-field observation
 
 A sanitized Termux summary inspected only price-related field names, JSON types, and null/present status for one market's list and matching detail snapshots. In both observations, `yesPrice`, `noPrice`, and `primaryYesPrice` were strings; `primaryNoPrice`, `secondaryYesPrice`, and `secondaryNoPrice` were null. Numeric values and the market identifier remained on the device and were not reported. This is one market only; it does not establish price semantics, update frequency, or a usable time-series movement signal.
 
