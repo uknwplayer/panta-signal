@@ -576,7 +576,7 @@ The operator ran two bounded market-list snapshots with `limit=50`: one requeste
 
 Code review confirmed the CLI forwards `--status` to `list_markets`, and the provider URL-encodes the value into the `/markets/` query string. The current official list documentation defines the allowed status values as `primary`, `secondary`, `resolved`, and `cancelled` (source: https://github.com/Kaito-HQ/panta-api-pub/blob/main/api-reference/markets/list.mdx). The returned primary record therefore does not match either requested filter in these observations.
 
-This is stronger evidence of a live status-filter mismatch on the sampled catalog request. The externally reported zero-row behavior was not reproduced. Since the available catalog sample contains only one market, this does not establish catalog-wide behavior. No raw payload, identifiers, titles, prices, or credentials were shared.
+This is stronger evidence of a live status-filter mismatch on the sampled catalog request. The sanitized local snapshot audit confirmed the persisted request routes carried exactly `status=resolved` and `status=cancelled`, respectively. Both responses still returned the primary market. The externally reported zero-row behavior was not reproduced. Since the available catalog sample contains only one market, this does not establish catalog-wide behavior. No raw payload, identifiers, titles, prices, or credentials were shared.
 
 ### Next
 
