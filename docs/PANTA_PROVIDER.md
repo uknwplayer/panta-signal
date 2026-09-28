@@ -77,3 +77,10 @@ Set PANTA_API_KEY in the environment from a device-local secret source before ru
 ## Status-filter live sample
 
 One authenticated, bounded Termux call to `GET /markets/` through the snapshot CLI used `status=resolved` and `limit=50`. The response contained one item and an empty cursor. Sanitized local inspection of the nested market object found `status=primary`. This does not match the requested filter value. The external report of zero rows for `status=resolved` was not reproduced in this single-market sample. This is insufficient to determine whether the service ignored the parameter, uses different filter semantics, or how it behaves across the full catalog. No raw response or identifiers were shared.
+
+
+## Status-filter live samples
+
+Two authenticated bounded Termux list snapshots used `limit=50`, with `status=resolved` and `status=cancelled` respectively. Each returned one item whose nested market `status` was `primary`; each response had a present but empty cursor. Code review verified that the CLI forwards the supplied status to `list_markets` and that the provider encodes it in the `/markets/` query string. The official list docs define `status` as the market phase and enumerate `primary`, `secondary`, `resolved`, and `cancelled`: https://github.com/Kaito-HQ/panta-api-pub/blob/main/api-reference/markets/list.mdx.
+
+These two observations do not match the requested values. They are live evidence of a status-filter mismatch on this one-market sample, but not proof of catalog-wide behavior. The external report that the filters return zero rows was not reproduced. No raw response or identifiers were shared.
