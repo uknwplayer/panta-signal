@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 043 — Full Termux suite passed  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
+**Block:** 044 — Resolved status filter mismatch observed  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 41 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -564,6 +564,12 @@ Pull this research branch in Termux and run the full offline unittest suite. Rep
 
 After pulling the research branch, the operator ran the full offline unittest suite in Termux and reported: Ran 41 tests in 0.062s; OK. This includes the seven new onChain-classifier cases together with the existing tests. No live API request was made during this verification.
 
+## Block 044 — Resolved Status Filter Returned a Primary Market
+
+The operator ran one bounded market-list snapshot with `status=resolved` and `limit=50`. It returned one item; `nextCursor` was present but empty. A sanitized inspection of the nested market object found its status was `primary`, not `resolved`.
+
+This is a live response mismatch for the sampled request: the returned item does not satisfy the requested status. The external report that the filter returns zero rows was not reproduced. The sample contains only one catalog market, so this does not establish how the filter behaves across the full catalog or whether the server ignores the parameter versus applying different documented semantics. No raw payload, market identity, price, or credential was shared.
+
 ### Next
 
-Run one bounded market-list snapshot filtered by status=resolved with limit 50. Report only the returned item count and cursor presence/nonemptiness; keep IDs, titles, values, and the raw response on-device.
+Run one bounded market-list snapshot filtered by `status=cancelled`, limit 50, with no cursor traversal. Inspect only returned item count, cursor presence/nonemptiness, and nested returned statuses. Keep IDs, titles, values, credentials, and raw snapshots on-device.
