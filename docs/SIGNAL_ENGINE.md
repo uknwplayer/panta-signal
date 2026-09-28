@@ -33,6 +33,13 @@ Candidate structure:
 
 No production formula is frozen yet.
 
+#### Implemented provisional source-field calculation
+
+The research branch includes `calculate_source_price_delta(records, market_id)`, version 1. It calculates the exact Decimal difference between the earliest and latest timezone-aware `observedAt` values for the requested market, using the source `yesPrice` field from list or detail snapshots. It returns the input values, timestamps, source routes, observation count, signed delta, and direction.
+
+This is a source-price movement measure only. It does not label `yesPrice` as a probability, infer missing values, interpolate, or recommend a trade. Fewer than two matching observations produce `status: insufficient`; malformed values, naive timestamps, and duplicate timestamps are rejected. Offline synthetic tests cover ordering, market isolation, exact decimal arithmetic, insufficient history, malformed input, and unchanged values. The calculation remains provisional until Panta confirms field semantics and timestamp meaning.
+
+
 ### 2. Movement Velocity
 
 Measures how quickly probability is changing relative to elapsed time.
