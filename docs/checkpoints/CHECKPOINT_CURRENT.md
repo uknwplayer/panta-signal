@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 040 — Latest list/detail onChain match indeterminate  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LATEST LIST/DETAIL MATCH PHASE STATUS RESOLVED; onChain FIELD ABSENT IN AT LEAST ONE RESPONSE
+**Block:** 041 — List omits onChain; detail returns null  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -534,3 +534,14 @@ The earlier list/detail type-only observation remains scoped to its original pai
 ### Next
 
 Inspect onChain key presence/type/nullness separately in the latest matching list item and saved detail response. Print only these two sanitized field summaries, with no identifier or other payload values.
+
+
+## Block 041 — List Omits onChain; Detail Returns Null
+
+The operator inspected the matched list/detail pair's field presence locally. The same market was confirmed in both. The list response omitted onChain; the detail response included onChain with JSON null. This is an endpoint representation difference, not evidence of a false on-chain state. Other compared fields phase, status, and resolved matched. No identifiers, titles, dates, prices, credentials, or raw payloads were shared.
+
+The local consumer rule is: only explicit boolean values may be interpreted as affirmative or negative on-chain assertions; both a missing field and explicit null map to semantic unknown, while preserving the source distinction (omitted versus null) in stored data and presence metadata. The sample is limited to one market and two routes.
+
+### Next
+
+Use this rule in the internal field-mapping/UI contract: show on-chain state as unknown when absent or null, and never imply that such a market is confirmed on-chain or confirmed off-chain. Keep the source observation unchanged and retain presentFields provenance.
