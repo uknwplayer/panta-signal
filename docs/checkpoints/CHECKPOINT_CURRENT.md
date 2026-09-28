@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 044 — Resolved status filter mismatch observed  
+**Block:** 045 — Two status filters returned primary  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 41 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -570,6 +570,14 @@ The operator ran one bounded market-list snapshot with `status=resolved` and `li
 
 This is a live response mismatch for the sampled request: the returned item does not satisfy the requested status. The external report that the filter returns zero rows was not reproduced. The sample contains only one catalog market, so this does not establish how the filter behaves across the full catalog or whether the server ignores the parameter versus applying different documented semantics. No raw payload, market identity, price, or credential was shared.
 
+## Block 045 — Resolved and Cancelled Filters Returned Primary
+
+The operator ran two bounded market-list snapshots with `limit=50`: one requested `status=resolved`, the other `status=cancelled`. Each returned one item, `nextCursor` present but empty, and nested market `status=primary`.
+
+Code review confirmed the CLI forwards `--status` to `list_markets`, and the provider URL-encodes the value into the `/markets/` query string. The current official list documentation defines the allowed status values as `primary`, `secondary`, `resolved`, and `cancelled` (source: https://github.com/Kaito-HQ/panta-api-pub/blob/main/api-reference/markets/list.mdx). The returned primary record therefore does not match either requested filter in these observations.
+
+This is stronger evidence of a live status-filter mismatch on the sampled catalog request. The externally reported zero-row behavior was not reproduced. Since the available catalog sample contains only one market, this does not establish catalog-wide behavior. No raw payload, identifiers, titles, prices, or credentials were shared.
+
 ### Next
 
-Run one bounded market-list snapshot filtered by `status=cancelled`, limit 50, with no cursor traversal. Inspect only returned item count, cursor presence/nonemptiness, and nested returned statuses. Keep IDs, titles, values, credentials, and raw snapshots on-device.
+Inspect only the last two local list snapshots' saved `sourceRoute` query values and nested returned statuses to confirm the exact requests persisted. Then prepare a concise sanitized support report; do not send it without the operator's instruction.
