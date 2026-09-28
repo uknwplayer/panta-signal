@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 039 — List/detail field presence matches  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LIMIT-50 LIST AND DETAIL MATCH FIELD PRESENCE/TYPES; onChain NULL
+**Block:** 040 — Latest list/detail onChain match indeterminate  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / LATEST LIST/DETAIL MATCH PHASE STATUS RESOLVED; onChain FIELD ABSENT IN AT LEAST ONE RESPONSE
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -516,10 +516,21 @@ Compare the already-saved detail response with the list response for phase, stat
 
 ## Block 039 — List/Detail Field Presence Matches
 
-The operator summarized the already-saved detail response locally. It contains phase and status as strings, resolved as a boolean, and onChain as null. This matches the list response's field presence and JSON types/nullness; the detail values themselves were not printed, so equality of the non-null values is not claimed. No identifiers, titles, dates, prices, credentials, or raw response were shared.
+The operator summarized the already-saved detail response locally. It contains phase and status as strings, resolved as a boolean, and onChain as null. This matched the earlier list/detail pair's field presence and JSON types/nullness; the detail values themselves were not printed, so equality of the non-null values was not claimed. No identifiers, titles, dates, prices, credentials, or raw response were shared.
 
 The live sample supports a tri-state treatment for onChain: true, false, or unknown/null. Null must remain unknown and must not be converted to false. The current evidence is one market only.
 
 ### Next
 
 Compare the already-saved list and detail responses locally for equality of phase, status, onChain, and resolved, reporting only field-match booleans and same-market availability. Keep IDs, titles, dates, and prices private.
+
+
+## Block 040 — Latest List/Detail onChain Field Match Is Indeterminate
+
+The operator compared the latest limit-50 list item with the saved detail response for the same market. The comparison reported same_market=true; phase, status, and resolved matched; onChain_match was null. The comparison command returns null for a field if it is missing from either response, so the onChain result is indeterminate due to field absence in at least one of the compared objects, not a comparison of two explicit nulls.
+
+The earlier list/detail type-only observation remains scoped to its original pair. Do not generalize it to the later limit-50 list response. No ID, title, date, price, credential, or raw payload was shared.
+
+### Next
+
+Inspect onChain key presence/type/nullness separately in the latest matching list item and saved detail response. Print only these two sanitized field summaries, with no identifier or other payload values.
