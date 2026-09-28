@@ -135,9 +135,11 @@ Status vocabulary:
 
 ## Current Next Stage
 
-Two authenticated, bounded list requests used `limit=50` with `status=resolved` and `status=cancelled`. The saved request routes confirmed both query values. Each returned one item with `phase=primary` and a present but empty cursor. The official list reference defines `status` as a market-phase filter and lists the allowed values as primary, secondary, resolved, and cancelled. This confirms a live filter mismatch for the sampled item; it does not establish behavior across the catalog. The reported zero-row behavior was not reproduced.
+The authenticated read path and local snapshot store remain validated on a narrow sample. A provisional `source-price-delta` calculation is implemented on the research branch. It compares the first and last timezone-aware `yesPrice` observations for one selected market using exact decimal arithmetic and retains source timestamps/routes. The name is deliberately limited to a source-field delta; Panta's authoritative probability meaning for `yesPrice` remains unverified. The calculation does not fill missing values, and returns insufficient when fewer than two observations exist.
 
-The CLI/provider code path was checked and does include the status parameter in the encoded list URL. A sanitized English support-report draft is available at `docs/research/2026-09-27-status-filter-support-draft.md`. It has not been sent. Next, operator review; no external message should be sent without explicit instruction.
+The branch's offline suite passed 45 tests after this change. The operator should pull the branch and repeat the suite in Termux, then collect additional bounded snapshots over time before using the derived movement in a product view.
+
+A generic rewards-program eligibility question was posted in Panta `#dev-chat`; the operator deleted the private support ticket. No API issue details were sent to Panta. The technical report draft remains in the public repository.
 
 ### Development fallback prototype
 
