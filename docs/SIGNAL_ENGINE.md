@@ -147,3 +147,14 @@ Before any signal family is marked implemented:
 4. formula/version must be documented;
 5. tests must demonstrate deterministic output;
 6. evaluation must check whether rankings are useful and not obviously pathological.
+
+
+### Local calculation command
+
+Run the offline calculator against the default private JSONL file with:
+
+```sh
+python -m panta_signal.signal_cli price-delta
+```
+
+It selects the market with the most recorded `yesPrice` observations. To select one explicitly, add `--market-id MARKET_ID`; to read another file, add `--input PATH`. The command performs no network requests and prints the versioned result as JSON.
