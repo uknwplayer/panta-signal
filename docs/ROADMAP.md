@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The pure sparse onChain classifier is implemented in panta_signal/market_state.py. Seven focused tests cover missing, null, explicit booleans, unexpected types, non-mutation, and invalid input. The operator pulled the branch and the full Termux offline suite passed: 41 tests.
+Two authenticated, bounded list requests used `limit=50` with `status=resolved` and `status=cancelled`. The saved request routes confirmed both query values. Each returned one item with `phase=primary` and a present but empty cursor. The official list reference defines `status` as a market-phase filter and lists the allowed values as primary, secondary, resolved, and cancelled. This confirms a live filter mismatch for the sampled item; it does not establish behavior across the catalog. The reported zero-row behavior was not reproduced.
 
-Two bounded requests with `limit=50`, one each for `status=resolved` and `status=cancelled`, returned one item each and empty cursors. A sanitized audit confirmed the persisted query values and found `phase=primary` in both response items. The official list docs define `status` as a phase filter with allowed values `primary`, `secondary`, `resolved`, and `cancelled`. This confirms a live filter mismatch in the one-item sample. The external report of zero rows was not reproduced, and this does not establish catalog-wide behavior. A sanitized English support-report draft is at `docs/research/2026-09-27-status-filter-support-draft.md`; it has not been sent. The next step is operator review; do not send an external message without the operator's instruction.
+The CLI/provider code path was checked and does include the status parameter in the encoded list URL. A sanitized English support-report draft is available at `docs/research/2026-09-27-status-filter-support-draft.md`. It has not been sent. Next, operator review; no external message should be sent without explicit instruction.
 
 ### Development fallback prototype
 
