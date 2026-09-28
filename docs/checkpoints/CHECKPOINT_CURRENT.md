@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
-**Date:** 2026-09-27  
-**Block:** 045 — Two status filters returned primary  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 41 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
+**Date:** 2026-09-28  
+**Block:** 047 — Provisional source-price delta implemented  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / PROVISIONAL SOURCE-PRICE DELTA IMPLEMENTED / 45 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -583,6 +583,19 @@ The sanitized audit of the saved list snapshots confirmed the query values were 
 
 The client path was checked: the CLI forwards `--status` into `list_markets`, and the provider encodes it into the `/markets/` query. A sanitized English support-report draft is at `docs/research/2026-09-27-status-filter-support-draft.md`; it has not been sent. Do not generalize beyond the sampled market. No raw response, identifiers, titles, prices, or credentials were shared.
 
+### Superseded next step
+
+The operator deleted the private Panta support ticket. No issue details were sent to Panta. A generic question about eligibility for rewards on non-security API reports was posted in `#dev-chat`; the operator is waiting for a response. The detailed support-report draft remains in the public repository and has not been sent privately.
+
+
+## Block 047 — Provisional Source-Price Delta
+
+Implemented `panta_signal/signals.py` with `calculate_source_price_delta(records, market_id)`, algorithm version 1. It reads preserved list/detail snapshot envelopes, isolates the requested market, sorts by timezone-aware source observation time, and calculates the exact Decimal difference from the first to last `yesPrice`. Results include status, observation count, timestamps, values, direction, source routes, and algorithm metadata. The name and documentation explicitly avoid claiming `yesPrice` is a validated probability. Insufficient history returns null delta/direction; malformed price or naive/malformed timestamp and duplicate timestamps raise `ValueError`.
+
+Added four synthetic offline tests for ordering and exact delta, same-market selection and provenance, insufficient history, malformed inputs, and unchanged values. Full suite verification from the branch sources and synthetic fixtures: `python -m unittest discover -s tests -v` — 45 tests passed. No live API request was made during this block; no real snapshot, market identifier, or credential was copied into the repository.
+
+The generic rewards-program question was posted to Panta `#dev-chat`; the deleted private ticket is no longer active, and no issue details were sent to Panta. The detailed technical draft is still present in the public repository and was not shared in that message.
+
 ### Next
 
-Review the support-report draft. It is ready to paste into the existing Panta ticket if the operator chooses; no message has been sent.
+Pull this branch in Termux and run the full offline suite there. If it passes, collect additional bounded list snapshots over time and calculate the provisional source-price delta on-device. Keep the source field semantics provisional until Panta confirms them.
