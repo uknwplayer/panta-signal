@@ -137,7 +137,9 @@ Status vocabulary:
 
 The pure sparse onChain classifier is implemented in panta_signal/market_state.py. Seven focused tests cover missing, null, explicit booleans, unexpected types, non-mutation, and invalid input. The operator pulled the branch and the full Termux offline suite passed: 41 tests.
 
-Next, run one bounded market-list request filtered by status=resolved with limit 50 (single page, no cursor traversal). Report only item count and cursor presence/nonemptiness. Keep IDs, titles, values, credentials, and raw snapshots on-device. This checks whether the observed primary-only sample changes under a documented status filter.
+A single bounded market-list request with `status=resolved` and `limit=50` returned one item, with `nextCursor` present but empty. Local sanitized inspection found the nested market status was `primary`, which does not match the requested value. This is a live mismatch on the one-item sample; the operator's earlier report of zero rows was not reproduced. The evidence does not distinguish an ignored filter from different API semantics and does not establish catalog-wide behavior.
+
+Next, run one bounded market-list request with `status=cancelled` and `limit=50`, without following a cursor. Inspect only count, cursor presence/nonemptiness, and nested returned statuses. Keep IDs, titles, values, credentials, and raw payloads on-device.
 
 ### Development fallback prototype
 
