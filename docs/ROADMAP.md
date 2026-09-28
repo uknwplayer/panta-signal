@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-A prior list/detail sample reported onChain as null in both observations. In the later comparison between the limit-50 list item and the saved detail response for the same market, phase/status/resolved matched, but the onChain equality result was indeterminate because the comparison helper returns null when the key is missing from either object. This later result must not be described as two explicit null values.
+The matched limit-50 list and saved detail responses differ in onChain representation: the list omits the field and detail returns explicit null. Both mean unknown for a consumer; retain the distinction in the source snapshot and presentFields metadata. This is one-market evidence and does not confirm an on-chain account either way.
 
-Next, inspect onChain key presence, JSON type, and nullness separately in the latest list item and saved detail response. Print only sanitized summaries. Use that result to refine the provisional handling of sparse fields; keep IDs, prices, and raw snapshots on-device.
+Next, apply the unknown-state rule in the internal mapping/UI contract: show on-chain status unknown for missing or null, and never translate either to true or false. Preserve source fields unchanged. Then return to broader live catalog coverage only if a second market is available through a documented one-page read.
 
 ### Development fallback prototype
 
