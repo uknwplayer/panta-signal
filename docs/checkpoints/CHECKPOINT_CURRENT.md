@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 041 — List omits onChain; detail returns null  
+**Block:** 042 — Sparse onChain consumer classifier implemented  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -545,3 +545,16 @@ The local consumer rule is: only explicit boolean values may be interpreted as a
 ### Next
 
 Use this rule in the internal field-mapping/UI contract: show on-chain state as unknown when absent or null, and never imply that such a market is confirmed on-chain or confirmed off-chain. Keep the source observation unchanged and retain presentFields provenance.
+
+
+## Block 042 — Sparse onChain Consumer Classifier Implemented
+
+Added panta_signal/market_state.py with a pure classify_on_chain helper. It returns a consumer-facing state of reported_on_chain, reported_off_chain, or unknown, plus sourceFieldState distinguishing missing, explicit null, boolean, and non-boolean values. Missing/null/non-boolean values remain unknown. Explicit true/false are reported as source assertions, not independently verified chain state. The helper does not mutate or replace the source market object; callers retain the provider snapshot and presentFields.
+
+Added seven offline unit tests covering missing, null, true, false, string and numeric non-booleans, non-mutation, and non-object input. TDD red/green was verified in an isolated local harness: tests failed while the module was absent, then all seven passed after implementation. The repository's prior full 34-test suite was green before this change; the full suite has not yet been rerun with the new test file.
+
+Updated provider/data-contract documentation to distinguish raw source representation from derived display state. No live Panta call was made and no API payload was added to the repository.
+
+### Next
+
+Pull this research branch in Termux and run the full offline unittest suite. Report only the final test count and pass/fail summary. Then wire the helper into a consumer/UI when that layer is built.
