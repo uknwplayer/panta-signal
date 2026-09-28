@@ -141,7 +141,7 @@ A single bounded market-list request with `status=resolved` and `limit=50` retur
 
 Two bounded requests with `limit=50`, one each for `status=resolved` and `status=cancelled`, both returned one item whose nested `status` was `primary`; both cursors were present but empty. Code review confirms the CLI forwards the status argument and the provider includes it in the encoded `/markets/` query. Official list docs enumerate primary, secondary, resolved, and cancelled as the phase/status filter values: https://github.com/Kaito-HQ/panta-api-pub/blob/main/api-reference/markets/list.mdx. Thus, both sampled responses mismatch their requested values. The older report of zero rows was not reproduced. The sample still contains only one market, so do not claim catalog-wide behavior.
 
-Next, inspect only the last two snapshots' saved `sourceRoute` query values and nested returned statuses. If confirmed, prepare a concise sanitized support report for the operator to review. Keep IDs, titles, values, credentials, and raw payloads on-device.
+The sanitized local audit confirmed the two saved request routes contained `status=resolved` and `status=cancelled`, respectively; each still returned the primary market. The query values were persisted as requested, and both responses mismatch the filters. Evidence remains limited to one catalog item. Next, prepare a concise sanitized support report for operator review. Keep IDs, titles, values, credentials, and raw payloads on-device.
 
 ### Development fallback prototype
 
