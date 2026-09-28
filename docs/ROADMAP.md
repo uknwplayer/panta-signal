@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The matched limit-50 list and saved detail responses differ in onChain representation: the list omits the field and detail returns explicit null. Both mean unknown for a consumer; retain the distinction in the source snapshot and presentFields metadata. This is one-market evidence and does not confirm an on-chain account either way.
+The provider now has a pure onChain classifier that maps explicit booleans to source-reported states and maps missing/null/non-boolean values to unknown while preserving the original market snapshot. Seven focused tests passed in an isolated red/green harness. The full repository suite has not yet been rerun after this addition.
 
-Next, apply the unknown-state rule in the internal mapping/UI contract: show on-chain status unknown for missing or null, and never translate either to true or false. Preserve source fields unchanged. Then return to broader live catalog coverage only if a second market is available through a documented one-page read.
+Next, pull the research branch in Termux and run python -m unittest discover -s tests -v. Report only the final test count and pass/fail summary. When a UI/consumer layer is added, display missing or null onChain as unknown and never infer an absent Solana account from either representation.
 
 ### Development fallback prototype
 
