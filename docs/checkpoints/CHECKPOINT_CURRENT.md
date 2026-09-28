@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-27  
-**Block:** 042 — Sparse onChain consumer classifier implemented  
+**Block:** 043 — Full Termux suite passed  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / 34 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -558,3 +558,12 @@ Updated provider/data-contract documentation to distinguish raw source represent
 ### Next
 
 Pull this research branch in Termux and run the full offline unittest suite. Report only the final test count and pass/fail summary. Then wire the helper into a consumer/UI when that layer is built.
+
+
+## Block 043 — Full Termux Suite Passed
+
+After pulling the research branch, the operator ran the full offline unittest suite in Termux and reported: Ran 41 tests in 0.062s; OK. This includes the seven new onChain-classifier cases together with the existing tests. No live API request was made during this verification.
+
+### Next
+
+Run one bounded market-list snapshot filtered by status=resolved with limit 50. Report only the returned item count and cursor presence/nonemptiness; keep IDs, titles, values, and the raw response on-device.
