@@ -139,7 +139,9 @@ The pure sparse onChain classifier is implemented in panta_signal/market_state.p
 
 A single bounded market-list request with `status=resolved` and `limit=50` returned one item, with `nextCursor` present but empty. Local sanitized inspection found the nested market status was `primary`, which does not match the requested value. This is a live mismatch on the one-item sample; the operator's earlier report of zero rows was not reproduced. The evidence does not distinguish an ignored filter from different API semantics and does not establish catalog-wide behavior.
 
-Next, run one bounded market-list request with `status=cancelled` and `limit=50`, without following a cursor. Inspect only count, cursor presence/nonemptiness, and nested returned statuses. Keep IDs, titles, values, credentials, and raw payloads on-device.
+Two bounded requests with `limit=50`, one each for `status=resolved` and `status=cancelled`, both returned one item whose nested `status` was `primary`; both cursors were present but empty. Code review confirms the CLI forwards the status argument and the provider includes it in the encoded `/markets/` query. Official list docs enumerate primary, secondary, resolved, and cancelled as the phase/status filter values: https://github.com/Kaito-HQ/panta-api-pub/blob/main/api-reference/markets/list.mdx. Thus, both sampled responses mismatch their requested values. The older report of zero rows was not reproduced. The sample still contains only one market, so do not claim catalog-wide behavior.
+
+Next, inspect only the last two snapshots' saved `sourceRoute` query values and nested returned statuses. If confirmed, prepare a concise sanitized support report for the operator to review. Keep IDs, titles, values, credentials, and raw payloads on-device.
 
 ### Development fallback prototype
 
