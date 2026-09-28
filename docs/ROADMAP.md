@@ -135,9 +135,15 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The authenticated read path and local snapshot store remain validated on a narrow sample. A provisional `source-price-delta` calculation is implemented on the research branch. It compares the first and last timezone-aware `yesPrice` observations for one selected market using exact decimal arithmetic and retains source timestamps/routes. The name is deliberately limited to a source-field delta; Panta's authoritative probability meaning for `yesPrice` remains unverified. The calculation does not fill missing values, and returns insufficient when fewer than two observations exist.
+The research branch now includes the provisional `source-price-delta` calculation and an offline CLI. The calculation compares the earliest/latest timezone-aware `yesPrice` observations for one market using exact decimal arithmetic; it preserves timestamps and source routes, and makes no probability claim. The CLI reads only the private local JSONL snapshot file and selects the most observed market by default.
 
-The branch's offline suite passed 45 tests after this change. The operator should pull the branch and repeat the suite in Termux, then collect additional bounded snapshots over time before using the derived movement in a product view.
+The branch's complete offline suite passes 47 tests. Next, the operator should pull the branch in Termux and repeat the suite, then run:
+
+```sh
+python -m panta_signal.signal_cli price-delta
+```
+
+If history is insufficient, collect more bounded list snapshots at spaced times with the existing read-only CLI, then rerun the offline calculator. No API key is needed by the calculator.
 
 A generic rewards-program eligibility question was posted in Panta `#dev-chat`; the operator deleted the private support ticket. No API issue details were sent to Panta. The technical report draft remains in the public repository.
 
