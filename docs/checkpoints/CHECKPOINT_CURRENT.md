@@ -568,14 +568,21 @@ After pulling the research branch, the operator ran the full offline unittest su
 
 The operator ran one bounded market-list snapshot with `status=resolved` and `limit=50`. It returned one item; `nextCursor` was present but empty. Sanitized inspection found the returned market's `status` label was `primary`. At that point the response `phase` for this exact snapshot had not yet been checked, so no conclusion was made from that label alone. No raw payload, market identity, price, or credential was shared.
 
-## Block 045 — Resolved and Cancelled Filters Returned Primary
+## Block 045 — Two Status Filter Requests
 
-The operator ran two bounded market-list snapshots with `limit=50`: one requested `status=resolved`, the other `status=cancelled`. Each returned one item, `nextCursor` present but empty, and nested market `status=primary`.
-
-Code review confirmed the CLI forwards `--status` to `list_markets`, and the provider URL-encodes the value into the `/markets/` query string. The current official list documentation defines the allowed status values as `primary`, `secondary`, `resolved`, and `cancelled` (source: https://github.com/Kaito-HQ/panta-api-pub/blob/main/api-reference/markets/list.mdx). The returned primary record therefore does not match either requested filter in these observations.
-
-This is stronger evidence of a live status-filter mismatch on the sampled catalog request. The sanitized local snapshot audit confirmed the persisted request routes carried exactly `status=resolved` and `status=cancelled`, respectively. Both responses still returned the primary market. The externally reported zero-row behavior was not reproduced. Since the available catalog sample contains only one market, this does not establish catalog-wide behavior. No raw payload, identifiers, titles, prices, or credentials were shared.
+The operator ran two bounded market-list snapshots with `limit=50`: one requested `status=resolved`, the other `status=cancelled`. Each returned one item, `nextCursor` present but empty, and response `status=primary`. Code review confirmed the CLI forwards the parameter and the provider URL-encodes it in the list route. The official documentation says the query filters phase and separately defines response fields `phase` and `status`. The phase values for these exact two snapshots remained to be checked at the end of this block.
 
 ### Next
 
-Inspect only the last two local list snapshots' saved `sourceRoute` query values and nested returned statuses to confirm the exact requests persisted. Then prepare a concise sanitized support report; do not send it without the operator's instruction.
+Inspect the two saved snapshots' `phase` and `status` fields alongside their query values.
+
+
+## Block 046 — Phase Filter Mismatch Confirmed
+
+The sanitized audit of the saved list snapshots confirmed the query values were `resolved` and `cancelled`, respectively. Both returned one item whose `phase` was `primary`. Each cursor was present but empty. The official list documentation says `status` filters phase and allows `primary`, `secondary`, `resolved`, and `cancelled`. Therefore each result fails to match the requested phase in this one-item sample. The previously reported zero-row behavior was not reproduced.
+
+The client path was checked: the CLI forwards `--status` into `list_markets`, and the provider encodes it into the `/markets/` query. A sanitized English support-report draft is at `docs/research/2026-09-27-status-filter-support-draft.md`; it has not been sent. Do not generalize beyond the sampled market. No raw response, identifiers, titles, prices, or credentials were shared.
+
+### Next
+
+Review the support-report draft. It is ready to paste into the existing Panta ticket if the operator chooses; no message has been sent.
