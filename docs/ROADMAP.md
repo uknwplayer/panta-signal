@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The provider now has a pure onChain classifier that maps explicit booleans to source-reported states and maps missing/null/non-boolean values to unknown while preserving the original market snapshot. Seven focused tests passed in an isolated red/green harness. The full repository suite has not yet been rerun after this addition.
+The pure sparse onChain classifier is implemented in panta_signal/market_state.py. Seven focused tests cover missing, null, explicit booleans, unexpected types, non-mutation, and invalid input. The operator pulled the branch and the full Termux offline suite passed: 41 tests.
 
-Next, pull the research branch in Termux and run python -m unittest discover -s tests -v. Report only the final test count and pass/fail summary. When a UI/consumer layer is added, display missing or null onChain as unknown and never infer an absent Solana account from either representation.
+Next, run one bounded market-list request filtered by status=resolved with limit 50 (single page, no cursor traversal). Report only item count and cursor presence/nonemptiness. Keep IDs, titles, values, credentials, and raw snapshots on-device. This checks whether the observed primary-only sample changes under a documented status filter.
 
 ### Development fallback prototype
 
