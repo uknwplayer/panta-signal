@@ -1,8 +1,8 @@
 # CURRENT CHECKPOINT — Panta Signal
 
 **Date:** 2026-09-28  
-**Block:** 047 — Provisional source-price delta implemented  
-**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / PROVISIONAL SOURCE-PRICE DELTA IMPLEMENTED / 45 OFFLINE TESTS PASS / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
+**Block:** 048 — Offline signal calculation CLI added  
+**Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / PROVISIONAL SOURCE-PRICE DELTA IMPLEMENTED / 47 OFFLINE TESTS PASS / OFFLINE SIGNAL CLI AVAILABLE / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
 ## COMPLETED
@@ -599,3 +599,14 @@ The generic rewards-program question was posted to Panta `#dev-chat`; the delete
 ### Next
 
 Pull this branch in Termux and run the full offline suite there. If it passes, collect additional bounded list snapshots over time and calculate the provisional source-price delta on-device. Keep the source field semantics provisional until Panta confirms them.
+
+
+## Block 048 — Offline Signal Calculation CLI
+
+Added `python -m panta_signal.signal_cli price-delta`. It reads the private local JSONL snapshots, selects the market with the most `yesPrice` observations by default, and prints the provisional calculation as JSON. An optional `--market-id` selects a specific market, and `--input` selects another local snapshot file. The CLI makes no network requests and never reads or requires an API key.
+
+Added two synthetic CLI tests: repeated observation selection and exact JSON delta output, plus clear handling when no priced market exists. Full offline suite passed: `python -m unittest discover -s tests -v` — 47 tests. No real snapshot or market identity was used in tests.
+
+### Next
+
+Pull the branch in Termux, rerun the full test suite, then run `python -m panta_signal.signal_cli price-delta` to inspect the current local history. If it reports insufficient history, capture more bounded list snapshots at spaced times with the existing read-only CLI and rerun the offline calculator.
