@@ -135,9 +135,9 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The provisional contract now records the narrow live evidence and tri-state semantics for onChain: null/missing is unknown, never false. Snapshot storage and the one-read CLI are implemented. The sampled list and detail responses match in field presence and JSON type/nullness, but their non-null values have not been compared.
+A prior list/detail sample reported onChain as null in both observations. In the later comparison between the limit-50 list item and the saved detail response for the same market, phase/status/resolved matched, but the onChain equality result was indeterminate because the comparison helper returns null when the key is missing from either object. This later result must not be described as two explicit null values.
 
-Next, compare the already-saved list and detail records locally for equality of phase, status, onChain, and resolved, reporting only same-market availability and field-match booleans. Keep raw snapshots, IDs, prices, and credentials on-device. Then select the next product-contract or client behavior task based on that result.
+Next, inspect onChain key presence, JSON type, and nullness separately in the latest list item and saved detail response. Print only sanitized summaries. Use that result to refine the provisional handling of sparse fields; keep IDs, prices, and raw snapshots on-device.
 
 ### Development fallback prototype
 
