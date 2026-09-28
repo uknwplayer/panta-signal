@@ -566,7 +566,7 @@ After pulling the research branch, the operator ran the full offline unittest su
 
 ## Block 044 — Resolved Status Filter Returned a Primary Market
 
-The operator ran one bounded market-list snapshot with `status=resolved` and `limit=50`. It returned one item; `nextCursor` was present but empty. A sanitized inspection found the returned market's `status` field was `primary`. However, current docs say the query parameter filters market phase and the response exposes both `phase` and a separate `status` label. The corresponding `phase` value for this exact response has not yet been checked, so this observation alone does not establish a filter mismatch. The external report that the filter returns zero rows was not reproduced. No raw payload, market identity, price, or credential was shared.
+The operator ran one bounded market-list snapshot with `status=resolved` and `limit=50`. It returned one item; `nextCursor` was present but empty. Sanitized inspection found the returned market's `status` label was `primary`. At that point the response `phase` for this exact snapshot had not yet been checked, so no conclusion was made from that label alone. No raw payload, market identity, price, or credential was shared.
 
 ## Block 045 — Resolved and Cancelled Filters Returned Primary
 
