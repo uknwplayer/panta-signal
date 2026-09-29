@@ -135,17 +135,11 @@ Status vocabulary:
 
 ## Current Next Stage
 
-The research branch now includes the provisional `source-price-delta` calculation and an offline CLI. The calculation compares the earliest/latest timezone-aware `yesPrice` observations for one market using exact decimal arithmetic; it preserves timestamps and source routes, and makes no probability claim. The CLI reads only the private local JSONL snapshot file and selects the most observed market by default.
+The provisional price-delta calculation and offline CLI are implemented. The operator ran the 47-test suite successfully in Termux. The CLI processed eight local observations and found no movement: `yesPrice` remained 0.5.
 
-The branch's complete offline suite passes 47 tests. Next, the operator should pull the branch in Termux and repeat the suite, then run:
+The sampled record is explicitly titled `Sandbox test market`, with no question field. This confirms the current `pk_test` read path returns sandbox data; live-market behavior remains unverified. The next validation is a separate `pk_live` key with `revokeOthers=false`, stored only on-device, used for a bounded list GET. Keep the existing test key. Do not invoke write/trading routes or share credentials.
 
-```sh
-python -m panta_signal.signal_cli price-delta
-```
-
-If history is insufficient, collect more bounded list snapshots at spaced times with the existing read-only CLI, then rerun the offline calculator. No API key is needed by the calculator.
-
-A generic rewards-program eligibility question was posted in Panta `#dev-chat`; the operator deleted the private support ticket. No API issue details were sent to Panta. The technical report draft remains in the public repository.
+The generic rewards-program eligibility question was posted in Panta `#dev-chat`; the operator deleted the private support ticket. No API issue details were sent to Panta. The technical report draft remains in the public repository.
 
 ### Development fallback prototype
 
