@@ -1,7 +1,7 @@
 # CURRENT CHECKPOINT — Panta Signal
 
-**Date:** 2026-09-27  
-**Block:** 048 — Offline signal calculation CLI added  
+**Date:** 2026-09-29  
+**Block:** 049 — Test key resolves sandbox market  
 **Overall state:** PHASE 0 MERGED / PHASE 1 LIVE ROUTES VALIDATED ON A NARROW SAMPLE / READ-ONLY PANTA PROVIDER IMPLEMENTED / VERSIONED JSONL SNAPSHOT LIBRARY AND SINGLE-READ CLI IMPLEMENTED / PROVISIONAL SOURCE-PRICE DELTA IMPLEMENTED / 47 OFFLINE TESTS PASS / OFFLINE SIGNAL CLI AVAILABLE / SAME MARKET: LIST onChain OMITTED, DETAIL onChain NULL
 **Branch:** `research/phase1-authoritative-validation-2026-09-27`
 
@@ -610,3 +610,14 @@ Added two synthetic CLI tests: repeated observation selection and exact JSON del
 ### Next
 
 Pull the branch in Termux, rerun the full test suite, then run `python -m panta_signal.signal_cli price-delta` to inspect the current local history. If it reports insufficient history, capture more bounded list snapshots at spaced times with the existing read-only CLI and rerun the offline calculator.
+
+
+## Block 049 — Test-Key Data Confirmed as Sandbox
+
+The operator pulled the branch and ran all 47 tests successfully in Termux. The offline CLI read eight saved observations and reported `status=sufficient`, `startValue=endValue=0.5`, `delta=0`, and `direction=unchanged`. This confirms the local pipeline, not meaningful market movement.
+
+The operator inspected the locally saved metadata: title `Sandbox test market`, phase/status `primary`, `onChain=null`, `resolved=false`, and no question field. The observed identifier was a test-style market ID. No ID or raw payload is retained here. This confirms the current `pk_test` reads are returning sandbox data; it does not establish live-market API behavior.
+
+### Next
+
+If proceeding to real market reads, create a separate `pk_live` API key with `revokeOthers=false`, keep it local, and use it only with bounded GET endpoints. Preserve the working test key. Do not create markets, trade, or send either secret to chat. Then capture one live `markets` list snapshot and inspect the returned item count and sanitized fields.
